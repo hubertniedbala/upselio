@@ -8,18 +8,28 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          DEFAULT: '#2271b1',
+          hover: '#135e96'
         },
+        secondary: {
+          DEFAULT: '#3a81b9'
+        },
+        gray: {
+          50: '#f0f0f1',
+          100: '#eaecf0',
+          200: '#cfd4dc',
+          300: '#667084',
+          400: '#475466',
+          500: '#344053',
+          600: '#0f1728',
+        },
+        error: '#d63638'
       },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        segoe: ['Segoe UI', 'sans-serif']
+      }
     },
   },
   plugins: [],
