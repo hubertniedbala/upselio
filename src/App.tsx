@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
-import About from './pages/About';
 import Home from './pages/Home';
+import About from './pages/About';
 
 const App: FC = () => {
   return (
