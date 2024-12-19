@@ -12,16 +12,19 @@ const MainLayout: FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="fixed top-0 left-0 right-0 z-50">
+      <div className="fixed top-0 left-0 right-0 z-50">
         <div className="h-[72px] bg-white shadow border-b border-gray-100">
           <Navbar />
         </div>
-        {showTabNav && (
-          <div className="h-[112px] bg-white border-b border-gray-100">
+      </div>
+
+      {showTabNav && (
+        <div className="fixed top-[72px] left-0 right-0 z-40 bg-white border-b border-gray-100">
+          <div className="h-[112px]">
             <TabNavigation />
           </div>
-        )}
-      </header>
+        </div>
+      )}
 
       <div className={showTabNav ? "pt-[184px]" : "pt-[72px]"}>
         <main className={`transition-all duration-300 ${isOpen ? 'mr-[400px]' : ''}`}>
