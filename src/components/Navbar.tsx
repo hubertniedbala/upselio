@@ -36,10 +36,10 @@ const Navbar: FC = () => {
           <div className="flex items-center gap-1">
             <Link 
               to="/" 
-              className={`px-3 py-2 rounded-md transition-colors ${
+              className={`px-4 py-2.5 rounded-md transition-colors ${
                 isHome 
                   ? 'bg-gray-50 text-secondary' 
-                  : 'text-gray-500 hover:bg-gray-100'
+                  : 'text-gray-500 hover:bg-gray-50 hover:text-secondary'
               }`}
             >
               <span className="font-poppins text-sm font-medium">
@@ -48,10 +48,10 @@ const Navbar: FC = () => {
             </Link>
             <Link 
               to="/settings" 
-              className={`px-3 py-2 rounded-md transition-colors ${
+              className={`px-4 py-2.5 rounded-md transition-colors ${
                 isSettings 
                   ? 'bg-gray-50 text-secondary' 
-                  : 'text-gray-500 hover:bg-gray-100'
+                  : 'text-gray-500 hover:bg-gray-50 hover:text-secondary'
               }`}
             >
               <span className="font-poppins text-sm font-medium">
