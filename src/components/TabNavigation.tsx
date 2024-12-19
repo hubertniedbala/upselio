@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
+import { Link, useLocation } from 'react-router-dom';
 
 const LibraryIcon = () => (
   <svg 
@@ -23,6 +24,7 @@ const LibraryIcon = () => (
 const TabNavigation: FC = () => {
   const [enabled, setEnabled] = useState(true);
   const { toggle, isOpen } = useDrawerStore();
+  const location = useLocation();
 
   return (
     <div className="h-full flex justify-between items-center px-8 py-7">
@@ -32,13 +34,6 @@ const TabNavigation: FC = () => {
           <div className="px-1 pt-px pb-[11px] border-b-2 border-primary flex items-center gap-2">
             <div className="text-primary text-sm font-medium font-poppins">
               Widok komponentu
-            </div>
-          </div>
-
-          {/* Inactive Tab */}
-          <div className="px-1 pb-2.5 flex items-center gap-2">
-            <div className="text-gray-300 text-sm font-medium font-poppins">
-              Wszystkie
             </div>
           </div>
 
