@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+import TabNavigation from '../components/TabNavigation';
 
 const MainLayout: FC = () => {
   return (
@@ -17,10 +18,7 @@ const MainLayout: FC = () => {
         {/* Left Content Area */}
         <div className="flex-grow">
           <div className="h-28 pt-12 pb-6 bg-white border-b border-gray-100">
-            {/* Tab Navigation */}
-            <div className="px-8">
-              {/* ... tab content ... */}
-            </div>
+            <TabNavigation />
           </div>
           <main className="container mx-auto px-8 py-6">
             <Outlet />
