@@ -61,7 +61,7 @@ const TabNavigation: FC = () => {
           />
           <div className={`
             w-9 h-5 
-            bg-primary 
+            ${enabled ? 'bg-primary' : 'bg-gray-200'}
             rounded-full 
             peer-focus:ring-2 
             peer-focus:ring-primary/25
@@ -77,6 +77,7 @@ const TabNavigation: FC = () => {
             peer-checked:after:translate-x-4
             peer-checked:after:border-white
             after:shadow
+            transition-colors
           `}></div>
         </label>
 
