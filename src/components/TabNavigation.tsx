@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { useDrawerStore } from '../store/drawerStore';
 
 const LibraryIcon = () => (
   <svg 
@@ -21,6 +22,7 @@ const LibraryIcon = () => (
 
 const TabNavigation: FC = () => {
   const [enabled, setEnabled] = useState(true);
+  const { open } = useDrawerStore();
 
   return (
     <div className="self-stretch h-10 px-8 flex justify-between items-center">
@@ -79,7 +81,10 @@ const TabNavigation: FC = () => {
         </label>
 
         {/* Library button */}
-        <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors">
+        <button 
+          onClick={() => open()}
+          className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors"
+        >
           <LibraryIcon />
           <span className="text-gray-500 font-poppins text-sm font-medium">
             Biblioteka
