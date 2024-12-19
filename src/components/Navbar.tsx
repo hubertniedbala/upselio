@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const HelpIcon = () => (
   <svg 
@@ -21,6 +21,10 @@ const HelpIcon = () => (
 );
 
 const Navbar: FC = () => {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+  const isSettings = location.pathname === '/settings';
+
   return (
     <div className="fixed top-0 left-0 right-0 h-[72px] bg-white shadow z-50">
       <div className="h-full w-full flex items-center">
@@ -30,13 +34,27 @@ const Navbar: FC = () => {
             Upselio
           </Link>
           <div className="flex items-center gap-1">
-            <Link to="/" className="px-3 py-2 bg-gray-50 rounded-md">
-              <span className="text-secondary font-poppins text-sm font-medium">
+            <Link 
+              to="/" 
+              className={`px-3 py-2 rounded-md transition-colors ${
+                isHome 
+                  ? 'bg-gray-50 text-secondary' 
+                  : 'text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              <span className="font-poppins text-sm font-medium">
                 Usługi
               </span>
             </Link>
-            <Link to="/settings" className="px-3 py-2 rounded-md">
-              <span className="text-gray-500 font-poppins text-sm font-medium">
+            <Link 
+              to="/settings" 
+              className={`px-3 py-2 rounded-md transition-colors ${
+                isSettings 
+                  ? 'bg-gray-50 text-secondary' 
+                  : 'text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              <span className="font-poppins text-sm font-medium">
                 Ustawienia
               </span>
             </Link>
