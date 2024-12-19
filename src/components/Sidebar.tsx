@@ -1,8 +1,19 @@
 import { FC } from 'react';
+import { useDrawerStore } from '../store/drawerStore';
 
 const Sidebar: FC = () => {
+  const isOpen = useDrawerStore((state) => state.isOpen);
+  const close = useDrawerStore((state) => state.close);
+
   return (
-    <div className="w-[400px] bg-white shadow border-l border-gray-100">
+    <div 
+      className={`
+        fixed top-[128px] right-0 bottom-0 
+        w-[400px] bg-white shadow-lg border-l border-gray-100
+        transform transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+      `}
+    >
       <div className="px-6 pb-6">
         <div className="pt-6 flex gap-4">
           <div className="flex-1">
