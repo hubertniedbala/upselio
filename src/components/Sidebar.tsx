@@ -3,12 +3,11 @@ import { useDrawerStore } from '../store/drawerStore';
 
 const Sidebar: FC = () => {
   const isOpen = useDrawerStore((state) => state.isOpen);
-  const close = useDrawerStore((state) => state.close);
 
   return (
     <div 
       className={`
-        fixed top-[128px] right-0 bottom-0 
+        fixed top-[126px] right-0 bottom-0 
         w-[400px] bg-white shadow-lg border-l border-gray-100
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
