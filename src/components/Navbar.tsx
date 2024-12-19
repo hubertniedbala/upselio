@@ -24,15 +24,11 @@ const Navbar: FC = () => {
   return (
     <div className="fixed top-0 left-0 right-0 h-[72px] bg-white shadow z-50">
       <div className="h-full w-full flex items-center">
-        {/* Left side - Logo */}
-        <div className="pl-8">
+        {/* Left side - Logo and Navigation */}
+        <div className="pl-8 flex items-center gap-4">
           <Link to="/" className="text-xl font-bold text-primary">
             Upselio
           </Link>
-        </div>
-
-        {/* Right side - Navigation and Help */}
-        <div className="ml-auto flex items-center gap-4 pr-8">
           <div className="flex items-center gap-1">
             <Link to="/" className="px-3 py-2 bg-gray-50 rounded-md">
               <span className="text-secondary font-poppins text-sm font-medium">
@@ -45,7 +41,10 @@ const Navbar: FC = () => {
               </span>
             </Link>
           </div>
+        </div>
 
+        {/* Right side - Help */}
+        <div className="ml-auto pr-8">
           <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors">
             <HelpIcon />
             <span className="text-gray-500 font-poppins text-sm font-medium">
