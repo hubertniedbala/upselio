@@ -38,6 +38,13 @@ const TabNavigation: FC = () => {
           {/* Inactive Tab */}
           <div className="px-1 pb-2.5 flex items-center gap-2">
             <div className="text-gray-300 text-sm font-medium font-poppins">
+              Wszystkie
+            </div>
+          </div>
+
+          {/* Inactive Tab with Error */}
+          <div className="px-1 pb-2.5 flex items-center gap-2">
+            <div className="text-gray-300 text-sm font-medium font-poppins">
               Warunki wyświetlania
             </div>
             <div className="w-1.5 h-[22px] pt-[9px] pb-[7px] flex items-center">
