@@ -16,7 +16,7 @@ const AllServices: FC = () => {
           Usługi
         </h1>
         <button 
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/services/new')}
           className="px-4 py-2.5 bg-primary text-white rounded-md shadow border border-primary flex items-center gap-2 hover:bg-primary-dark transition-colors"
         >
           <span className="text-sm font-medium">+ Dodaj usługę</span>

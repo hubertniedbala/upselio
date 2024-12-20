@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
 import Services from './pages/Services';
@@ -11,9 +11,11 @@ const App: FC = () => {
     <Router>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route index element={<Services />} />
-          <Route path="all" element={<AllServices />} />
-          <Route path="settings" element={<Settings />} />
+          <Route index element={<Navigate to="/all" replace />} />
+          <Route path="/" element={<Navigate to="/all" replace />} />
+          <Route path="/all" element={<AllServices />} />
+          <Route path="/services/new" element={<Services />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
     </Router>

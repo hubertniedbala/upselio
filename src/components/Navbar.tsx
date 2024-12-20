@@ -29,7 +29,7 @@ const Navbar: FC = () => {
       {/* Left side */}
       <div className="flex items-center gap-4">
         {/* Logo */}
-        <Link to="/" className="text-xl font-bold text-primary">
+        <Link to="/all" className="text-xl font-bold text-primary">
           Upselio
         </Link>
 
