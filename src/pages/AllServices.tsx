@@ -23,7 +23,60 @@ const AllServices: FC = () => {
         </button>
       </div>
 
-      {/* ... (reszta kodu bez zmian) ... */}
+      {/* Tabs */}
+      <div className="border-b flex items-start gap-2 mb-8">
+        <div className="flex items-start gap-4">
+          <button
+            onClick={() => setActiveTab('active')}
+            className={`px-1 pt-px pb-[11px] flex items-center gap-2 ${
+              activeTab === 'active' ? 'border-b-2 border-primary' : ''
+            }`}
+          >
+            <div className={`text-sm font-medium font-poppins ${
+              activeTab === 'active' ? 'text-primary' : 'text-gray-300'
+            }`}>
+              Aktywne
+            </div>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('draft')}
+            className={`px-1 pt-px pb-[11px] flex items-center gap-2 ${
+              activeTab === 'draft' ? 'border-b-2 border-primary' : ''
+            }`}
+          >
+            <div className={`text-sm font-medium font-poppins ${
+              activeTab === 'draft' ? 'text-primary' : 'text-gray-300'
+            }`}>
+              Robocze
+            </div>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('deleted')}
+            className={`px-1 pt-px pb-[11px] flex items-center gap-2 ${
+              activeTab === 'deleted' ? 'border-b-2 border-primary' : ''
+            }`}
+          >
+            <div className={`text-sm font-medium font-poppins ${
+              activeTab === 'deleted' ? 'text-primary' : 'text-gray-300'
+            }`}>
+              Usunięte
+            </div>
+          </button>
+        </div>
+      </div>
+
+      {/* Service List */}
+      <div className="space-y-4">
+        <ServiceListItem 
+          name="Moja pierwsza usługa"
+          date="20 wrz 2023 11:30"
+          price="79,00 zł"
+          category="Kategoria 2"
+          status="Gotowe"
+        />
+      </div>
     </div>
   );
 };
