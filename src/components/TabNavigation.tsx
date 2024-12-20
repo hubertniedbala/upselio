@@ -9,39 +9,38 @@ const TabNavigation: FC = () => {
 
   return (
     <div className="h-full flex justify-between items-center px-8 py-7">
-      <div className="border-b flex items-start gap-2">
-        <div className="flex items-start gap-4">
-          <button
-            onClick={() => setActiveTab('component')}
-            className={`px-1 pt-px pb-[11px] flex items-center gap-2 ${
-              activeTab === 'component' ? 'border-b-2 border-primary' : ''
-            }`}
-          >
-            <div className={`text-sm font-medium font-poppins ${
-              activeTab === 'component' ? 'text-primary' : 'text-gray-300'
-            }`}>
-              Widok komponentu
-            </div>
-          </button>
+      {/* Tabs without bottom border */}
+      <div className="flex items-start gap-4">
+        <button
+          onClick={() => setActiveTab('component')}
+          className={`px-1 pt-px pb-[11px] flex items-center gap-2 ${
+            activeTab === 'component' ? 'border-b-2 border-primary' : ''
+          }`}
+        >
+          <div className={`text-sm font-medium font-poppins ${
+            activeTab === 'component' ? 'text-primary' : 'text-gray-300'
+          }`}>
+            Widok komponentu
+          </div>
+        </button>
 
-          <button
-            onClick={() => setActiveTab('conditions')}
-            className={`px-1 pt-px pb-[11px] flex items-center gap-2 ${
-              activeTab === 'conditions' ? 'border-b-2 border-primary' : ''
-            }`}
-          >
-            <div className={`text-sm font-medium font-poppins ${
-              activeTab === 'conditions' ? 'text-primary' : 'text-gray-300'
-            }`}>
-              Warunki wyświetlania
+        <button
+          onClick={() => setActiveTab('conditions')}
+          className={`px-1 pt-px pb-[11px] flex items-center gap-2 ${
+            activeTab === 'conditions' ? 'border-b-2 border-primary' : ''
+          }`}
+        >
+          <div className={`text-sm font-medium font-poppins ${
+            activeTab === 'conditions' ? 'text-primary' : 'text-gray-300'
+          }`}>
+            Warunki wyświetlania
+          </div>
+          <div className="w-1.5 h-[22px] pt-[9px] pb-[7px] flex items-center">
+            <div className="w-1.5 h-1.5">
+              <div className="w-1.5 h-1.5 bg-error rounded-full" />
             </div>
-            <div className="w-1.5 h-[22px] pt-[9px] pb-[7px] flex items-center">
-              <div className="w-1.5 h-1.5">
-                <div className="w-1.5 h-1.5 bg-error rounded-full" />
-              </div>
-            </div>
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
 
       {/* Right side controls */}
