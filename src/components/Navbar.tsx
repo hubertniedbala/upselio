@@ -35,14 +35,6 @@ const Navbar: FC = () => {
         {/* Navigation */}
         <div className="flex items-center gap-1 ml-4">
           <Link 
-            to="/" 
-            className={`px-3 py-2 rounded-md ${location.pathname === '/' ? 'bg-gray-50 text-secondary' : 'text-gray-500'}`}
-          >
-            <span className="font-poppins text-sm font-medium">
-              Usługi
-            </span>
-          </Link>
-          <Link 
             to="/all" 
             className={`px-3 py-2 rounded-md ${location.pathname === '/all' ? 'bg-gray-50 text-secondary' : 'text-gray-500'}`}
           >
