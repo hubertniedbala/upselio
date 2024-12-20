@@ -32,30 +32,32 @@ const ServiceCard: FC = () => {
 
         {/* Content */}
         <div className="flex-1">
-          <div className="flex flex-col gap-2">
+          {/* Title and Price */}
+          <div className="flex justify-between items-center mb-2">
             <h3 className="text-gray-600 text-lg font-medium font-poppins">
               Tytuł usługi
             </h3>
-            <p className="text-gray-400 text-sm font-normal font-inter">
-              Tutaj wpisz swój opis usługi. Treść powinna zachęcać klientów do skorzystania więc nie zapomnij o języku korzyści.
-            </p>
+            <div className="text-gray-600 text-lg font-medium font-poppins">
+              0,00 zł
+            </div>
           </div>
 
-          <div className="flex justify-between items-center mt-4">
+          {/* Description */}
+          <p className="text-gray-400 text-sm font-normal font-inter mb-4">
+            Tutaj wpisz swój opis usługi. Treść powinna zachęcać klientów do skorzystania więc nie zapomnij o języku korzyści.
+          </p>
+
+          {/* Footer */}
+          <div className="flex justify-between items-center">
             <button className="text-primary text-sm font-medium font-poppins">
               Szczegóły
             </button>
-            <div className="flex items-center gap-4">
-              <div className="text-gray-600 text-lg font-medium font-poppins">
-                0,00 zł
-              </div>
-              <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors">
-                <PlusIcon className="text-gray-500" />
-                <span className="text-gray-500 font-poppins text-sm font-medium">
-                  Dodaj
-                </span>
-              </button>
-            </div>
+            <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors">
+              <PlusIcon className="text-gray-500" />
+              <span className="text-gray-500 font-poppins text-sm font-medium">
+                Dodaj
+              </span>
+            </button>
           </div>
         </div>
       </div>
