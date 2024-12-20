@@ -11,10 +11,12 @@ const MainLayout: FC = () => {
   const showTabNav = location.pathname !== '/all';
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow">
-        <Navbar />
-      </nav>
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <nav className="h-[72px] bg-white shadow border-b border-gray-100">
+          <Navbar />
+        </nav>
+      </header>
 
       {showTabNav && (
         <div className="fixed top-[72px] left-0 right-0 z-40 bg-white border-b border-gray-100">
@@ -24,16 +26,16 @@ const MainLayout: FC = () => {
         </div>
       )}
 
-      <div className={showTabNav ? "pt-[184px]" : "pt-[72px]"}>
-        <main className={`transition-all duration-300 ${isOpen ? 'mr-[400px]' : ''}`}>
+      <main className={`min-h-screen bg-gray-50 ${showTabNav ? 'pt-[184px]' : 'pt-[72px]'}`}>
+        <div className={`transition-all duration-300 ${isOpen ? 'mr-[400px]' : ''}`}>
           <div className="container mx-auto px-8 py-6">
             <Outlet />
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
 
       <Sidebar />
-    </div>
+    </>
   );
 };
 
