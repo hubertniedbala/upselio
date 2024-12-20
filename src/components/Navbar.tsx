@@ -34,18 +34,27 @@ const Navbar: FC = () => {
 
         {/* Navigation */}
         <div className="flex items-center gap-1 ml-4">
-          <Link to="/" className="px-3 py-2 bg-gray-50 rounded-md">
-            <span className="text-secondary font-poppins text-sm font-medium">
+          <Link 
+            to="/" 
+            className={`px-3 py-2 rounded-md ${location.pathname === '/' ? 'bg-gray-50 text-secondary' : 'text-gray-500'}`}
+          >
+            <span className="font-poppins text-sm font-medium">
               Usługi
             </span>
           </Link>
-          <Link to="/all" className="px-3 py-2 rounded-md">
-            <span className="text-gray-500 font-poppins text-sm font-medium">
+          <Link 
+            to="/all" 
+            className={`px-3 py-2 rounded-md ${location.pathname === '/all' ? 'bg-gray-50 text-secondary' : 'text-gray-500'}`}
+          >
+            <span className="font-poppins text-sm font-medium">
               Wszystkie
             </span>
           </Link>
-          <Link to="/settings" className="px-3 py-2 rounded-md">
-            <span className="text-gray-500 font-poppins text-sm font-medium">
+          <Link 
+            to="/settings" 
+            className={`px-3 py-2 rounded-md ${location.pathname === '/settings' ? 'bg-gray-50 text-secondary' : 'text-gray-500'}`}
+          >
+            <span className="font-poppins text-sm font-medium">
               Ustawienia
             </span>
           </Link>
