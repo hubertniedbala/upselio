@@ -22,6 +22,7 @@ const HelpIcon = () => (
 
 const Navbar: FC = () => {
   const location = useLocation();
+  const isAllActive = location.pathname === '/all' || location.pathname === '/';
 
   return (
     <div className="w-full h-full px-8 flex justify-between items-center">
@@ -36,7 +37,7 @@ const Navbar: FC = () => {
         <div className="flex items-center gap-1 ml-4">
           <Link 
             to="/all" 
-            className={`px-3 py-2 rounded-md ${location.pathname === '/all' ? 'bg-gray-50 text-secondary' : 'text-gray-500'}`}
+            className={`px-3 py-2 rounded-md ${isAllActive ? 'bg-gray-50 text-secondary' : 'text-gray-500'}`}
           >
             <span className="font-poppins text-sm font-medium">
               Wszystkie
