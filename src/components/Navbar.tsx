@@ -24,7 +24,7 @@ const Navbar: FC = () => {
   const location = useLocation();
 
   return (
-    <div className="h-[72px] px-8 flex justify-between items-center bg-white">
+    <div className="w-full h-full px-8 flex justify-between items-center">
       {/* Left side */}
       <div className="flex items-center gap-4">
         {/* Logo */}
