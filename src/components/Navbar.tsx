@@ -40,7 +40,7 @@ const Navbar: FC = () => {
             className={`px-3 py-2 rounded-md ${isAllActive ? 'bg-gray-50 text-secondary' : 'text-gray-500'}`}
           >
             <span className="font-poppins text-sm font-medium">
-              Wszystkie
+              Usługi
             </span>
           </Link>
           <Link 
