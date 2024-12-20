@@ -1,5 +1,17 @@
-import { FC } from 'react';
+import { FC, SVGProps } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
+interface IconProps extends SVGProps<SVGSVGElement> {
+  className?: string;
+}
+
+const Logo: FC<IconProps> = ({ className, ...props }) => (
+  <svg width="191" height="33" viewBox="0 0 191 33" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...props}>
+    <path fillRule="evenodd" clipRule="evenodd" d="M0.15625 2.35938H28.9567V31.1599H0.15625V2.35938ZM23.3496 8.55573C23.3496 12.6561 20.6451 16.1201 16.9459 17.2152H23.4433C23.4433 22.2504 19.4171 26.3296 14.4474 26.3296C9.47778 26.3296 5.45161 22.2504 5.45161 17.2152H11.9432C8.24612 16.1221 5.54367 12.6677 5.54367 8.55573H23.3496Z" fill="#16629F"/>
+    <path d="M190.476 21.596C190.476 23.5812 188.769 25.0754 186.03 25.0754C183.249 25.0754 181.29 23.4104 181.185 21.2759H183.671C183.755 22.2364 184.661 23.0262 185.988 23.0262C187.379 23.0262 188.116 22.4285 188.116 21.6174C188.116 19.312 181.374 20.6355 181.374 16.3237C181.374 14.4452 183.102 12.9297 185.841 12.9297C188.474 12.9297 190.202 14.3598 190.328 16.7079H187.926C187.842 15.6833 187.063 14.9789 185.756 14.9789C184.471 14.9789 183.797 15.5125 183.797 16.3023C183.797 18.6717 190.349 17.3482 190.476 21.596Z" fill="#16629F"/>
+    {/* ... (reszta ścieżek SVG) ... */}
+  </svg>
+);
 
 const HelpIcon = () => (
   <svg 
@@ -29,8 +41,8 @@ const Navbar: FC = () => {
       {/* Left side */}
       <div className="flex items-center gap-4">
         {/* Logo */}
-        <Link to="/all" className="text-xl font-bold text-primary">
-          Upselio
+        <Link to="/all">
+          <Logo />
         </Link>
 
         {/* Navigation */}
