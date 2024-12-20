@@ -31,7 +31,7 @@ module.exports = {
         segoe: ['Segoe UI', 'sans-serif']
       },
       backgroundImage: {
-        'service-pattern': `url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H4V4H0V0Z' fill='%23D9D9D9'/%3E%3C/svg%3E")`,
+        'service-pattern': `url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 4H8V8H4V4Z' fill='%23F0F0F1'/%3E%3C/svg%3E")`,
       },
     },
   },
