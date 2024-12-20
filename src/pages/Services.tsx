@@ -3,8 +3,10 @@ import ServiceCard from '../components/ServiceCard';
 
 const Services: FC = () => {
   return (
-    <div className="w-[640px] mx-auto">
-      <ServiceCard />
+    <div className="min-h-[calc(100vh-72px)] flex items-center justify-center">
+      <div className="w-[640px]">
+        <ServiceCard />
+      </div>
     </div>
   );
 };
