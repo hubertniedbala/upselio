@@ -1,67 +1,48 @@
 import { FC } from 'react';
+import { ServiceIcon } from './icons';
+
+const PlusIcon: FC = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
 const ServiceCard: FC = () => {
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-100">
-      <div className="h-44 p-3 flex flex-col gap-5">
-        <div className="flex">
-          {/* Logo/Icon section */}
-          <div className="flex">
-            <div className="p-2 rounded-lg border">
-              <div className="w-10 h-10 p-2.5 bg-[#cde4f1] rounded-[20px] flex items-center justify-center">
-                <span className="w-5 h-5" />
-              </div>
-            </div>
+    <div className="bg-white rounded-lg shadow border border-gray-100 p-4">
+      <div className="flex gap-3">
+        {/* Icon */}
+        <div className="flex-shrink-0">
+          <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+            <ServiceIcon className="text-primary" />
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1">
+          <div className="flex flex-col gap-2">
+            <h3 className="text-gray-600 text-lg font-medium font-poppins">
+              Tytuł usługi
+            </h3>
+            <p className="text-gray-400 text-sm font-normal font-inter">
+              Tutaj wpisz swój opis usługi. Treść powinna zachęcać klientów do skorzystania więc nie zapomnij o języku korzyści.
+            </p>
           </div>
 
-          {/* Content section */}
-          <div className="h-[152px] flex">
-            <div className="flex-1 flex flex-col">
-              {/* Title and Price */}
-              <div className="flex justify-between">
-                <div className="flex-1">
-                  <div className="h-[41px] pt-3">
-                    <div className="p-2 rounded-md border">
-                      <div className="text-gray-600 text-lg font-medium font-poppins">
-                        Tytuł usługi
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="pt-[13px]">
-                  <div className="p-3 rounded-lg">
-                    <div className="text-gray-600 text-lg font-medium font-poppins">
-                      0,00 zł
-                    </div>
-                  </div>
-                </div>
+          <div className="flex justify-between items-center mt-4">
+            <button className="text-primary text-sm font-medium font-poppins">
+              Szczegóły
+            </button>
+            <div className="flex items-center gap-4">
+              <div className="text-gray-600 text-lg font-medium font-poppins">
+                0,00 zł
               </div>
-
-              {/* Description */}
-              <div className="w-[430px] p-2 rounded-lg">
-                <div className="text-gray-400 text-sm font-normal font-inter">
-                  Tutaj wpisz swój opis usługi. Treść powinna zachęcać klientów do skorzystania więc nie zapomnij o języku korzyści.
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="flex justify-between items-center">
-                <div className="p-2 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <div className="text-primary text-sm font-medium font-poppins">
-                      Szczegóły
-                    </div>
-                  </div>
-                </div>
-                <div className="p-2 rounded-lg">
-                  <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2">
-                    <span className="w-5 h-5" />
-                    <span className="text-gray-500 text-sm font-medium font-poppins">
-                      Dodaj
-                    </span>
-                  </button>
-                </div>
-              </div>
+              <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors">
+                <PlusIcon className="text-gray-500" />
+                <span className="text-gray-500 font-poppins text-sm font-medium">
+                  Dodaj
+                </span>
+              </button>
             </div>
           </div>
         </div>
