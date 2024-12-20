@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useDrawerStore } from '../store/drawerStore';
 import Navbar from '../components/Navbar';
@@ -6,9 +6,16 @@ import Sidebar from '../components/Sidebar';
 import TabNavigation from '../components/TabNavigation';
 
 const MainLayout: FC = () => {
-  const isOpen = useDrawerStore((state) => state.isOpen);
+  const { isOpen, close } = useDrawerStore();
   const location = useLocation();
   const showTabNav = location.pathname !== '/all';
+  const showSidebar = location.pathname === '/services/new';
+
+  useEffect(() => {
+    if (!showSidebar) {
+      close();
+    }
+  }, [location.pathname, close]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -27,14 +34,14 @@ const MainLayout: FC = () => {
       )}
 
       <div className={showTabNav ? "pt-[184px]" : "pt-[72px]"}>
-        <main className={`transition-all duration-300 ${isOpen ? 'mr-[400px]' : ''}`}>
+        <main className={`transition-all duration-300 ${showSidebar && isOpen ? 'mr-[400px]' : ''}`}>
           <div className="container mx-auto px-8 py-6">
             <Outlet />
           </div>
         </main>
       </div>
 
-      <Sidebar />
+      {showSidebar && <Sidebar />}
     </div>
   );
 };
