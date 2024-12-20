@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -29,7 +29,10 @@ export default {
         poppins: ['Poppins', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
         segoe: ['Segoe UI', 'sans-serif']
-      }
+      },
+      backgroundImage: {
+        'service-pattern': `url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H4V4H0V0Z' fill='%23D9D9D9'/%3E%3C/svg%3E")`,
+      },
     },
   },
   plugins: [],
