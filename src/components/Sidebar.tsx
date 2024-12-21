@@ -180,22 +180,24 @@ const ElementView: FC = () => {
         {/* Tu będzie zawartość dla konkretnego elementu */}
       </div>
 
-      <div className="fixed bottom-0 right-0 w-[400px] bg-white border-t border-gray-100 p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
-        <div className="flex flex-col gap-3">
-          <button 
-            onClick={() => setActiveElement('library')}
-            className="w-full px-4 py-2.5 bg-primary text-white rounded-md shadow border border-primary flex items-center justify-center hover:bg-primary-dark transition-colors"
-          >
-            <span className="text-sm font-medium">Gotowe</span>
-          </button>
-
-          {hasDelete && (
+      <div className="fixed bottom-0 right-0 w-[400px] bg-white border-t border-gray-100">
+        <div className="p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
+          <div className="flex flex-col gap-3">
             <button 
-              className="w-full px-4 py-2.5 bg-white text-error rounded-md shadow border border-error flex items-center justify-center hover:bg-error/5 transition-colors"
+              onClick={() => setActiveElement('library')}
+              className="w-full px-4 py-2.5 bg-primary text-white rounded-md shadow border border-primary flex items-center justify-center hover:bg-primary-dark transition-colors"
             >
-              <span className="text-sm font-medium">Usuń element</span>
+              <span className="text-sm font-medium">Gotowe</span>
             </button>
-          )}
+
+            {hasDelete && (
+              <button 
+                className="w-full px-4 py-2.5 bg-white text-error rounded-md shadow border border-error flex items-center justify-center hover:bg-error/5 transition-colors"
+              >
+                <span className="text-sm font-medium">Usuń element</span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
