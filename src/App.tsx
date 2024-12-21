@@ -9,15 +9,16 @@ import AllServices from './pages/AllServices';
 const App: FC = () => {
   return (
     <Router>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route index element={<Navigate to="/all" replace />} />
-          <Route path="/" element={<Navigate to="/all" replace />} />
-          <Route path="/all" element={<AllServices />} />
-          <Route path="/services/new" element={<Services />} />
-          <Route path="/settings" element={<Settings />} />
-        </Route>
-      </Routes>
+      <div className="overflow-hidden">
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route index element={<Navigate to="/all" replace />} />
+            <Route path="/" element={<Services />} />
+            <Route path="/all" element={<AllServices />} />
+            <Route path="/settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </div>
     </Router>
   );
 };

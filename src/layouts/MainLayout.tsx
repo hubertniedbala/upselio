@@ -18,7 +18,7 @@ const MainLayout: FC = () => {
   }, [location.pathname, close]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-hidden">
       <div className="fixed top-0 left-0 right-0 z-50">
         <div className="h-[72px] bg-white shadow border-b border-gray-100">
           <Navbar />
