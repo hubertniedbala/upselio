@@ -9,7 +9,7 @@ const MainLayout: FC = () => {
   const { isOpen, close } = useDrawerStore();
   const location = useLocation();
   const showTabNav = location.pathname !== '/all';
-  const showSidebar = location.pathname === '/services/new';
+  const showSidebar = location.pathname === '/';
 
   useEffect(() => {
     if (!showSidebar) {
@@ -18,7 +18,7 @@ const MainLayout: FC = () => {
   }, [location.pathname, close]);
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-hidden">
+    <div className="min-h-screen bg-gray-50">
       <div className="fixed top-0 left-0 right-0 z-50">
         <div className="h-[72px] bg-white shadow border-b border-gray-100">
           <Navbar />
@@ -35,9 +35,7 @@ const MainLayout: FC = () => {
 
       <div className={showTabNav ? "pt-[184px]" : "pt-[72px]"}>
         <main className={`transition-all duration-300 ${showSidebar && isOpen ? 'mr-[400px]' : ''}`}>
-          <div className="container mx-auto px-8 py-6">
-            <Outlet />
-          </div>
+          <Outlet />
         </main>
       </div>
 
