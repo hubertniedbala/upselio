@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
+import { useSidebarStore } from '../store/sidebarStore';
 
 interface IconProps {
   className?: string;
@@ -47,8 +48,104 @@ const TrashIcon: FC<IconProps> = ({ className }) => (
   </svg>
 );
 
+type ElementType = 'library' | 'title' | 'description' | 'logo' | 'price' | 'cta' | 'link';
+
+interface SidebarItemProps {
+  title: string;
+  description: string;
+  icon: FC<IconProps>;
+  type: ElementType;
+  hasDelete?: boolean;
+}
+
+const SidebarItem: FC<SidebarItemProps> = ({ title, description, icon: Icon, type, hasDelete }) => {
+  const setActiveElement = useSidebarStore((state) => state.setActiveElement);
+
+  return (
+    <div 
+      className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer"
+      onClick={() => setActiveElement(type)}
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+          <Icon className="text-primary" />
+        </div>
+        <div>
+          <div className="text-gray-600 font-medium">{title}</div>
+          <div className="text-sm text-gray-400">{description}</div>
+        </div>
+      </div>
+      {hasDelete && (
+        <button 
+          className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <TrashIcon className="text-gray-500" />
+        </button>
+      )}
+    </div>
+  );
+};
+
+const LibraryView: FC = () => (
+  <>
+    <div className="mb-6">
+      <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
+      <p className="text-sm text-gray-400">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
+    </div>
+    
+    <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
+    
+    <div className="space-y-4">
+      <SidebarItem 
+        title="Tytuł usługi" 
+        description="Tytuł usługi jaki chcesz dodać" 
+        icon={TitleIcon} 
+        type="title"
+      />
+      {/* ... (pozostałe elementy jako SidebarItem) ... */}
+    </div>
+  </>
+);
+
+const ElementView: FC = () => {
+  const activeElement = useSidebarStore((state) => state.activeElement);
+  const setActiveElement = useSidebarStore((state) => state.setActiveElement);
+
+  const getTitle = () => {
+    switch (activeElement) {
+      case 'title': return 'Tytuł usługi';
+      case 'description': return 'Opis';
+      case 'logo': return 'Logo';
+      case 'price': return 'Cena';
+      case 'cta': return 'CTA';
+      case 'link': return 'Link';
+      default: return '';
+    }
+  };
+
+  return (
+    <>
+      <div className="flex items-center gap-4 mb-6">
+        <button 
+          onClick={() => setActiveElement('library')}
+          className="p-2 hover:bg-gray-50 rounded-md"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <h2 className="text-lg font-medium text-gray-600">{getTitle()}</h2>
+      </div>
+      
+      {/* Tu będzie zawartość dla konkretnego elementu */}
+    </>
+  );
+};
+
 const Sidebar: FC = () => {
   const isOpen = useDrawerStore((state) => state.isOpen);
+  const activeElement = useSidebarStore((state) => state.activeElement);
 
   return (
     <aside 
@@ -59,163 +156,7 @@ const Sidebar: FC = () => {
       `}
     >
       <div className="p-6" style={{ marginRight: '-48px', paddingRight: '48px' }}>
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
-          <p className="text-sm text-gray-400">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
-        </div>
-        
-        <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
-        
-        {/* Items container */}
-        <div className="space-y-4">
-          {/* Title */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <TitleIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Tytuł usługi</div>
-                <div className="text-sm text-gray-400">Tytuł usługi jaki chcesz dodać</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <DescriptionIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Opis</div>
-                <div className="text-sm text-gray-400">Opis usługi jaki chcesz dodać</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Logo */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <LogoIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Logo</div>
-                <div className="text-sm text-gray-400">Jeśli chcesz dodać swoje logo</div>
-              </div>
-            </div>
-            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
-              <TrashIcon className="text-gray-500" />
-            </button>
-          </div>
-
-          {/* Price */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <PriceIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Cena</div>
-                <div className="text-sm text-gray-400">Wskaż wartość usługi</div>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <CTAIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">CTA</div>
-                <div className="text-sm text-gray-400">Jeśli chcesz dodać przycisk?</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Link */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <LinkIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Link</div>
-                <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
-              </div>
-            </div>
-            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
-              <TrashIcon className="text-gray-500" />
-            </button>
-          </div>
-
-          {/* Dodatkowe elementy dla testu scrolla */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <TitleIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Tytuł usługi 2</div>
-                <div className="text-sm text-gray-400">Tytuł usługi jaki chcesz dodać</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <DescriptionIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Opis 2</div>
-                <div className="text-sm text-gray-400">Opis usługi jaki chcesz dodać</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <PriceIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Cena 2</div>
-                <div className="text-sm text-gray-400">Wskaż wartość usługi</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <CTAIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">CTA 2</div>
-                <div className="text-sm text-gray-400">Jeśli chcesz dodać przycisk?</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <LinkIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Link 2</div>
-                <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
-              </div>
-            </div>
-            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
-              <TrashIcon className="text-gray-500" />
-            </button>
-          </div>
-        </div>
+        {activeElement === 'library' ? <LibraryView /> : <ElementView />}
       </div>
     </aside>
   );
