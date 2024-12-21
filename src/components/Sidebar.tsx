@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 
@@ -142,6 +142,7 @@ const LibraryView: FC = () => (
 const ElementView: FC = () => {
   const activeElement = useSidebarStore((state) => state.activeElement);
   const setActiveElement = useSidebarStore((state) => state.setActiveElement);
+  const [title, setTitle] = useState('');
 
   const getTitle = () => {
     switch (activeElement) {
@@ -168,6 +169,7 @@ const ElementView: FC = () => {
   };
 
   const hasDelete = activeElement === 'logo' || activeElement === 'link';
+  const isOverLimit = title.length === 30;
 
   return (
     <div className="flex flex-col min-h-full">
@@ -177,7 +179,24 @@ const ElementView: FC = () => {
           <p className="text-sm text-gray-400">{getDescription()}</p>
         </div>
         
-        {/* Tu będzie zawartość dla konkretnego elementu */}
+        {activeElement === 'title' && (
+          <div>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => {
+                if (e.target.value.length <= 30) {
+                  setTitle(e.target.value);
+                }
+              }}
+              placeholder="Wpisz tytuł usługi"
+              className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
+            />
+            <div className={`text-right mt-2 text-sm ${isOverLimit ? 'text-error' : 'text-gray-400'}`}>
+              {title.length}/30 znaków
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="fixed bottom-0 right-0 w-[400px] bg-white border-t border-gray-100">
