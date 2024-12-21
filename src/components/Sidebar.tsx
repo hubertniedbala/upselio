@@ -187,7 +187,7 @@ const Sidebar: FC = () => {
       `}
     >
       <div className="h-full overflow-y-auto custom-scrollbar">
-        <div className="p-6 w-full" style={{ marginRight: '-48px', paddingRight: '48px' }}>
+        <div className="p-6 w-full" style={{ marginRight: '-24px', paddingRight: '24px' }}>
           {activeElement === 'library' ? <LibraryView /> : <ElementView />}
         </div>
       </div>
