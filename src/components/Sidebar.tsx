@@ -148,7 +148,7 @@ const ElementView: FC = () => {
   const getTitle = () => {
     switch (activeElement) {
       case 'title': return 'Tytuł usługi';
-      case 'description': return 'Opis';
+      case 'description': return 'Opis usługi';
       case 'logo': return 'Logo';
       case 'price': return 'Cena';
       case 'cta': return 'CTA';
@@ -160,7 +160,7 @@ const ElementView: FC = () => {
   const getDescription = () => {
     switch (activeElement) {
       case 'title': return 'Dodaj nazwę usługi jaki będzie widniał w tytule';
-      case 'description': return 'Dodaj opis usługi';
+      case 'description': return 'Dodaj opis usługi, wykorzystaj jak najwięcej korzyści';
       case 'logo': return 'Dodaj swoje logo';
       case 'price': return 'Dodaj cenę usługi';
       case 'cta': return 'Dodaj tekst przycisku';
