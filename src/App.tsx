@@ -12,7 +12,7 @@ const App: FC = () => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<Navigate to="/all" replace />} />
-          <Route path="/" element={<Services />} />
+          <Route path="/services/new" element={<Services />} />
           <Route path="/all" element={<AllServices />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
