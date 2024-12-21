@@ -9,14 +9,14 @@ const AllServices: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full">
+    <div className="container mx-auto px-8 py-6">
       {/* Header with Add Button */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-gray-600">
           Usługi
         </h1>
         <button 
-          onClick={() => navigate('/services/new')}
+          onClick={() => navigate('/')}
           className="px-4 py-2.5 bg-primary text-white rounded-md shadow border border-primary flex items-center gap-2 hover:bg-primary-dark transition-colors"
         >
           <span className="text-sm font-medium">+ Dodaj usługę</span>
