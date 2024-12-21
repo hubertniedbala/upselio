@@ -103,7 +103,7 @@ const Sidebar: FC = () => {
                 <div className="text-sm text-gray-400">Jeśli chcesz dodać swoje logo</div>
               </div>
             </div>
-            <button className="p-2.5 bg-white rounded-md shadow border border-gray-200 hover:bg-gray-50 transition-colors">
+            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
               <TrashIcon className="text-gray-500" />
             </button>
           </div>
@@ -145,7 +145,7 @@ const Sidebar: FC = () => {
                 <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
               </div>
             </div>
-            <button className="p-2.5 bg-white rounded-md shadow border border-gray-200 hover:bg-gray-50 transition-colors">
+            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
               <TrashIcon className="text-gray-500" />
             </button>
           </div>
