@@ -63,21 +63,21 @@ const SidebarItem: FC<SidebarItemProps> = ({ title, description, icon: Icon, typ
 
   return (
     <div 
-      className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer"
+      className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer w-full"
       onClick={() => setActiveElement(type)}
     >
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+      <div className="flex items-center gap-3 min-w-0">
+        <div className="w-10 h-10 flex-shrink-0 bg-[#cde4f1] rounded-full flex items-center justify-center">
           <Icon className="text-primary" />
         </div>
-        <div>
-          <div className="text-gray-600 font-medium">{title}</div>
-          <div className="text-sm text-gray-400">{description}</div>
+        <div className="min-w-0 flex-1">
+          <div className="text-gray-600 font-medium truncate">{title}</div>
+          <div className="text-sm text-gray-400 truncate">{description}</div>
         </div>
       </div>
       {hasDelete && (
         <button 
-          className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors"
+          className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors flex-shrink-0 ml-3"
           onClick={(e) => e.stopPropagation()}
         >
           <TrashIcon className="text-gray-500" />
@@ -182,12 +182,12 @@ const Sidebar: FC = () => {
     <aside 
       className={`
         fixed top-[184px] right-0 w-[400px] h-[calc(100vh-184px)] bg-white border-l border-gray-100 
-        transform transition-transform duration-300 
+        transform transition-transform duration-300 overflow-hidden
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
     >
       <div className="h-full overflow-y-auto custom-scrollbar">
-        <div className="min-h-full p-6" style={{ marginRight: '-48px', paddingRight: '48px' }}>
+        <div className="p-6 w-full" style={{ marginRight: '-48px', paddingRight: '48px' }}>
           {activeElement === 'library' ? <LibraryView /> : <ElementView />}
         </div>
       </div>
