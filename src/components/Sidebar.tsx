@@ -155,21 +155,49 @@ const ElementView: FC = () => {
     }
   };
 
+  const getDescription = () => {
+    switch (activeElement) {
+      case 'title': return 'Dodaj nazwę usługi jaki będzie widniał w tytule';
+      case 'description': return 'Dodaj opis usługi';
+      case 'logo': return 'Dodaj swoje logo';
+      case 'price': return 'Dodaj cenę usługi';
+      case 'cta': return 'Dodaj tekst przycisku';
+      case 'link': return 'Dodaj link do usługi';
+      default: return '';
+    }
+  };
+
+  const hasDelete = activeElement === 'logo' || activeElement === 'link';
+
   return (
-    <div className="transition-all duration-300 transform">
-      <div className="flex items-center gap-4 mb-6">
-        <button 
-          onClick={() => setActiveElement('library')}
-          className="p-2 hover:bg-gray-50 rounded-md text-gray-500"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-        <h2 className="text-lg font-medium text-gray-600">{getTitle()}</h2>
+    <div className="flex flex-col h-full">
+      <div className="flex-1">
+        <div className="mb-6">
+          <h2 className="text-lg font-medium text-gray-600 mb-2">{getTitle()}</h2>
+          <p className="text-sm text-gray-400">{getDescription()}</p>
+        </div>
+        
+        {/* Tu będzie zawartość dla konkretnego elementu */}
       </div>
-      
-      {/* Tu będzie zawartość dla konkretnego elementu */}
+
+      <div className="border-t border-gray-100 pt-4 mt-auto">
+        <div className="flex flex-col gap-3">
+          <button 
+            onClick={() => setActiveElement('library')}
+            className="w-full px-4 py-2.5 bg-primary text-white rounded-md shadow border border-primary flex items-center justify-center hover:bg-primary-dark transition-colors"
+          >
+            <span className="text-sm font-medium">Gotowe</span>
+          </button>
+
+          {hasDelete && (
+            <button 
+              className="w-full px-4 py-2.5 bg-white text-error rounded-md shadow border border-error flex items-center justify-center hover:bg-error/5 transition-colors"
+            >
+              <span className="text-sm font-medium">Usuń element</span>
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
