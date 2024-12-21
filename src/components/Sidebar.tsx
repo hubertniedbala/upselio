@@ -170,7 +170,7 @@ const ElementView: FC = () => {
   const hasDelete = activeElement === 'logo' || activeElement === 'link';
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col min-h-full">
       <div className="flex-1">
         <div className="mb-6">
           <h2 className="text-lg font-medium text-gray-600 mb-2">{getTitle()}</h2>
@@ -180,7 +180,7 @@ const ElementView: FC = () => {
         {/* Tu będzie zawartość dla konkretnego elementu */}
       </div>
 
-      <div className="border-t border-gray-100 pt-4 mt-auto">
+      <div className="fixed bottom-0 right-0 w-[400px] bg-white border-t border-gray-100 p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
         <div className="flex flex-col gap-3">
           <button 
             onClick={() => setActiveElement('library')}
