@@ -54,18 +54,18 @@ const Sidebar: FC = () => {
     <div 
       className={`
         fixed top-[184px] right-0 w-[400px] h-[calc(100vh-184px)] bg-white border-l border-gray-100 
-        transform transition-transform duration-300 
+        transform transition-transform duration-300 overflow-y-auto custom-scrollbar
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
     >
-      <div className="p-6">
+      <div className="p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
         <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
         <p className="text-sm text-gray-400 mb-6">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
         
         <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
         
-        {/* Scrollable container */}
-        <div className="space-y-4 overflow-y-auto custom-scrollbar" style={{ maxHeight: 'calc(100vh - 360px)', marginRight: '-24px', paddingRight: '24px' }}>
+        {/* Items container */}
+        <div className="space-y-4">
           {/* Title */}
           <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
