@@ -54,164 +54,166 @@ const Sidebar: FC = () => {
     <div 
       className={`
         fixed top-[184px] right-0 w-[400px] h-[calc(100vh-184px)] bg-white border-l border-gray-100 
-        transform transition-transform duration-300 overflow-x-hidden
+        transform transition-transform duration-300 
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
     >
-      <div className="p-6 h-full overflow-y-auto custom-scrollbar" style={{ marginRight: '-24px', paddingRight: '24px' }}>
-        <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
-        <p className="text-sm text-gray-400 mb-6">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
-        
-        <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
-        
-        {/* Items container */}
-        <div className="space-y-4">
-          {/* Title */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <TitleIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Tytuł usługi</div>
-                <div className="text-sm text-gray-400">Tytuł usługi jaki chcesz dodać</div>
+      <div className="absolute inset-0 overflow-y-auto custom-scrollbar">
+        <div className="p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
+          <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
+          <p className="text-sm text-gray-400 mb-6">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
+          
+          <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
+          
+          {/* Items container */}
+          <div className="space-y-4">
+            {/* Title */}
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <TitleIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Tytuł usługi</div>
+                  <div className="text-sm text-gray-400">Tytuł usługi jaki chcesz dodać</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Description */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <DescriptionIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Opis</div>
-                <div className="text-sm text-gray-400">Opis usługi jaki chcesz dodać</div>
+            {/* Description */}
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <DescriptionIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Opis</div>
+                  <div className="text-sm text-gray-400">Opis usługi jaki chcesz dodać</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Logo */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <LogoIcon className="text-primary" />
+            {/* Logo */}
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <LogoIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Logo</div>
+                  <div className="text-sm text-gray-400">Jeśli chcesz dodać swoje logo</div>
+                </div>
               </div>
-              <div>
-                <div className="text-gray-600 font-medium">Logo</div>
-                <div className="text-sm text-gray-400">Jeśli chcesz dodać swoje logo</div>
-              </div>
+              <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
+                <TrashIcon className="text-gray-500" />
+              </button>
             </div>
-            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
-              <TrashIcon className="text-gray-500" />
-            </button>
-          </div>
 
-          {/* Price */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <PriceIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Cena</div>
-                <div className="text-sm text-gray-400">Wskaż wartość usługi</div>
+            {/* Price */}
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <PriceIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Cena</div>
+                  <div className="text-sm text-gray-400">Wskaż wartość usługi</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* CTA */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <CTAIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">CTA</div>
-                <div className="text-sm text-gray-400">Jeśli chcesz dodać przycisk?</div>
+            {/* CTA */}
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <CTAIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">CTA</div>
+                  <div className="text-sm text-gray-400">Jeśli chcesz dodać przycisk?</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Link */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <LinkIcon className="text-primary" />
+            {/* Link */}
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <LinkIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Link</div>
+                  <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
+                </div>
               </div>
-              <div>
-                <div className="text-gray-600 font-medium">Link</div>
-                <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
-              </div>
+              <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
+                <TrashIcon className="text-gray-500" />
+              </button>
             </div>
-            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
-              <TrashIcon className="text-gray-500" />
-            </button>
-          </div>
 
-          {/* Dodatkowe elementy dla testu scrolla */}
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <TitleIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Tytuł usługi 2</div>
-                <div className="text-sm text-gray-400">Tytuł usługi jaki chcesz dodać</div>
+            {/* Dodatkowe elementy dla testu scrolla */}
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <TitleIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Tytuł usługi 2</div>
+                  <div className="text-sm text-gray-400">Tytuł usługi jaki chcesz dodać</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <DescriptionIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Opis 2</div>
-                <div className="text-sm text-gray-400">Opis usługi jaki chcesz dodać</div>
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <DescriptionIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Opis 2</div>
+                  <div className="text-sm text-gray-400">Opis usługi jaki chcesz dodać</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <PriceIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">Cena 2</div>
-                <div className="text-sm text-gray-400">Wskaż wartość usługi</div>
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <PriceIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Cena 2</div>
+                  <div className="text-sm text-gray-400">Wskaż wartość usługi</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <CTAIcon className="text-primary" />
-              </div>
-              <div>
-                <div className="text-gray-600 font-medium">CTA 2</div>
-                <div className="text-sm text-gray-400">Jeśli chcesz dodać przycisk?</div>
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <CTAIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">CTA 2</div>
+                  <div className="text-sm text-gray-400">Jeśli chcesz dodać przycisk?</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-                <LinkIcon className="text-primary" />
+            <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                  <LinkIcon className="text-primary" />
+                </div>
+                <div>
+                  <div className="text-gray-600 font-medium">Link 2</div>
+                  <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
+                </div>
               </div>
-              <div>
-                <div className="text-gray-600 font-medium">Link 2</div>
-                <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
-              </div>
+              <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
+                <TrashIcon className="text-gray-500" />
+              </button>
             </div>
-            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
-              <TrashIcon className="text-gray-500" />
-            </button>
           </div>
         </div>
       </div>
