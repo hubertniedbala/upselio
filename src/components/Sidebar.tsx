@@ -203,9 +203,6 @@ const ElementView: FC = () => {
 
         {activeElement === 'description' && (
           <div>
-            <p className="text-sm text-gray-400 mb-4">
-              Dodaj opis usługi, wykorzystaj jak najwięcej korzyści
-            </p>
             <textarea
               value={description}
               onChange={(e) => {
