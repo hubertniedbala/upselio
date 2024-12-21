@@ -182,12 +182,12 @@ const Sidebar: FC = () => {
     <aside 
       className={`
         fixed top-[184px] right-0 w-[400px] h-[calc(100vh-184px)] bg-white border-l border-gray-100 
-        transform transition-transform duration-300 overflow-hidden
+        transform transition-transform duration-300 
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
     >
-      <div className="absolute inset-0 overflow-y-auto custom-scrollbar">
-        <div className="p-6" style={{ marginRight: '-48px', paddingRight: '48px' }}>
+      <div className="h-full overflow-y-auto custom-scrollbar">
+        <div className="min-h-full p-6" style={{ marginRight: '-48px', paddingRight: '48px' }}>
           {activeElement === 'library' ? <LibraryView /> : <ElementView />}
         </div>
       </div>
