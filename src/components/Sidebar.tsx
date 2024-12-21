@@ -58,15 +58,15 @@ const Sidebar: FC = () => {
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
     >
-      <div className="h-full overflow-y-auto custom-scrollbar">
-        <div className="p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
+      <div className="absolute inset-0 overflow-y-auto custom-scrollbar">
+        <div className="min-h-full p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
           <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
           <p className="text-sm text-gray-400 mb-6">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
           
           <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
           
           {/* Items container */}
-          <div className="space-y-4 pb-6">
+          <div className="space-y-4">
             {/* Title */}
             <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
               <div className="flex items-center gap-3">
@@ -143,7 +143,7 @@ const Sidebar: FC = () => {
                 </div>
                 <div>
                   <div className="text-gray-600 font-medium">Link</div>
-                  <div className="text-sm text-gray-400">Wklej link do wybranej us��ugi</div>
+                  <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
                 </div>
               </div>
               <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
