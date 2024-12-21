@@ -181,7 +181,7 @@ const ElementView: FC = () => {
       </div>
 
       <div className="fixed bottom-0 right-0 w-[400px] bg-white border-t border-gray-100">
-        <div className="p-6" style={{ marginRight: '-24px', paddingRight: '30px', marginLeft: '24px' }}>
+        <div className="p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
           <div className="flex flex-col gap-3">
             <button 
               onClick={() => setActiveElement('library')}
