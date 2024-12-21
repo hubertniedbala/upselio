@@ -180,7 +180,7 @@ const ElementView: FC = () => {
         {/* Tu będzie zawartość dla konkretnego elementu */}
       </div>
 
-      <div className="fixed bottom-0 right-[12px] w-[376px] bg-white border-t border-gray-100">
+      <div className="fixed bottom-0 right-[6px] w-[388px] bg-white border-t border-gray-100">
         <div className="p-6">
           <div className="flex flex-col gap-3">
             <button 
