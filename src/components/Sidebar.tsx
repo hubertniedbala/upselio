@@ -180,8 +180,8 @@ const ElementView: FC = () => {
         {/* Tu będzie zawartość dla konkretnego elementu */}
       </div>
 
-      <div className="fixed bottom-0 right-0 w-[400px] bg-white border-t border-gray-100">
-        <div className="p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
+      <div className="fixed bottom-0 right-[24px] w-[376px] bg-white border-t border-gray-100">
+        <div className="p-6">
           <div className="flex flex-col gap-3">
             <button 
               onClick={() => setActiveElement('library')}
