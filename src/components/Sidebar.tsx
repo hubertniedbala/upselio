@@ -88,7 +88,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ title, description, icon: Icon, typ
 };
 
 const LibraryView: FC = () => (
-  <>
+  <div className="transition-all duration-300 transform">
     <div className="mb-6">
       <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
       <p className="text-sm text-gray-400">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
@@ -103,9 +103,40 @@ const LibraryView: FC = () => (
         icon={TitleIcon} 
         type="title"
       />
-      {/* ... (pozostałe elementy jako SidebarItem) ... */}
+      <SidebarItem 
+        title="Opis" 
+        description="Opis usługi jaki chcesz dodać" 
+        icon={DescriptionIcon} 
+        type="description"
+      />
+      <SidebarItem 
+        title="Logo" 
+        description="Jeśli chcesz dodać swoje logo" 
+        icon={LogoIcon} 
+        type="logo"
+        hasDelete
+      />
+      <SidebarItem 
+        title="Cena" 
+        description="Wskaż wartość usługi" 
+        icon={PriceIcon} 
+        type="price"
+      />
+      <SidebarItem 
+        title="CTA" 
+        description="Jeśli chcesz dodać przycisk?" 
+        icon={CTAIcon} 
+        type="cta"
+      />
+      <SidebarItem 
+        title="Link" 
+        description="Wklej link do wybranej usługi" 
+        icon={LinkIcon} 
+        type="link"
+        hasDelete
+      />
     </div>
-  </>
+  </div>
 );
 
 const ElementView: FC = () => {
@@ -125,11 +156,11 @@ const ElementView: FC = () => {
   };
 
   return (
-    <>
+    <div className="transition-all duration-300 transform">
       <div className="flex items-center gap-4 mb-6">
         <button 
           onClick={() => setActiveElement('library')}
-          className="p-2 hover:bg-gray-50 rounded-md"
+          className="p-2 hover:bg-gray-50 rounded-md text-gray-500"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -139,7 +170,7 @@ const ElementView: FC = () => {
       </div>
       
       {/* Tu będzie zawartość dla konkretnego elementu */}
-    </>
+    </div>
   );
 };
 
@@ -151,12 +182,14 @@ const Sidebar: FC = () => {
     <aside 
       className={`
         fixed top-[184px] right-0 w-[400px] h-[calc(100vh-184px)] bg-white border-l border-gray-100 
-        transform transition-transform duration-300 overflow-y-auto custom-scrollbar
+        transform transition-transform duration-300 overflow-hidden
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
     >
-      <div className="p-6" style={{ marginRight: '-48px', paddingRight: '48px' }}>
-        {activeElement === 'library' ? <LibraryView /> : <ElementView />}
+      <div className="absolute inset-0 overflow-y-auto custom-scrollbar">
+        <div className="p-6" style={{ marginRight: '-48px', paddingRight: '48px' }}>
+          {activeElement === 'library' ? <LibraryView /> : <ElementView />}
+        </div>
       </div>
     </aside>
   );
