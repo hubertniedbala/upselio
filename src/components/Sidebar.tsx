@@ -65,7 +65,7 @@ const Sidebar: FC = () => {
         <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
         
         {/* Scrollable container */}
-        <div className="space-y-4 overflow-y-auto pr-2" style={{ maxHeight: 'calc(100vh - 360px)' }}>
+        <div className="space-y-4 overflow-y-auto pr-2 custom-scrollbar" style={{ maxHeight: 'calc(100vh - 360px)' }}>
           {/* Title */}
           <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
@@ -142,6 +142,70 @@ const Sidebar: FC = () => {
               </div>
               <div>
                 <div className="text-gray-600 font-medium">Link</div>
+                <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
+              </div>
+            </div>
+            <button className="p-2.5 bg-white rounded-md border border-gray-200 hover:bg-gray-50 transition-colors">
+              <TrashIcon className="text-gray-500" />
+            </button>
+          </div>
+
+          {/* Dodatkowe elementy dla testu scrolla */}
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                <TitleIcon className="text-primary" />
+              </div>
+              <div>
+                <div className="text-gray-600 font-medium">Tytuł usługi 2</div>
+                <div className="text-sm text-gray-400">Tytuł usługi jaki chcesz dodać</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                <DescriptionIcon className="text-primary" />
+              </div>
+              <div>
+                <div className="text-gray-600 font-medium">Opis 2</div>
+                <div className="text-sm text-gray-400">Opis usługi jaki chcesz dodać</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                <PriceIcon className="text-primary" />
+              </div>
+              <div>
+                <div className="text-gray-600 font-medium">Cena 2</div>
+                <div className="text-sm text-gray-400">Wskaż wartość usługi</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                <CTAIcon className="text-primary" />
+              </div>
+              <div>
+                <div className="text-gray-600 font-medium">CTA 2</div>
+                <div className="text-sm text-gray-400">Jeśli chcesz dodać przycisk?</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+                <LinkIcon className="text-primary" />
+              </div>
+              <div>
+                <div className="text-gray-600 font-medium">Link 2</div>
                 <div className="text-sm text-gray-400">Wklej link do wybranej usługi</div>
               </div>
             </div>
