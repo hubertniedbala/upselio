@@ -54,19 +54,19 @@ const Sidebar: FC = () => {
     <aside 
       className={`
         fixed top-[184px] right-0 w-[400px] h-[calc(100vh-184px)] bg-white border-l border-gray-100 
-        transform transition-transform duration-300 overflow-hidden
+        transform transition-transform duration-300 overflow-hidden box-border
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
     >
       <div className="absolute inset-0 overflow-y-auto custom-scrollbar">
-        <div className="min-h-full p-6" style={{ marginRight: '-24px', paddingRight: '24px' }}>
+        <div className="p-6" style={{ marginRight: '-24px', paddingRight: '24px', maxHeight: '100%' }}>
           <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
           <p className="text-sm text-gray-400 mb-6">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
           
           <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
           
           {/* Items container */}
-          <div className="space-y-4">
+          <div className="space-y-4 pb-0">
             {/* Title */}
             <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
               <div className="flex items-center gap-3">
