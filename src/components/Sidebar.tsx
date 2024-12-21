@@ -67,7 +67,7 @@ const Sidebar: FC = () => {
         {/* Scrollable container */}
         <div className="space-y-4 overflow-y-auto pr-2" style={{ maxHeight: 'calc(100vh - 360px)' }}>
           {/* Title */}
-          <div className="p-4 bg-white rounded-lg border border-gray-100 flex items-center justify-between">
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
                 <TitleIcon className="text-primary" />
@@ -80,7 +80,7 @@ const Sidebar: FC = () => {
           </div>
 
           {/* Description */}
-          <div className="p-4 bg-white rounded-lg border border-gray-100 flex items-center justify-between">
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
                 <DescriptionIcon className="text-primary" />
@@ -93,7 +93,7 @@ const Sidebar: FC = () => {
           </div>
 
           {/* Logo */}
-          <div className="p-4 bg-white rounded-lg border border-gray-100 flex items-center justify-between">
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
                 <LogoIcon className="text-primary" />
@@ -109,7 +109,7 @@ const Sidebar: FC = () => {
           </div>
 
           {/* Price */}
-          <div className="p-4 bg-white rounded-lg border border-gray-100 flex items-center justify-between">
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
                 <PriceIcon className="text-primary" />
@@ -122,7 +122,7 @@ const Sidebar: FC = () => {
           </div>
 
           {/* CTA */}
-          <div className="p-4 bg-white rounded-lg border border-gray-100 flex items-center justify-between">
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
                 <CTAIcon className="text-primary" />
@@ -135,7 +135,7 @@ const Sidebar: FC = () => {
           </div>
 
           {/* Link */}
-          <div className="p-4 bg-white rounded-lg border border-gray-100 flex items-center justify-between">
+          <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
                 <LinkIcon className="text-primary" />
