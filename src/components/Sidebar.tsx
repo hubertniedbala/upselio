@@ -143,6 +143,7 @@ const ElementView: FC = () => {
   const activeElement = useSidebarStore((state) => state.activeElement);
   const setActiveElement = useSidebarStore((state) => state.setActiveElement);
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   const getTitle = () => {
     switch (activeElement) {
@@ -169,7 +170,9 @@ const ElementView: FC = () => {
   };
 
   const hasDelete = activeElement === 'logo' || activeElement === 'link';
-  const isOverLimit = title.length === 30;
+  const isOverLimit = activeElement === 'title' ? title.length === 30 : description.length === 300;
+  const maxLength = activeElement === 'title' ? 30 : 300;
+  const currentLength = activeElement === 'title' ? title.length : description.length;
 
   return (
     <div className="flex flex-col min-h-full">
@@ -193,7 +196,29 @@ const ElementView: FC = () => {
               className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
             />
             <div className={`text-right mt-2 text-sm ${isOverLimit ? 'text-error' : 'text-gray-400'}`}>
-              {title.length}/30 znaków
+              {currentLength}/{maxLength} znaków
+            </div>
+          </div>
+        )}
+
+        {activeElement === 'description' && (
+          <div>
+            <p className="text-sm text-gray-400 mb-4">
+              Dodaj opis usługi, wykorzystaj jak najwięcej korzyści
+            </p>
+            <textarea
+              value={description}
+              onChange={(e) => {
+                if (e.target.value.length <= 300) {
+                  setDescription(e.target.value);
+                }
+              }}
+              placeholder="Wpisz opis usługi"
+              rows={6}
+              className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors resize-none"
+            />
+            <div className={`text-right mt-2 text-sm ${isOverLimit ? 'text-error' : 'text-gray-400'}`}>
+              {currentLength}/{maxLength} znaków
             </div>
           </div>
         )}
