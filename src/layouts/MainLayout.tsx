@@ -9,7 +9,7 @@ const MainLayout: FC = () => {
   const { isOpen, close } = useDrawerStore();
   const location = useLocation();
   const showTabNav = location.pathname !== '/all';
-  const showSidebar = location.pathname === '/';
+  const showSidebar = location.pathname === '/services/new';
 
   useEffect(() => {
     if (!showSidebar) {
