@@ -65,7 +65,7 @@ const Sidebar: FC = () => {
         <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
         
         {/* Scrollable container */}
-        <div className="space-y-4 overflow-y-auto pr-2 custom-scrollbar" style={{ maxHeight: 'calc(100vh - 360px)' }}>
+        <div className="space-y-4 overflow-y-auto custom-scrollbar" style={{ maxHeight: 'calc(100vh - 360px)', marginRight: '-24px', paddingRight: '24px' }}>
           {/* Title */}
           <div className="p-4 bg-white rounded-md shadow border border-gray-200 flex items-center justify-between hover:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">

@@ -18,4 +18,5 @@
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #eaecf0 transparent;
+  padding-right: 0;
 } 
