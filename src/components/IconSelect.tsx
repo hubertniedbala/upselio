@@ -94,6 +94,7 @@ interface IconSelectProps {
 const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
   const [query, setQuery] = useState('');
   const [filteredIcons, setFilteredIcons] = useState(icons);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const filtered = icons.filter((icon) =>
@@ -104,43 +105,54 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
 
   return (
     <div className="w-full">
-      <Combobox value={selectedIcon} onChange={onSelect}>
-        <div className="relative">
-          <div className="relative w-full">
-            <Combobox.Label className="block text-sm font-medium text-gray-600 mb-2">
-              Lista ikon
-            </Combobox.Label>
-            <div className="relative">
-              <Combobox.Input
-                className="w-full rounded-lg border border-gray-200 py-2 pl-3 pr-10 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-                onChange={(event) => setQuery(event.target.value)}
-                displayValue={(icon: Icon) => icon?.name || ''}
-                placeholder="Wyszukaj ikonę..."
-                onClick={() => setQuery('')}
-              />
-              <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                <svg 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="text-gray-400"
-                >
-                  <path 
-                    d="M6 9L12 15L18 9" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Combobox.Button>
-            </div>
+      <Combobox 
+        value={selectedIcon} 
+        onChange={onSelect}
+        as="div" 
+        className="relative"
+      >
+        <div className="relative w-full">
+          <Combobox.Label className="block text-sm font-medium text-gray-600 mb-2">
+            Lista ikon
+          </Combobox.Label>
+          <div className="relative">
+            <Combobox.Input
+              className="w-full rounded-lg border border-gray-200 py-2 pl-3 pr-10 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              onChange={(event) => setQuery(event.target.value)}
+              displayValue={(icon: Icon) => icon?.name || ''}
+              placeholder="Wyszukaj ikonę..."
+              onClick={() => {
+                setIsOpen(true);
+                setQuery('');
+              }}
+            />
+            <Combobox.Button 
+              className="absolute inset-y-0 right-0 flex items-center pr-2"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-gray-400"
+              >
+                <path 
+                  d="M6 9L12 15L18 9" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Combobox.Button>
           </div>
+        </div>
+
+        {isOpen && (
           <Combobox.Options 
             className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-            static
           >
             {filteredIcons.map((icon) => (
               <Combobox.Option
@@ -151,11 +163,12 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
                   }`
                 }
                 value={icon}
+                onClick={() => setIsOpen(false)}
               >
                 {({ selected, active }) => (
                   <>
                     <div className="flex items-center">
-                      <i className={`${icon.icon} text-lg w-6 h-6 mr-3 flex items-center justify-center`} />
+                      <i className={`${icon.icon} text-primary text-lg w-6 h-6 mr-3 flex items-center justify-center`} />
                       <span className={`block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
                         {icon.name}
                       </span>
@@ -174,7 +187,7 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
               </Combobox.Option>
             ))}
           </Combobox.Options>
-        </div>
+        )}
       </Combobox>
     </div>
   );
