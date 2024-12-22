@@ -1,4 +1,4 @@
-import { FC, useState, useRef, Fragment, useEffect } from 'react';
+import { FC, useState, useRef, Fragment, useEffect, RefObject } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 import { useUploadStore } from '../store/uploadStore';
@@ -855,10 +855,10 @@ const ElementView: FC = () => {
 };
 
 interface SidebarProps {
-  titleInputRef: RefObject<HTMLInputElement>;
-  priceInputRef: RefObject<HTMLInputElement>;
-  descriptionTextareaRef: RefObject<HTMLTextAreaElement>;
-  linkInputRef: RefObject<HTMLInputElement>;
+  titleInputRef: React.RefObject<HTMLInputElement>;
+  priceInputRef: React.RefObject<HTMLInputElement>;
+  descriptionTextareaRef: React.RefObject<HTMLTextAreaElement>;
+  linkInputRef: React.RefObject<HTMLInputElement>;
 }
 
 const Sidebar: FC<SidebarProps> = ({
