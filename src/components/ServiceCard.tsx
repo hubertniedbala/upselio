@@ -2,17 +2,17 @@ import { FC, useState } from 'react';
 import { Monitor, Plus } from 'lucide-react';
 
 interface ServiceCardProps {
-  title: string;
-  price: string;
-  description: string;
+  title?: string;
+  price?: string;
+  description?: string;
   isSelected?: boolean;
   onClick?: () => void;
 }
 
 const ServiceCard: FC<ServiceCardProps> = ({
-  title,
-  price,
-  description,
+  title = "Moja pierwsza usługa",
+  price = "79,00 zł",
+  description = "To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)",
   isSelected = false,
   onClick
 }) => {
