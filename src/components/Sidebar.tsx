@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useState, useRef } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
+import { useUploadStore } from '../store/uploadStore';
 
 interface IconProps {
   className?: string;
@@ -139,11 +140,280 @@ const LibraryView: FC = () => (
   </div>
 );
 
+interface UploadProgressProps {
+  fileName: string;
+  fileSize: number;
+  progress: number;
+  onCancel?: () => void;
+  onDelete?: () => void;
+  imageUrl?: string;
+}
+
+const UploadProgress: FC<UploadProgressProps> = ({ 
+  fileName, 
+  fileSize, 
+  progress, 
+  onCancel, 
+  onDelete,
+  imageUrl 
+}) => {
+  const truncatedName = fileName.length > 20 
+    ? fileName.substring(0, 17) + '...' 
+    : fileName;
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' kB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
+  const isCompleted = progress === 100;
+
+  return (
+    <div className={`flex items-center p-4 bg-white rounded-lg ${isCompleted ? 'border-primary' : 'border-gray-200'} border`}>
+      <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center overflow-hidden">
+        {imageUrl && isCompleted ? (
+          <img src={imageUrl} alt={fileName} className="w-full h-full object-cover" />
+        ) : (
+          <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-primary p-2.5">
+            <path d="M16.2 21H6.93137C6.32555 21 6.02265 21 5.88238 20.8802C5.76068 20.7763 5.69609 20.6203 5.70865 20.4608C5.72312 20.2769 5.93731 20.0627 6.36569 19.6343L14.8686 11.1314C15.2646 10.7354 15.4627 10.5373 15.691 10.4632C15.8918 10.3979 16.1082 10.3979 16.309 10.4632C16.5373 10.5373 16.7354 10.7354 17.1314 11.1314L21 15V16.2M16.2 21C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2M16.2 21H7.8C6.11984 21 5.27976 21 4.63803 20.673C4.07354 20.3854 3.6146 19.9265 3.32698 19.362C3 18.7202 3 17.8802 3 16.2V7.8C3 6.11984 3 5.27976 3.32698 4.63803C3.6146 4.07354 4.07354 3.6146 4.63803 3.32698C5.27976 3 6.11984 3 7.8 3H16.2C17.8802 3 18.7202 3 19.362 3.32698C19.9265 3.6146 20.3854 4.07354 20.673 4.63803C21 5.27976 21 6.11984 21 7.8V16.2M10.5 8.5C10.5 9.60457 9.60457 10.5 8.5 10.5C7.39543 10.5 6.5 9.60457 6.5 8.5C6.5 7.39543 7.39543 6.5 8.5 6.5C9.60457 6.5 10.5 7.39543 10.5 8.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
+      </div>
+      <div className="ml-3 flex-1">
+        <div className="text-sm font-medium text-gray-600">{truncatedName}</div>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-400">
+            {formatFileSize(fileSize)} - {progress}% uploaded
+          </span>
+          {!isCompleted && onCancel && (
+            <button
+              onClick={onCancel}
+              className="text-sm text-error hover:text-error-dark transition-colors"
+            >
+              Anuluj
+            </button>
+          )}
+          {isCompleted && onDelete && (
+            <button
+              onClick={onDelete}
+              className="text-sm text-error hover:text-error-dark transition-colors"
+            >
+              Usuń
+            </button>
+          )}
+        </div>
+      </div>
+      {isCompleted ? (
+        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      ) : (
+        <div className="w-16 h-16 relative flex items-center justify-center">
+          <svg className="w-full h-full transform -rotate-90">
+            <circle
+              cx="32"
+              cy="32"
+              r="28"
+              stroke="#F3F4F6"
+              strokeWidth="4"
+              fill="none"
+            />
+            <circle
+              cx="32"
+              cy="32"
+              r="28"
+              stroke="#0EA5E9"
+              strokeWidth="4"
+              fill="none"
+              strokeDasharray={`${2 * Math.PI * 28}`}
+              strokeDashoffset={`${2 * Math.PI * 28 * (1 - progress / 100)}`}
+              className="transition-all duration-300"
+            />
+          </svg>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const UploadArea: FC = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { setUploadedLogo, setIsUploading, setError: setGlobalError } = useUploadStore();
+  const [uploadProgress, setUploadProgress] = useState<{ file: File; progress: number } | null>(null);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const abortController = useRef<AbortController | null>(null);
+
+  const cancelUpload = () => {
+    if (abortController.current) {
+      abortController.current.abort();
+      setUploadProgress(null);
+      setIsUploading(false);
+    }
+  };
+
+  const deleteUpload = () => {
+    setUploadedImage(null);
+    setUploadProgress(null);
+    setUploadedLogo(null);
+  };
+
+  const uploadFile = async (file: File) => {
+    setUploadProgress({ file, progress: 0 });
+    const formData = new FormData();
+    formData.append('file', file);
+
+    abortController.current = new AbortController();
+
+    try {
+      setIsUploading(true);
+      
+      // Symulacja uploadu z postępem
+      for (let i = 0; i <= 100; i += 10) {
+        if (abortController.current.signal.aborted) {
+          throw new Error('Upload cancelled');
+        }
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setUploadProgress(prev => prev ? { ...prev, progress: i } : null);
+      }
+
+      // Tutaj normalnie byłby prawdziwy upload
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+        signal: abortController.current.signal
+      });
+
+      if (!response.ok) {
+        throw new Error('Błąd podczas przesyłania pliku');
+      }
+
+      const data = await response.json();
+      setUploadedLogo(data.url);
+      setUploadedImage(URL.createObjectURL(file));
+      setGlobalError(null);
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        return;
+      }
+      setGlobalError(err instanceof Error ? err.message : 'Wystąpił błąd podczas przesyłania pliku');
+      setUploadedLogo(null);
+    } finally {
+      setIsUploading(false);
+      abortController.current = null;
+    }
+  };
+
+  const handleFile = async (file: File) => {
+    setError(null);
+    setGlobalError(null);
+    
+    try {
+      const validationError = await validateFile(file);
+      if (validationError) {
+        setError(validationError);
+        return;
+      }
+
+      await uploadFile(file);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Wystąpił błąd podczas przetwarzania pliku');
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      handleFile(file);
+    }
+  };
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFile(file);
+    }
+  };
+
+  return (
+    <div>
+      {uploadProgress ? (
+        <UploadProgress
+          fileName={uploadProgress.file.name}
+          fileSize={uploadProgress.file.size}
+          progress={uploadProgress.progress}
+          onCancel={isUploading ? cancelUpload : undefined}
+          onDelete={uploadProgress.progress === 100 ? deleteUpload : undefined}
+          imageUrl={uploadedImage}
+        />
+      ) : (
+        <div
+          onClick={() => !isUploading && fileInputRef.current?.click()}
+          onDragOver={(e) => {
+            e.preventDefault();
+            !isUploading && setIsDragging(true);
+          }}
+          onDragLeave={() => setIsDragging(false)}
+          onDrop={(e) => !isUploading && handleDrop(e)}
+          className={`
+            mt-4 border-2 border-dashed rounded-lg p-8
+            flex flex-col items-center justify-center
+            cursor-pointer transition-colors
+            ${isDragging ? 'border-primary bg-primary/5' : 'border-gray-200 hover:border-primary/50'}
+            ${error ? 'border-error hover:border-error' : ''}
+            ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}
+          `}
+        >
+          {isUploading ? (
+            <div className="flex flex-col items-center">
+              <svg className="animate-spin h-6 w-6 text-primary mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <p className="text-sm text-gray-400">Przesyłanie pliku...</p>
+            </div>
+          ) : (
+            <>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-400 mb-4">
+                <path d="M12 16V8M9 11L12 8L15 11M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <p className="text-primary font-medium mb-1">Click to upload</p>
+              <p className="text-sm text-gray-400">or drag and drop</p>
+              <p className="text-sm text-gray-400 mt-2">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+            </>
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".svg,.png,.jpg,.jpeg,.gif"
+            className="hidden"
+            onChange={handleFileInput}
+            disabled={isUploading}
+          />
+        </div>
+      )}
+      {error && (
+        <div className="mt-2 text-sm text-error">
+          {error}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const ElementView: FC = () => {
   const activeElement = useSidebarStore((state) => state.activeElement);
   const setActiveElement = useSidebarStore((state) => state.setActiveElement);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [uploadType, setUploadType] = useState<'logo' | 'icon'>('logo');
 
   const getTitle = () => {
     switch (activeElement) {
@@ -217,6 +487,40 @@ const ElementView: FC = () => {
             <div className={`text-right mt-2 text-sm ${isOverLimit ? 'text-error' : 'text-gray-400'}`}>
               {currentLength}/{maxLength} znaków
             </div>
+          </div>
+        )}
+
+        {activeElement === 'logo' && (
+          <div>
+            <div className="flex p-0.5 bg-gray-100 rounded-lg mb-4">
+              <button
+                onClick={() => setUploadType('logo')}
+                className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  uploadType === 'logo'
+                    ? 'bg-white text-gray-600 shadow'
+                    : 'text-gray-400 hover:text-gray-600'
+                }`}
+              >
+                Logo
+              </button>
+              <button
+                onClick={() => setUploadType('icon')}
+                className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  uploadType === 'icon'
+                    ? 'bg-white text-gray-600 shadow'
+                    : 'text-gray-400 hover:text-gray-600'
+                }`}
+              >
+                Ikona
+              </button>
+            </div>
+            
+            {uploadType === 'logo' && <UploadArea />}
+            {uploadType === 'icon' && (
+              <div className="mt-4">
+                {/* Tu dodamy później wybór ikony */}
+              </div>
+            )}
           </div>
         )}
       </div>
