@@ -6,7 +6,11 @@ interface ServiceCardProps {
   price?: string;
   description?: string;
   isSelected?: boolean;
-  onClick?: () => void;
+  onIconClick?: () => void;
+  onTitleClick?: () => void;
+  onPriceClick?: () => void;
+  onDescriptionClick?: () => void;
+  onLinkClick?: () => void;
 }
 
 const ServiceCard: FC<ServiceCardProps> = ({
@@ -14,14 +18,34 @@ const ServiceCard: FC<ServiceCardProps> = ({
   price = "79,00 zł",
   description = "To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)",
   isSelected = false,
-  onClick
+  onIconClick,
+  onTitleClick,
+  onPriceClick,
+  onDescriptionClick,
+  onLinkClick
 }) => {
   const [hoveredElement, setHoveredElement] = useState<string | null>(null);
   const [clickedElement, setClickedElement] = useState<string | null>(null);
 
-  const handleClick = (element: string) => {
+  const handleElementClick = (element: string) => {
     setClickedElement(clickedElement === element ? null : element);
-    if (onClick) onClick();
+    switch (element) {
+      case 'icon':
+        onIconClick?.();
+        break;
+      case 'title':
+        onTitleClick?.();
+        break;
+      case 'price':
+        onPriceClick?.();
+        break;
+      case 'description':
+        onDescriptionClick?.();
+        break;
+      case 'details':
+        onLinkClick?.();
+        break;
+    }
   };
 
   const getBorderStyles = (element: string) => {
@@ -38,7 +62,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
           ${getBorderStyles('icon')}`}
         onMouseEnter={() => setHoveredElement('icon')}
         onMouseLeave={() => setHoveredElement(null)}
-        onClick={() => handleClick('icon')}
+        onClick={() => handleElementClick('icon')}
       >
         <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
           <Monitor className="w-5 h-5 text-primary" />
@@ -54,7 +78,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
               ${getBorderStyles('title')}`}
             onMouseEnter={() => setHoveredElement('title')}
             onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleClick('title')}
+            onClick={() => handleElementClick('title')}
           >
             <span className="text-lg font-medium text-[#10182a] tracking-tight">
               {title}
@@ -65,7 +89,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
               ${getBorderStyles('price')}`}
             onMouseEnter={() => setHoveredElement('price')}
             onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleClick('price')}
+            onClick={() => handleElementClick('price')}
           >
             <span className="text-lg font-medium text-[#10182a] tracking-tight">
               {price}
@@ -79,7 +103,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
               ${getBorderStyles('description')}`}
           onMouseEnter={() => setHoveredElement('description')}
           onMouseLeave={() => setHoveredElement(null)}
-          onClick={() => handleClick('description')}
+          onClick={() => handleElementClick('description')}
         >
           <p className="text-sm text-[#475466]">
             {description}
@@ -93,7 +117,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
               ${getBorderStyles('details')}`}
             onMouseEnter={() => setHoveredElement('details')}
             onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleClick('details')}
+            onClick={() => handleElementClick('details')}
           >
             Szczegóły
           </button>
@@ -102,7 +126,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
               ${getBorderStyles('add')}`}
             onMouseEnter={() => setHoveredElement('add')}
             onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleClick('add')}
+            onClick={() => handleElementClick('add')}
           >
             <Plus className="text-[#34425a]" />
             <span className="ml-2 text-sm font-medium text-[#34425a]">

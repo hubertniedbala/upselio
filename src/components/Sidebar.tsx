@@ -1,4 +1,4 @@
-import { FC, useState, useRef, Fragment } from 'react';
+import { FC, useState, useRef, Fragment, useEffect } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 import { useUploadStore } from '../store/uploadStore';
@@ -461,7 +461,7 @@ const formatPrice = (price: string): string => {
   // Podziel na część całkowitą i dziesiętną
   const [wholePart, decimalPart] = valueWithComma.split(',');
   
-  // Usu�� wszystkie znaki oprócz cyfr z części całkowitej
+  // Usuń wszystkie znaki oprócz cyfr z części całkowitej
   const cleanWholePart = wholePart.replace(/\D/g, '');
   
   // Jeśli nie ma wartości, zwróć pusty string
@@ -855,9 +855,32 @@ const ElementView: FC = () => {
   );
 };
 
-const Sidebar: FC = () => {
+interface SidebarProps {
+  titleInputRef: RefObject<HTMLInputElement>;
+  priceInputRef: RefObject<HTMLInputElement>;
+  descriptionTextareaRef: RefObject<HTMLTextAreaElement>;
+  linkInputRef: RefObject<HTMLInputElement>;
+}
+
+const Sidebar: FC<SidebarProps> = ({
+  titleInputRef,
+  priceInputRef,
+  descriptionTextareaRef,
+  linkInputRef
+}) => {
   const isOpen = useDrawerStore((state) => state.isOpen);
   const activeElement = useSidebarStore((state) => state.activeElement);
+
+  useEffect(() => {
+    const handleDrawerOpen = (e: CustomEvent) => {
+      setActiveElement(e.detail.type);
+    };
+
+    window.addEventListener('openDrawer', handleDrawerOpen as EventListener);
+    return () => {
+      window.removeEventListener('openDrawer', handleDrawerOpen as EventListener);
+    };
+  }, []);
 
   return (
     <aside 
