@@ -3,14 +3,12 @@ import ServiceCard from '../components/ServiceCard';
 
 const Services: FC = () => {
   return (
-    <div className="h-[calc(100vh-184px)] bg-gray-50">
-      <div className="h-full w-full overflow-y-auto custom-scrollbar">
-        <div className="min-h-full flex items-center justify-center">
-          <div className="w-[640px] my-6">
-            <ServiceCard />
-          </div>
-        </div>
-      </div>
+    <div>
+      <ServiceCard 
+        title="Moja pierwsza usługa"
+        price="79,00 zł"
+        description="To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)"
+      />
     </div>
   );
 };
