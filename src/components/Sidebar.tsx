@@ -1,10 +1,13 @@
-import { FC, useState, useRef } from 'react';
+import { FC, useState, useRef, Fragment } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 import { useUploadStore } from '../store/uploadStore';
 import IconSelect from './IconSelect';
 import { Icon } from '../types/icon';
 import { Switch } from '@headlessui/react';
+import { Listbox } from '@headlessui/react';
+import { Transition } from '@headlessui/react';
+import { CheckIcon } from '@heroicons/react/20/solid';
 
 interface IconProps {
   className?: string;
@@ -546,6 +549,21 @@ const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
   );
 };
 
+const LINK_OPTIONS = [
+  { id: 'details', name: 'Szczegóły' },
+  { id: 'more-info', name: 'Więcej informacji' },
+  { id: 'see-more', name: 'Zobacz więcej' }
+];
+
+const isValidUrl = (url: string) => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const ElementView: FC = () => {
   const activeElement = useSidebarStore((state) => state.activeElement);
   const setActiveElement = useSidebarStore((state) => state.setActiveElement);
@@ -556,6 +574,9 @@ const ElementView: FC = () => {
   const [regularPrice, setRegularPrice] = useState('');
   const [promoPrice, setPromoPrice] = useState('');
   const [hasPromoPrice, setHasPromoPrice] = useState(false);
+  const [linkUrl, setLinkUrl] = useState('');
+  const [selectedLinkText, setSelectedLinkText] = useState('');
+  const [linkError, setLinkError] = useState('');
 
   const getTitle = () => {
     switch (activeElement) {
@@ -585,6 +606,15 @@ const ElementView: FC = () => {
   const isOverLimit = activeElement === 'title' ? title.length === 30 : description.length === 300;
   const maxLength = activeElement === 'title' ? 30 : 300;
   const currentLength = activeElement === 'title' ? title.length : description.length;
+
+  const handleLinkChange = (value: string) => {
+    setLinkUrl(value);
+    if (value && !isValidUrl(value)) {
+      setLinkError('Pole musi zawierać link');
+    } else {
+      setLinkError('');
+    }
+  };
 
   const renderPriceContent = () => {
     if (activeElement !== 'price') return null;
@@ -621,6 +651,98 @@ const ElementView: FC = () => {
             onChange={setPromoPrice}
           />
         )}
+      </div>
+    );
+  };
+
+  const renderLinkContent = () => {
+    if (activeElement !== 'link') return null;
+
+    return (
+      <div className="space-y-4">
+        <div>
+          <input
+            type="text"
+            value={linkUrl}
+            onChange={(e) => handleLinkChange(e.target.value)}
+            placeholder="Wklej link"
+            className={`w-full rounded-lg border ${
+              linkError ? 'border-error' : 'border-gray-200'
+            } py-2 px-3 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary`}
+          />
+          {linkError && (
+            <p className="mt-1 text-sm text-error">
+              {linkError}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <Listbox value={selectedLinkText} onChange={setSelectedLinkText}>
+            <div className="relative mt-1">
+              <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left border border-gray-200 focus:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/25 text-sm">
+                <span className={`block truncate ${!selectedLinkText ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {selectedLinkText || 'Wybierz nazwę linku'}
+                </span>
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-gray-400"
+                  >
+                    <path 
+                      d="M6 9L12 15L18 9" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </Listbox.Button>
+              <Transition
+                as={Fragment}
+                leave="transition ease-in duration-100"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  {LINK_OPTIONS.map((option) => (
+                    <Listbox.Option
+                      key={option.id}
+                      className={({ active }) =>
+                        `relative cursor-pointer select-none py-2 pl-3 pr-9 ${
+                          active ? 'bg-gray-50' : ''
+                        }`
+                      }
+                      value={option.name}
+                    >
+                      {({ selected, active }) => (
+                        <>
+                          <span className={`block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
+                            {option.name}
+                          </span>
+                          {selected && (
+                            <span
+                              className={`absolute inset-y-0 right-0 flex items-center pr-4 ${
+                                active ? 'text-gray-600' : 'text-primary'
+                              }`}
+                            >
+                              <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </Listbox.Option>
+                  ))}
+                </Listbox.Options>
+              </Transition>
+            </div>
+          </Listbox>
+        </div>
       </div>
     );
   };
@@ -713,6 +835,8 @@ const ElementView: FC = () => {
         )}
 
         {activeElement === 'price' && renderPriceContent()}
+
+        {activeElement === 'link' && renderLinkContent()}
       </div>
 
       <div className="fixed bottom-0 right-0 w-[400px] bg-white border-t border-gray-100">
