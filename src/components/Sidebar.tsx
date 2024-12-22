@@ -458,20 +458,35 @@ interface PriceInputProps {
 }
 
 const formatPrice = (price: string): string => {
-  // Usuń wszystkie znaki oprócz cyfr
-  const numericValue = price.replace(/\D/g, '');
+  // Zamień kropkę na przecinek
+  const valueWithComma = price.replace('.', ',');
+  
+  // Podziel na część całkowitą i dziesiętną
+  const [wholePart, decimalPart] = valueWithComma.split(',');
+  
+  // Usuń wszystkie znaki oprócz cyfr z części całkowitej
+  const cleanWholePart = wholePart.replace(/\D/g, '');
   
   // Jeśli nie ma wartości, zwróć pusty string
-  if (!numericValue) return '';
+  if (!cleanWholePart) return '';
   
-  // Konwertuj na liczbę
-  const numberValue = Number(numericValue);
+  // Konwertuj część całkowitą na liczbę
+  const numberValue = Number(cleanWholePart);
   
-  // Formatuj liczbę z separatorem tysięcy i dwoma miejscami po przecinku
-  return numberValue.toLocaleString('pl-PL', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  });
+  // Formatuj część całkowitą z separatorem tysięcy
+  const formattedWholePart = numberValue.toLocaleString('pl-PL');
+  
+  // Jeśli jest część dziesiętna, dodaj ją
+  if (decimalPart) {
+    // Ogranicz część dziesiętną do 2 cyfr
+    const cleanDecimalPart = decimalPart.replace(/\D/g, '').slice(0, 2);
+    // Dodaj zero jeśli potrzeba
+    const paddedDecimalPart = cleanDecimalPart.padEnd(2, '0');
+    return `${formattedWholePart},${paddedDecimalPart}`;
+  }
+  
+  // Jeśli nie ma części dziesiętnej, dodaj ",00"
+  return `${formattedWholePart},00`;
 };
 
 const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
@@ -479,10 +494,15 @@ const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
   const [rawValue, setRawValue] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Pozwól tylko na cyfry
-    const newValue = e.target.value.replace(/\D/g, '');
-    setRawValue(newValue);
-    onChange(newValue);
+    // Pozwól na cyfry, przecinek i kropkę
+    const newValue = e.target.value.replace(/[^\d.,]/g, '');
+    // Upewnij się, że jest tylko jeden separator dziesiętny
+    const normalizedValue = newValue.replace(/[.,]/g, (match, offset) => {
+      return newValue.indexOf('.') !== offset && newValue.indexOf(',') !== offset ? '' : match;
+    });
+    
+    setRawValue(normalizedValue);
+    onChange(normalizedValue);
   };
 
   const handleBlur = () => {
