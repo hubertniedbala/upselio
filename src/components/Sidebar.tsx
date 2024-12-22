@@ -872,7 +872,7 @@ const Sidebar: FC<SidebarProps> = ({
   const setActiveElement = useSidebarStore((state) => state.setActiveElement);
 
   useEffect(() => {
-    const handleDrawerOpen = (e: CustomEvent) => {
+    const handleDrawerOpen = (e: CustomEvent<{ type: string }>) => {
       setActiveElement(e.detail.type);
     };
 
@@ -880,7 +880,7 @@ const Sidebar: FC<SidebarProps> = ({
     return () => {
       window.removeEventListener('openDrawer', handleDrawerOpen as EventListener);
     };
-  }, []);
+  }, [setActiveElement]);
 
   return (
     <aside 
