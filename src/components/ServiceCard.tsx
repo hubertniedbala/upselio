@@ -7,6 +7,11 @@ interface ServiceCardProps {
   description?: string;
   isSelected?: boolean;
   onClick?: () => void;
+  onIconClick?: () => void;
+  onTitleClick?: () => void;
+  onPriceClick?: () => void;
+  onDescriptionClick?: () => void;
+  onLinkClick?: () => void;
 }
 
 const ServiceCard: FC<ServiceCardProps> = ({
@@ -14,7 +19,12 @@ const ServiceCard: FC<ServiceCardProps> = ({
   price = "79,00 zł",
   description = "To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)",
   isSelected = false,
-  onClick
+  onClick,
+  onIconClick,
+  onTitleClick,
+  onPriceClick,
+  onDescriptionClick,
+  onLinkClick
 }) => {
   const [hoveredElement, setHoveredElement] = useState<string | null>(null);
   const [clickedElement, setClickedElement] = useState<string | null>(null);
