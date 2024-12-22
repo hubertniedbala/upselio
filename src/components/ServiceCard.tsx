@@ -1,64 +1,81 @@
-import { FC, SVGProps } from 'react';
-import { ServiceIcon } from './icons';
+import { FC, useState } from 'react';
+import { Monitor, Plus } from 'lucide-react';
 
-interface IconProps extends SVGProps<SVGSVGElement> {
-  className?: string;
+interface ServiceCardProps {
+  title: string;
+  price: string;
+  description: string;
+  isSelected?: boolean;
+  onClick?: () => void;
 }
 
-const PlusIcon: FC<IconProps> = ({ className, ...props }) => (
-  <svg 
-    width="20" 
-    height="20" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-    {...props}
-  >
-    <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const ServiceCard: FC<ServiceCardProps> = ({
+  title,
+  price,
+  description,
+  isSelected = false,
+  onClick
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
 
-const ServiceCard: FC = () => {
+  const getBorderStyles = () => {
+    if (isSelected) return 'border-primary';
+    if (isHovered) return 'border-gray-300';
+    return 'border-transparent';
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow border border-gray-100 p-4">
-      <div className="flex gap-3">
-        {/* Icon */}
-        <div className="flex-shrink-0">
-          <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-            <ServiceIcon className="text-primary" />
+    <div 
+      className={`flex p-3 w-[430px] border rounded-lg transition-all duration-200 ${getBorderStyles()}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+    >
+      {/* Icon Container */}
+      <div className={`flex-none w-14 h-14 rounded-lg bg-[#333333] flex items-center justify-center ${isSelected ? 'border border-primary' : ''}`}>
+        <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
+          <Monitor className="w-5 h-5 text-primary" />
+        </div>
+      </div>
+
+      {/* Content Container */}
+      <div className="flex flex-col flex-grow ml-4 space-y-2">
+        {/* Title and Price */}
+        <div className="flex justify-between items-center">
+          <div className={`px-2 py-1 rounded-md ${isSelected ? 'border border-primary' : ''}`}>
+            <span className="text-lg font-medium text-[#10182a] tracking-tight">
+              {title}
+            </span>
+          </div>
+          <div className={`px-2 py-1 rounded-md ${isSelected ? 'border border-primary' : ''}`}>
+            <span className="text-lg font-medium text-[#10182a] tracking-tight">
+              {price}
+            </span>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex-1">
-          {/* Title and Price */}
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-gray-600 text-lg font-medium font-poppins">
-              Tytuł usługi
-            </h3>
-            <div className="text-gray-600 text-lg font-medium font-poppins">
-              0,00 zł
-            </div>
-          </div>
-
-          {/* Description */}
-          <p className="text-gray-400 text-sm font-normal font-inter mb-4">
-            Tutaj wpisz swój opis usługi. Treść powinna zachęcać klientów do skorzystania więc nie zapomnij o języku korzyści.
+        {/* Description */}
+        <div className={`p-2 bg-[#f4f4f4] rounded-md ${isSelected ? 'border border-primary' : ''}`}>
+          <p className="text-sm text-[#475466]">
+            {description}
           </p>
+        </div>
 
-          {/* Footer */}
-          <div className="flex justify-between items-center">
-            <button className="text-primary text-sm font-medium font-poppins">
-              Szczegóły
-            </button>
-            <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors">
-              <PlusIcon className="text-gray-500" />
-              <span className="text-gray-500 font-poppins text-sm font-medium">
-                Dodaj
-              </span>
-            </button>
-          </div>
+        {/* Actions */}
+        <div className="flex justify-between items-center pt-2">
+          <button className={`text-sm font-medium text-primary px-2 py-1 rounded-md ${isSelected ? 'border border-primary' : ''}`}>
+            Szczegóły
+          </button>
+          <button 
+            className={`flex items-center px-4 py-2 bg-white border shadow-sm rounded-md transition-colors
+              ${isSelected ? 'border-primary' : 'border-[#d0d4dc]'}
+              hover:border-gray-400`}
+          >
+            <Plus className="text-[#34425a]" />
+            <span className="ml-2 text-sm font-medium text-[#34425a]">
+              Dodaj
+            </span>
+          </button>
         </div>
       </div>
     </div>
