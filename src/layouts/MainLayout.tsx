@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useDrawerStore } from '../store/drawerStore';
 import Navbar from '../components/Navbar';
@@ -10,6 +10,10 @@ const MainLayout: FC = () => {
   const location = useLocation();
   const showTabNav = location.pathname !== '/all';
   const showSidebar = location.pathname === '/services/new';
+  const titleInputRef = useRef<HTMLInputElement>(null);
+  const priceInputRef = useRef<HTMLInputElement>(null);
+  const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const linkInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!showSidebar) {
@@ -39,7 +43,12 @@ const MainLayout: FC = () => {
         </main>
       </div>
 
-      {showSidebar && <Sidebar />}
+      {showSidebar && <Sidebar 
+        titleInputRef={titleInputRef}
+        priceInputRef={priceInputRef}
+        descriptionTextareaRef={descriptionTextareaRef}
+        linkInputRef={linkInputRef}
+      />}
     </div>
   );
 };

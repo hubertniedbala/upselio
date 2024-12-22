@@ -870,6 +870,7 @@ const Sidebar: FC<SidebarProps> = ({
 }) => {
   const isOpen = useDrawerStore((state) => state.isOpen);
   const activeElement = useSidebarStore((state) => state.activeElement);
+  const setActiveElement = useSidebarStore((state) => state.setActiveElement);
 
   useEffect(() => {
     const handleDrawerOpen = (e: CustomEvent) => {
