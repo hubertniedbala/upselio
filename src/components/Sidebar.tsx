@@ -4,6 +4,7 @@ import { useSidebarStore } from '../store/sidebarStore';
 import { useUploadStore } from '../store/uploadStore';
 import IconSelect from './IconSelect';
 import { Icon } from '../types/icon';
+import { Switch } from '@headlessui/react';
 
 interface IconProps {
   className?: string;
@@ -450,6 +451,29 @@ const UploadArea: FC = () => {
   );
 };
 
+interface PriceInputProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
+  return (
+    <div className="relative">
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={label}
+        className="w-full rounded-lg border border-gray-200 py-2 px-3 pr-16 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+      />
+      <div className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 border-l border-gray-200">
+        <span className="text-sm">PLN</span>
+      </div>
+    </div>
+  );
+};
+
 const ElementView: FC = () => {
   const activeElement = useSidebarStore((state) => state.activeElement);
   const setActiveElement = useSidebarStore((state) => state.setActiveElement);
@@ -457,6 +481,9 @@ const ElementView: FC = () => {
   const [description, setDescription] = useState('');
   const { uploadType, setUploadType } = useUploadStore();
   const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
+  const [regularPrice, setRegularPrice] = useState('');
+  const [promoPrice, setPromoPrice] = useState('');
+  const [hasPromoPrice, setHasPromoPrice] = useState(false);
 
   const getTitle = () => {
     switch (activeElement) {
@@ -486,6 +513,54 @@ const ElementView: FC = () => {
   const isOverLimit = activeElement === 'title' ? title.length === 30 : description.length === 300;
   const maxLength = activeElement === 'title' ? 30 : 300;
   const currentLength = activeElement === 'title' ? title.length : description.length;
+
+  const renderPriceContent = () => {
+    if (activeElement !== 'price') return null;
+
+    return (
+      <div className="space-y-4">
+        <div className="mb-6">
+          <h2 className="text-lg font-medium text-gray-600 mb-2">Cena</h2>
+          <p className="text-sm text-gray-400">
+            Podaj cenę regularną bądź promocyjną. Zaznaczenie opcji z ceną promocyjną sprawi, że cena regularna będzie skreślona.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <PriceInput
+            label="Wpisz cenę regularną usługi"
+            value={regularPrice}
+            onChange={setRegularPrice}
+          />
+
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-600">Ustaw cenę promocyjną</span>
+            <Switch
+              checked={hasPromoPrice}
+              onChange={setHasPromoPrice}
+              className={`${
+                hasPromoPrice ? 'bg-primary' : 'bg-gray-200'
+              } relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/25`}
+            >
+              <span
+                className={`${
+                  hasPromoPrice ? 'translate-x-4' : 'translate-x-0.5'
+                } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out`}
+              />
+            </Switch>
+          </div>
+
+          {hasPromoPrice && (
+            <PriceInput
+              label="Wpisz cenę promocyjną usługi"
+              value={promoPrice}
+              onChange={setPromoPrice}
+            />
+          )}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="flex flex-col min-h-full">
@@ -573,6 +648,8 @@ const ElementView: FC = () => {
             )}
           </div>
         )}
+
+        {activeElement === 'price' && renderPriceContent()}
       </div>
 
       <div className="fixed bottom-0 right-0 w-[400px] bg-white border-t border-gray-100">
