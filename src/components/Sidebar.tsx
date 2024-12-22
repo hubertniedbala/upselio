@@ -5,28 +5,16 @@ import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 import { useUploadStore } from '../store/uploadStore';
 import type { SidebarProps } from '../types/sidebar';
-import {
-  TitleIcon,
-  DescriptionIcon,
-  LogoIcon,
-  PriceIcon,
-  LinkIcon,
-  type Icon
-} from '../components/icons';
 
-interface State {
+interface DrawerState {
   isOpen: boolean;
-  activeElement: string;
-  setActiveElement: (type: string) => void;
 }
 
 const LibraryView: FC = () => {
-  // ... implementacja LibraryView
   return <div>Library View</div>;
 };
 
 const ElementView: FC = () => {
-  // ... implementacja ElementView
   return <div>Element View</div>;
 };
 
@@ -36,9 +24,9 @@ const Sidebar: FC<SidebarProps> = ({
   descriptionTextareaRef,
   linkInputRef
 }) => {
-  const isOpen = useDrawerStore((state: State) => state.isOpen);
-  const activeElement = useSidebarStore((state: State) => state.activeElement);
-  const setActiveElement = useSidebarStore((state: State) => state.setActiveElement);
+  const isOpen = useDrawerStore((state: DrawerState) => state.isOpen);
+  const activeElement = useSidebarStore((state) => state.activeElement);
+  const setActiveElement = useSidebarStore((state) => state.setActiveElement);
 
   useEffect(() => {
     const handleDrawerOpen = (e: CustomEvent<{ type: string }>) => {
