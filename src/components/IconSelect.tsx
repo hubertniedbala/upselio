@@ -89,8 +89,16 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
           </Combobox.Label>
           <div className="relative">
             <Combobox.Button as="div" className="relative w-full">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                {selectedIcon && (
+                  <div 
+                    className="w-5 h-5 flex items-center justify-center text-gray-500"
+                    dangerouslySetInnerHTML={{ __html: selectedIcon.icon }}
+                  />
+                )}
+              </div>
               <Combobox.Input
-                className="w-full rounded-lg border border-gray-200 py-2 pl-3 pr-10 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                className={`w-full rounded-lg border border-gray-200 py-2 ${selectedIcon ? 'pl-10' : 'pl-3'} pr-10 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary`}
                 onChange={(event) => setQuery(event.target.value)}
                 displayValue={(icon: Icon) => icon?.name || ''}
                 placeholder="Wyszukaj ikonę..."
@@ -136,7 +144,7 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
                     <>
                       <div className="flex items-center">
                         <div 
-                          className="w-6 h-6 flex items-center justify-center text-gray-500"
+                          className="w-5 h-5 flex items-center justify-center text-gray-500"
                           dangerouslySetInnerHTML={{ __html: icon.icon }}
                         />
                         <span className={`ml-3 block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
