@@ -6,10 +6,9 @@ interface ServiceListItemProps {
   date: string;
   price: string;
   category: string;
-  status: string;
 }
 
-const ServiceListItem: FC<ServiceListItemProps> = ({ name, date, price, category, status }) => {
+const ServiceListItem: FC<ServiceListItemProps> = ({ name, date, price, category }) => {
   const [enabled, setEnabled] = useState(true);
 
   return (
