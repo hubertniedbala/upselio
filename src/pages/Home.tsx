@@ -2,10 +2,21 @@ import { FC } from 'react';
 import ServiceCard from '../components/ServiceCard';
 
 const Home: FC = () => {
+  const defaultServiceData = {
+    title: "Moja pierwsza usługa",
+    price: "79,00 zł",
+    description: "To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)"
+  };
+
   return (
-    <div className="w-[640px] mx-auto flex flex-col gap-6">
-      <ServiceCard />
-      <div className="w-[57.40px] h-[54.01px] bg-gray-50 rounded-md border" />
+    <div className="h-[calc(100vh-184px)] bg-gray-50">
+      <div className="h-full w-full overflow-y-auto custom-scrollbar">
+        <div className="min-h-full flex items-center justify-center">
+          <div className="w-[430px] my-6">
+            <ServiceCard {...defaultServiceData} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

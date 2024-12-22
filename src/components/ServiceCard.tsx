@@ -6,11 +6,7 @@ interface ServiceCardProps {
   price?: string;
   description?: string;
   isSelected?: boolean;
-  onIconClick?: () => void;
-  onTitleClick?: () => void;
-  onPriceClick?: () => void;
-  onDescriptionClick?: () => void;
-  onLinkClick?: () => void;
+  onClick?: () => void;
 }
 
 const ServiceCard: FC<ServiceCardProps> = ({
@@ -18,51 +14,26 @@ const ServiceCard: FC<ServiceCardProps> = ({
   price = "79,00 zł",
   description = "To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)",
   isSelected = false,
-  onIconClick,
-  onTitleClick,
-  onPriceClick,
-  onDescriptionClick,
-  onLinkClick
+  onClick
 }) => {
   const [hoveredElement, setHoveredElement] = useState<string | null>(null);
   const [clickedElement, setClickedElement] = useState<string | null>(null);
 
-  const handleElementClick = (element: string) => {
+  const handleClick = (element: string) => {
     setClickedElement(clickedElement === element ? null : element);
-    switch (element) {
-      case 'icon':
-        onIconClick?.();
-        break;
-      case 'title':
-        onTitleClick?.();
-        break;
-      case 'price':
-        onPriceClick?.();
-        break;
-      case 'description':
-        onDescriptionClick?.();
-        break;
-      case 'details':
-        onLinkClick?.();
-        break;
-    }
-  };
-
-  const getBorderStyles = (element: string) => {
-    if (clickedElement === element || isSelected) return 'border-[#2271B1] ring-2 ring-[#2271B1]/25';
-    if (hoveredElement === element) return 'border-[#D9DCE4]';
-    return 'border-transparent';
+    if (onClick) onClick();
   };
 
   return (
     <div className="flex p-3 w-[430px] bg-white rounded-lg shadow-sm">
       {/* Icon Container */}
       <div 
-        className={`flex-none w-14 h-14 rounded-lg flex items-center justify-center border transition-all cursor-pointer
-          ${getBorderStyles('icon')}`}
+        className={`flex-none w-14 h-14 rounded-lg flex items-center justify-center border
+          ${hoveredElement === 'icon' ? 'border-[#D9DCE4]' : 'border-transparent'}
+          ${clickedElement === 'icon' ? 'border-[#2271B1]' : ''}`}
         onMouseEnter={() => setHoveredElement('icon')}
         onMouseLeave={() => setHoveredElement(null)}
-        onClick={() => handleElementClick('icon')}
+        onClick={() => handleClick('icon')}
       >
         <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
           <Monitor className="w-5 h-5 text-primary" />
@@ -74,22 +45,24 @@ const ServiceCard: FC<ServiceCardProps> = ({
         {/* Title and Price */}
         <div className="flex justify-between items-center">
           <div 
-            className={`px-2 py-1 rounded-md border transition-all cursor-pointer
-              ${getBorderStyles('title')}`}
+            className={`px-2 py-1 rounded-md border
+              ${hoveredElement === 'title' ? 'border-[#D9DCE4]' : 'border-transparent'}
+              ${clickedElement === 'title' ? 'border-[#2271B1]' : ''}`}
             onMouseEnter={() => setHoveredElement('title')}
             onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleElementClick('title')}
+            onClick={() => handleClick('title')}
           >
             <span className="text-lg font-medium text-[#10182a] tracking-tight">
               {title}
             </span>
           </div>
           <div 
-            className={`px-2 py-1 rounded-md border transition-all cursor-pointer
-              ${getBorderStyles('price')}`}
+            className={`px-2 py-1 rounded-md border
+              ${hoveredElement === 'price' ? 'border-[#D9DCE4]' : 'border-transparent'}
+              ${clickedElement === 'price' ? 'border-[#2271B1]' : ''}`}
             onMouseEnter={() => setHoveredElement('price')}
             onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleElementClick('price')}
+            onClick={() => handleClick('price')}
           >
             <span className="text-lg font-medium text-[#10182a] tracking-tight">
               {price}
@@ -99,11 +72,12 @@ const ServiceCard: FC<ServiceCardProps> = ({
 
         {/* Description */}
         <div 
-          className={`p-2 rounded-md border transition-all cursor-pointer
-              ${getBorderStyles('description')}`}
+          className={`p-2 rounded-md border
+              ${hoveredElement === 'description' ? 'border-[#D9DCE4]' : 'border-transparent'}
+              ${clickedElement === 'description' ? 'border-[#2271B1]' : ''}`}
           onMouseEnter={() => setHoveredElement('description')}
           onMouseLeave={() => setHoveredElement(null)}
-          onClick={() => handleElementClick('description')}
+          onClick={() => handleClick('description')}
         >
           <p className="text-sm text-[#475466]">
             {description}
@@ -113,20 +87,22 @@ const ServiceCard: FC<ServiceCardProps> = ({
         {/* Actions */}
         <div className="flex justify-between items-center pt-2">
           <button 
-            className={`text-sm font-medium text-primary px-2 py-1 rounded-md border transition-all cursor-pointer
-              ${getBorderStyles('details')}`}
+            className={`text-sm font-medium text-primary px-2 py-1 rounded-md border
+              ${hoveredElement === 'details' ? 'border-[#D9DCE4]' : 'border-transparent'}
+              ${clickedElement === 'details' ? 'border-[#2271B1]' : ''}`}
             onMouseEnter={() => setHoveredElement('details')}
             onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleElementClick('details')}
+            onClick={() => handleClick('details')}
           >
             Szczegóły
           </button>
           <button 
-            className={`flex items-center px-4 py-2 bg-white border shadow-sm rounded-md transition-all
-              ${getBorderStyles('add')}`}
+            className={`flex items-center px-4 py-2 bg-white border shadow-sm rounded-md transition-colors
+              ${hoveredElement === 'add' ? 'border-[#D9DCE4]' : 'border-[#d0d4dc]'}
+              ${clickedElement === 'add' ? 'border-[#2271B1]' : ''}`}
             onMouseEnter={() => setHoveredElement('add')}
             onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleElementClick('add')}
+            onClick={() => handleClick('add')}
           >
             <Plus className="text-[#34425a]" />
             <span className="ml-2 text-sm font-medium text-[#34425a]">
