@@ -2,12 +2,7 @@ import { FC } from 'react';
 import { useState, useEffect } from 'react';
 import { Combobox } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/20/solid';
-
-interface Icon {
-  id: string;
-  name: string;
-  icon: string;
-}
+import { Icon } from '../types/icon';
 
 // Lista ikon z Font Awesome (regular)
 const icons: Icon[] = [

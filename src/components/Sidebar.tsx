@@ -3,6 +3,7 @@ import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 import { useUploadStore } from '../store/uploadStore';
 import IconSelect from './IconSelect';
+import { Icon } from '../types/icon';
 
 interface IconProps {
   className?: string;
