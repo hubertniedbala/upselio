@@ -146,7 +146,7 @@ interface UploadProgressProps {
   progress: number;
   onCancel?: () => void;
   onDelete?: () => void;
-  imageUrl?: string | null;
+  imageUrl?: string;
 }
 
 const UploadProgress: FC<UploadProgressProps> = ({ 
@@ -172,7 +172,7 @@ const UploadProgress: FC<UploadProgressProps> = ({
   return (
     <div className={`flex items-center p-4 bg-white rounded-lg ${isCompleted ? 'border-primary' : 'border-gray-200'} border`}>
       <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center overflow-hidden">
-        {progress === 100 ? (
+        {progress === 100 && imageUrl ? (
           <div className="w-full h-full">
             <img 
               src={imageUrl} 
@@ -390,7 +390,7 @@ const UploadArea: FC = () => {
           progress={uploadProgress.progress}
           onCancel={isUploading ? cancelUpload : undefined}
           onDelete={uploadProgress.progress === 100 ? deleteUpload : undefined}
-          imageUrl={uploadedImage}
+          imageUrl={uploadedImage || undefined}
         />
       ) : (
         <div
