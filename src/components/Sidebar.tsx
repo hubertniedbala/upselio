@@ -464,12 +464,11 @@ const formatPrice = (price: string): string => {
   // Jeśli nie ma wartości, zwróć pusty string
   if (!numericValue) return '';
   
-  // Konwertuj na liczbę
-  const numberValue = Number(numericValue);
+  // Konwertuj na liczbę i dodaj dwa zera na końcu
+  const numberValue = Number(numericValue + '00');
   
   // Formatuj liczbę z separatorem tysięcy i dwoma miejscami po przecinku
-  // Nie dzielimy przez 100, aby zachować wprowadzoną wartość
-  return numberValue.toLocaleString('pl-PL', {
+  return (numberValue / 100).toLocaleString('pl-PL', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
