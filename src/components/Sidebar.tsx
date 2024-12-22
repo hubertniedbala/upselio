@@ -2,6 +2,7 @@ import { FC, useState, useRef } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 import { useUploadStore } from '../store/uploadStore';
+import IconSelect from './IconSelect';
 
 interface IconProps {
   className?: string;
@@ -454,6 +455,7 @@ const ElementView: FC = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { uploadType, setUploadType, uploadedLogoPreview } = useUploadStore();
+  const [selectedIcon, setSelectedIcon] = useState(null);
 
   const getTitle = () => {
     switch (activeElement) {
@@ -555,12 +557,19 @@ const ElementView: FC = () => {
               </button>
             </div>
             
-            <div className={uploadType === 'icon' ? 'hidden' : ''}>
+            {uploadType === 'logo' ? (
               <UploadArea />
-            </div>
-            <div className={uploadType === 'logo' ? 'hidden' : 'mt-4'}>
-              {/* Tu dodamy później wybór ikony */}
-            </div>
+            ) : (
+              <div className="mt-4">
+                <IconSelect
+                  selectedIcon={selectedIcon}
+                  onSelect={(icon) => {
+                    setSelectedIcon(icon);
+                    // Tu możemy dodać logikę zapisywania wybranej ikony
+                  }}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
