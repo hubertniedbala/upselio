@@ -555,12 +555,12 @@ const ElementView: FC = () => {
               </button>
             </div>
             
-            {uploadType === 'logo' && <UploadArea />}
-            {uploadType === 'icon' && (
-              <div className="mt-4">
-                {/* Tu dodamy później wybór ikony */}
-              </div>
-            )}
+            <div className={uploadType === 'icon' ? 'hidden' : ''}>
+              <UploadArea />
+            </div>
+            <div className={uploadType === 'logo' ? 'hidden' : 'mt-4'}>
+              {/* Tu dodamy później wybór ikony */}
+            </div>
           </div>
         )}
       </div>
