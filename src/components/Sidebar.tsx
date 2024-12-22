@@ -455,7 +455,7 @@ const ElementView: FC = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const { uploadType, setUploadType, uploadedLogoPreview } = useUploadStore();
-  const [selectedIcon, setSelectedIcon] = useState(null);
+  const [selectedIcon, setSelectedIcon] = useState<Icon | null>(null);
 
   const getTitle = () => {
     switch (activeElement) {
@@ -563,7 +563,7 @@ const ElementView: FC = () => {
               <div className="mt-4">
                 <IconSelect
                   selectedIcon={selectedIcon}
-                  onSelect={(icon) => {
+                  onSelect={(icon: Icon) => {
                     setSelectedIcon(icon);
                     // Tu możemy dodać logikę zapisywania wybranej ikony
                   }}
