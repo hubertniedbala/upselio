@@ -107,6 +107,14 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
     }
   }, [query]);
 
+  const toggleList = () => {
+    setIsOpen(!isOpen);
+    if (!isOpen) {
+      setFilteredIcons(icons);
+      setQuery('');
+    }
+  };
+
   return (
     <div className="w-full">
       <Combobox 
@@ -128,11 +136,11 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
                 onChange={(event) => setQuery(event.target.value)}
                 displayValue={(icon: Icon) => icon?.name || ''}
                 placeholder="Wyszukaj ikonę..."
-                onClick={() => setIsOpen(true)}
+                onClick={toggleList}
               />
               <button 
                 className="absolute inset-y-0 right-0 flex items-center pr-2"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={toggleList}
               >
                 <svg 
                   width="20" 
@@ -169,8 +177,10 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
                   {({ selected, active }) => (
                     <>
                       <div className="flex items-center">
-                        <i className={`${icon.icon} text-primary text-lg w-6 h-6 mr-3 flex items-center justify-center`} />
-                        <span className={`block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
+                        <div className="w-6 h-6 flex items-center justify-center text-primary">
+                          <i className={`${icon.icon} text-lg`} />
+                        </div>
+                        <span className={`ml-3 block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
                           {icon.name}
                         </span>
                       </div>
