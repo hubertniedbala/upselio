@@ -110,66 +110,69 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
             <Combobox.Label className="block text-sm font-medium text-gray-600 mb-2">
               Lista ikon
             </Combobox.Label>
-            <Combobox.Input
-              className="w-full rounded-lg border border-gray-200 py-2 pl-3 pr-10 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-              onChange={(event) => setQuery(event.target.value)}
-              displayValue={(icon: Icon) => icon?.name || ''}
-              placeholder="Wyszukaj ikonę..."
-            />
-            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <svg
-                className="h-5 w-5 text-gray-400"
-                viewBox="0 0 20 20"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  d="M7 7l3-3 3 3m0 6l-3 3-3-3"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Combobox.Button>
-          </div>
-          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {filteredIcons.length === 0 && query !== '' ? (
-              <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                Nie znaleziono ikon.
-              </div>
-            ) : (
-              filteredIcons.map((icon) => (
-                <Combobox.Option
-                  key={icon.id}
-                  className={({ active }) =>
-                    `relative cursor-pointer select-none py-2 pl-3 pr-9 ${
-                      active ? 'bg-primary text-white' : 'text-gray-900'
-                    }`
-                  }
-                  value={icon}
+            <div className="relative">
+              <Combobox.Input
+                className="w-full rounded-lg border border-gray-200 py-2 pl-3 pr-10 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                onChange={(event) => setQuery(event.target.value)}
+                displayValue={(icon: Icon) => icon?.name || ''}
+                placeholder="Wyszukaj ikonę..."
+                onClick={() => setQuery('')}
+              />
+              <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                <svg 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-gray-400"
                 >
-                  {({ selected, active }) => (
-                    <>
-                      <div className="flex items-center">
-                        <i className={`${icon.icon} w-5 h-5 mr-3`} />
-                        <span className={`block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
-                          {icon.name}
-                        </span>
-                      </div>
-                      {selected ? (
-                        <span
-                          className={`absolute inset-y-0 right-0 flex items-center pr-4 ${
-                            active ? 'text-white' : 'text-primary'
-                          }`}
-                        >
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
-                </Combobox.Option>
-              ))
-            )}
+                  <path 
+                    d="M6 9L12 15L18 9" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Combobox.Button>
+            </div>
+          </div>
+          <Combobox.Options 
+            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            static
+          >
+            {filteredIcons.map((icon) => (
+              <Combobox.Option
+                key={icon.id}
+                className={({ active }) =>
+                  `relative mx-1.5 cursor-pointer select-none py-2 pl-3 pr-9 rounded-md ${
+                    active ? 'bg-gray-50' : ''
+                  }`
+                }
+                value={icon}
+              >
+                {({ selected, active }) => (
+                  <>
+                    <div className="flex items-center">
+                      <i className={`${icon.icon} text-lg w-6 h-6 mr-3 flex items-center justify-center`} />
+                      <span className={`block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
+                        {icon.name}
+                      </span>
+                    </div>
+                    {selected ? (
+                      <span
+                        className={`absolute inset-y-0 right-0 flex items-center pr-4 ${
+                          active ? 'text-gray-600' : 'text-primary'
+                        }`}
+                      >
+                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    ) : null}
+                  </>
+                )}
+              </Combobox.Option>
+            ))}
           </Combobox.Options>
         </div>
       </Combobox>
