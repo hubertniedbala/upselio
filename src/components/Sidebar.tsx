@@ -239,11 +239,42 @@ const UploadProgress: FC<UploadProgressProps> = ({
   );
 };
 
+const validateFile = (file: File): Promise<string | null> => {
+  // Sprawdzanie rozmiaru (2MB = 2 * 1024 * 1024 bytes)
+  if (file.size > 2 * 1024 * 1024) {
+    return Promise.resolve('Plik jest za duży. Maksymalny rozmiar to 2MB.');
+  }
+
+  // Sprawdzanie typu pliku
+  const allowedTypes = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif'];
+  if (!allowedTypes.includes(file.type)) {
+    return Promise.resolve('Niedozwolony format pliku. Dozwolone formaty to: SVG, PNG, JPG lub GIF.');
+  }
+
+  // Sprawdzanie wymiarów obrazka
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(img.src);
+      if (img.width > 800 || img.height > 400) {
+        resolve('Obrazek jest za duży. Maksymalne wymiary to 800x400px.');
+      }
+      resolve(null);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(img.src);
+      resolve('Nie udało się wczytać obrazka.');
+    };
+  });
+};
+
 const UploadArea: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { setUploadedLogo, setIsUploading, setError: setGlobalError } = useUploadStore();
+  const [isUploading, setIsUploading] = useState(false);
+  const { setUploadedLogo, setError: setGlobalError } = useUploadStore();
   const [uploadProgress, setUploadProgress] = useState<{ file: File; progress: number } | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const abortController = useRef<AbortController | null>(null);
@@ -294,13 +325,15 @@ const UploadArea: FC = () => {
 
       const data = await response.json();
       setUploadedLogo(data.url);
-      setUploadedImage(URL.createObjectURL(file));
+      if (file) {
+        setUploadedImage(URL.createObjectURL(file));
+      }
       setGlobalError(null);
-    } catch (err) {
-      if (err.name === 'AbortError') {
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
         return;
       }
-      setGlobalError(err instanceof Error ? err.message : 'Wystąpił błąd podczas przesyłania pliku');
+      setGlobalError(error instanceof Error ? error.message : 'Wystąpił błąd podczas przesyłania pliku');
       setUploadedLogo(null);
     } finally {
       setIsUploading(false);
