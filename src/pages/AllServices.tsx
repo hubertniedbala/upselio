@@ -74,7 +74,6 @@ const AllServices: FC = () => {
           date="20 wrz 2023 11:30"
           price="79,00 zł"
           category="Kategoria 2"
-          status="Gotowe"
         />
       </div>
     </div>
