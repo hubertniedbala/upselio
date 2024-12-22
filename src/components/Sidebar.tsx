@@ -504,10 +504,9 @@ const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
 
   const handleBlur = () => {
     setIsFocused(false);
-    // Przy wyjściu z inputa formatujemy wartość tylko jeśli jest niepusta
     if (rawValue) {
       const formattedValue = formatPrice(rawValue);
-      setRawValue(rawValue); // Zachowujemy oryginalną wartość
+      onChange(formattedValue);
     }
   };
 
