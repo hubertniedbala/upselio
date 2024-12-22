@@ -107,10 +107,11 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
     <div className="w-full">
       <Combobox 
         value={selectedIcon} 
-        onChange={(icon) => {
+        onChange={(icon: Icon) => {
           onSelect(icon);
           setIsOpen(false);
         }}
+        nullable={false}
         as="div" 
         className="relative"
       >
