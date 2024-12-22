@@ -62,9 +62,11 @@ const ElementView: FC = () => {
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
-    setUploadedLogo(file);
-    setUploadType('image');
+    const file = event.target.files?.[0];
+    if (file) {
+      setUploadedLogo(file);
+      setUploadType('image');
+    }
   };
 
   return (
