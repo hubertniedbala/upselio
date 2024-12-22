@@ -21,7 +21,12 @@ const linkTexts = [
   'Sprawdź szczegóły'
 ];
 
-const ElementView: FC = () => {
+const ElementView: FC<SidebarProps> = ({
+  titleInputRef,
+  priceInputRef,
+  descriptionTextareaRef,
+  linkInputRef
+}) => {
   const activeElement = useSidebarStore((state) => state.activeElement);
   const [selectedLinkText, setSelectedLinkText] = useState('Przejdź do usługi');
   const [isEnabled, setIsEnabled] = useState(false);
@@ -311,7 +316,16 @@ const Sidebar: FC<SidebarProps> = ({
     >
       <div className="h-full overflow-y-auto custom-scrollbar">
         <div className="p-6 w-full" style={{ marginRight: '-24px', paddingRight: '24px' }}>
-          {activeElement === 'library' ? <LibraryView /> : <ElementView />}
+          {activeElement === 'library' ? (
+            <LibraryView />
+          ) : (
+            <ElementView 
+              titleInputRef={titleInputRef}
+              priceInputRef={priceInputRef}
+              descriptionTextareaRef={descriptionTextareaRef}
+              linkInputRef={linkInputRef}
+            />
+          )}
         </div>
       </div>
     </aside>
