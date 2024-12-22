@@ -24,13 +24,18 @@ const ServiceCard: FC<ServiceCardProps> = ({
     if (onClick) onClick();
   };
 
+  const getBorderStyles = (element: string) => {
+    if (clickedElement === element || isSelected) return 'border-[#2271B1] ring-2 ring-[#2271B1]/25';
+    if (hoveredElement === element) return 'border-[#D9DCE4]';
+    return 'border-transparent';
+  };
+
   return (
     <div className="flex p-3 w-[430px] bg-white rounded-lg shadow-sm">
       {/* Icon Container */}
       <div 
-        className={`flex-none w-14 h-14 rounded-lg flex items-center justify-center border
-          ${hoveredElement === 'icon' ? 'border-[#D9DCE4]' : 'border-transparent'}
-          ${clickedElement === 'icon' ? 'border-[#2271B1]' : ''}`}
+        className={`flex-none w-14 h-14 rounded-lg flex items-center justify-center border transition-all
+          ${getBorderStyles('icon')}`}
         onMouseEnter={() => setHoveredElement('icon')}
         onMouseLeave={() => setHoveredElement(null)}
         onClick={() => handleClick('icon')}
@@ -45,9 +50,8 @@ const ServiceCard: FC<ServiceCardProps> = ({
         {/* Title and Price */}
         <div className="flex justify-between items-center">
           <div 
-            className={`px-2 py-1 rounded-md border
-              ${hoveredElement === 'title' ? 'border-[#D9DCE4]' : 'border-transparent'}
-              ${clickedElement === 'title' ? 'border-[#2271B1]' : ''}`}
+            className={`px-2 py-1 rounded-md border transition-all
+              ${getBorderStyles('title')}`}
             onMouseEnter={() => setHoveredElement('title')}
             onMouseLeave={() => setHoveredElement(null)}
             onClick={() => handleClick('title')}
@@ -57,9 +61,8 @@ const ServiceCard: FC<ServiceCardProps> = ({
             </span>
           </div>
           <div 
-            className={`px-2 py-1 rounded-md border
-              ${hoveredElement === 'price' ? 'border-[#D9DCE4]' : 'border-transparent'}
-              ${clickedElement === 'price' ? 'border-[#2271B1]' : ''}`}
+            className={`px-2 py-1 rounded-md border transition-all
+              ${getBorderStyles('price')}`}
             onMouseEnter={() => setHoveredElement('price')}
             onMouseLeave={() => setHoveredElement(null)}
             onClick={() => handleClick('price')}
@@ -72,9 +75,8 @@ const ServiceCard: FC<ServiceCardProps> = ({
 
         {/* Description */}
         <div 
-          className={`p-2 rounded-md border
-              ${hoveredElement === 'description' ? 'border-[#D9DCE4]' : 'border-transparent'}
-              ${clickedElement === 'description' ? 'border-[#2271B1]' : ''}`}
+          className={`p-2 rounded-md border transition-all
+              ${getBorderStyles('description')}`}
           onMouseEnter={() => setHoveredElement('description')}
           onMouseLeave={() => setHoveredElement(null)}
           onClick={() => handleClick('description')}
@@ -87,9 +89,8 @@ const ServiceCard: FC<ServiceCardProps> = ({
         {/* Actions */}
         <div className="flex justify-between items-center pt-2">
           <button 
-            className={`text-sm font-medium text-primary px-2 py-1 rounded-md border
-              ${hoveredElement === 'details' ? 'border-[#D9DCE4]' : 'border-transparent'}
-              ${clickedElement === 'details' ? 'border-[#2271B1]' : ''}`}
+            className={`text-sm font-medium text-primary px-2 py-1 rounded-md border transition-all
+              ${getBorderStyles('details')}`}
             onMouseEnter={() => setHoveredElement('details')}
             onMouseLeave={() => setHoveredElement(null)}
             onClick={() => handleClick('details')}
@@ -97,9 +98,8 @@ const ServiceCard: FC<ServiceCardProps> = ({
             Szczegóły
           </button>
           <button 
-            className={`flex items-center px-4 py-2 bg-white border shadow-sm rounded-md transition-colors
-              ${hoveredElement === 'add' ? 'border-[#D9DCE4]' : 'border-[#d0d4dc]'}
-              ${clickedElement === 'add' ? 'border-[#2271B1]' : ''}`}
+            className={`flex items-center px-4 py-2 bg-white border shadow-sm rounded-md transition-all
+              ${getBorderStyles('add')}`}
             onMouseEnter={() => setHoveredElement('add')}
             onMouseLeave={() => setHoveredElement(null)}
             onClick={() => handleClick('add')}
