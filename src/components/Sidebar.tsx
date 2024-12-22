@@ -1,102 +1,14 @@
-import { FC, Fragment, useEffect, useState } from 'react';
-import { Transition, Listbox, Switch } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/20/solid';
+import { FC, Fragment, useEffect } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
-import { useUploadStore } from '../store/uploadStore';
 import type { SidebarProps } from '../types/sidebar';
-import {
-  TitleIcon,
-  DescriptionIcon,
-  LogoIcon,
-  PriceIcon,
-  LinkIcon,
-} from '../icons';
 
 interface DrawerState {
   isOpen: boolean;
 }
 
-interface SidebarItemProps {
-  title: string;
-  description: string;
-  icon: FC<{ className?: string }>;
-  type: string;
-  hasDelete?: boolean;
-}
-
-const SidebarItem: FC<SidebarItemProps> = ({ title, description, icon: Icon, type, hasDelete }) => (
-  <div className="p-4 bg-white rounded-lg border border-gray-100 shadow-sm">
-    <div className="flex items-start">
-      <div className="flex-shrink-0">
-        <Icon className="w-5 h-5 text-gray-500" />
-      </div>
-      <div className="ml-3 flex-grow">
-        <h3 className="text-sm font-medium text-gray-900">{title}</h3>
-        <p className="mt-1 text-sm text-gray-500">{description}</p>
-      </div>
-      {hasDelete && (
-        <button className="ml-3 text-gray-400 hover:text-gray-500">
-          <span className="sr-only">Usuń</span>
-          {/* Możesz dodać ikonę usuwania */}
-        </button>
-      )}
-    </div>
-  </div>
-);
-
-const LibraryView: FC = () => (
-  <div className="transition-all duration-300 transform">
-    <div className="mb-6">
-      <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
-      <p className="text-sm text-gray-400">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
-    </div>
-    
-    <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
-    
-    <div className="space-y-4">
-      <SidebarItem 
-        title="Tytuł usługi" 
-        description="Tytuł usługi jaki chcesz dodać" 
-        icon={TitleIcon} 
-        type="title"
-      />
-      <SidebarItem 
-        title="Opis" 
-        description="Opis usługi jaki chcesz dodać" 
-        icon={DescriptionIcon} 
-        type="description"
-      />
-      <SidebarItem 
-        title="Logo" 
-        description="Jeśli chcesz dodać swoje logo" 
-        icon={LogoIcon} 
-        type="logo"
-        hasDelete
-      />
-      <SidebarItem 
-        title="Cena" 
-        description="Wskaż wartość usługi" 
-        icon={PriceIcon} 
-        type="price"
-      />
-      <SidebarItem 
-        title="Link" 
-        description="Wklej link do wybranej usługi" 
-        icon={LinkIcon} 
-        type="link"
-        hasDelete
-      />
-    </div>
-  </div>
-);
-
 const ElementView: FC = () => {
   const activeElement = useSidebarStore((state) => state.activeElement);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [link, setLink] = useState('');
 
   const getTitle = () => {
     switch (activeElement) {
@@ -144,8 +56,6 @@ const ElementView: FC = () => {
           <div>
             <input
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
               placeholder="Wpisz tytuł usługi"
               className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
             />
@@ -155,8 +65,6 @@ const ElementView: FC = () => {
         {activeElement === 'description' && (
           <div>
             <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
               placeholder="Wpisz opis usługi"
               rows={6}
               className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors resize-none"
@@ -168,8 +76,6 @@ const ElementView: FC = () => {
           <div>
             <input
               type="text"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
               placeholder="Wpisz cenę"
               className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
             />
@@ -180,8 +86,6 @@ const ElementView: FC = () => {
           <div>
             <input
               type="url"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
               placeholder="Wklej link"
               className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
             />
@@ -202,6 +106,21 @@ const ElementView: FC = () => {
     </div>
   );
 };
+
+const LibraryView: FC = () => (
+  <div className="transition-all duration-300 transform">
+    <div className="mb-6">
+      <h2 className="text-lg font-medium text-gray-600 mb-4">Biblioteka komponentów</h2>
+      <p className="text-sm text-gray-400">Wybierz elementy które chcesz by znajdowały się w Twoim komponencie.</p>
+    </div>
+    
+    <div className="text-sm font-medium text-gray-600 mb-4">Aktywne w komponencie</div>
+    
+    <div className="space-y-4">
+      {/* Lista elementów biblioteki */}
+    </div>
+  </div>
+);
 
 const Sidebar: FC<SidebarProps> = ({
   titleInputRef,
