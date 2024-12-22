@@ -58,7 +58,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
     <div className="flex p-3 w-[430px] bg-white rounded-lg shadow-sm">
       {/* Icon Container */}
       <div 
-        className={`flex-none w-14 h-14 rounded-lg flex items-center justify-center border transition-all
+        className={`flex-none w-14 h-14 rounded-lg flex items-center justify-center border transition-all cursor-pointer
           ${getBorderStyles('icon')}`}
         onMouseEnter={() => setHoveredElement('icon')}
         onMouseLeave={() => setHoveredElement(null)}
@@ -74,7 +74,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
         {/* Title and Price */}
         <div className="flex justify-between items-center">
           <div 
-            className={`px-2 py-1 rounded-md border transition-all
+            className={`px-2 py-1 rounded-md border transition-all cursor-pointer
               ${getBorderStyles('title')}`}
             onMouseEnter={() => setHoveredElement('title')}
             onMouseLeave={() => setHoveredElement(null)}
@@ -85,7 +85,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
             </span>
           </div>
           <div 
-            className={`px-2 py-1 rounded-md border transition-all
+            className={`px-2 py-1 rounded-md border transition-all cursor-pointer
               ${getBorderStyles('price')}`}
             onMouseEnter={() => setHoveredElement('price')}
             onMouseLeave={() => setHoveredElement(null)}
@@ -99,7 +99,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
 
         {/* Description */}
         <div 
-          className={`p-2 rounded-md border transition-all
+          className={`p-2 rounded-md border transition-all cursor-pointer
               ${getBorderStyles('description')}`}
           onMouseEnter={() => setHoveredElement('description')}
           onMouseLeave={() => setHoveredElement(null)}
@@ -113,7 +113,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
         {/* Actions */}
         <div className="flex justify-between items-center pt-2">
           <button 
-            className={`text-sm font-medium text-primary px-2 py-1 rounded-md border transition-all
+            className={`text-sm font-medium text-primary px-2 py-1 rounded-md border transition-all cursor-pointer
               ${getBorderStyles('details')}`}
             onMouseEnter={() => setHoveredElement('details')}
             onMouseLeave={() => setHoveredElement(null)}
