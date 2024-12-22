@@ -1,0 +1,16 @@
+{
+  "categories": {
+    "general": [
+      {
+        "id": "activity",
+        "name": "Activity",
+        "description": "activity, heartbeat, heart rate, exercise, pulse",
+        "svg": "<svg>...</svg>"
+      },
+      // ... więcej ikon
+    ],
+    "communication": [
+      // ... ikony z kategorii communication
+    ]
+  }
+} 
