@@ -464,11 +464,11 @@ const formatPrice = (price: string): string => {
   // Jeśli nie ma wartości, zwróć pusty string
   if (!numericValue) return '';
   
-  // Konwertuj na liczbę i dodaj dwa zera na końcu
-  const numberValue = Number(numericValue + '00');
+  // Konwertuj na liczbę
+  const numberValue = Number(numericValue);
   
   // Formatuj liczbę z separatorem tysięcy i dwoma miejscami po przecinku
-  return (numberValue / 100).toLocaleString('pl-PL', {
+  return numberValue.toLocaleString('pl-PL', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
@@ -476,7 +476,7 @@ const formatPrice = (price: string): string => {
 
 const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [rawValue, setRawValue] = useState(value.replace(/\D/g, ''));
+  const [rawValue, setRawValue] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Pozwól tylko na cyfry
@@ -490,14 +490,12 @@ const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
     // Przy wyjściu z inputa formatujemy wartość tylko jeśli jest niepusta
     if (rawValue) {
       const formattedValue = formatPrice(rawValue);
-      setRawValue(formattedValue);
+      setRawValue(rawValue); // Zachowujemy oryginalną wartość
     }
   };
 
   const handleFocus = () => {
     setIsFocused(true);
-    // Przy wejściu do inputa pokazujemy wartość bez formatowania
-    setRawValue(value.replace(/\D/g, ''));
   };
 
   const displayValue = () => {
