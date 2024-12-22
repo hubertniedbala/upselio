@@ -280,9 +280,14 @@ const UploadArea: FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const { setUploadedLogo, setError: setGlobalError } = useUploadStore();
+  const { 
+    uploadedLogoPreview,
+    setUploadedLogo, 
+    setUploadedLogoPreview,
+    setError: setGlobalError,
+    resetLogo
+  } = useUploadStore();
   const [uploadProgress, setUploadProgress] = useState<{ file: File; progress: number } | null>(null);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const abortController = useRef<AbortController | null>(null);
 
   const cancelUpload = () => {
@@ -294,9 +299,8 @@ const UploadArea: FC = () => {
   };
 
   const deleteUpload = () => {
-    setUploadedImage(null);
+    resetLogo();
     setUploadProgress(null);
-    setUploadedLogo(null);
   };
 
   const uploadFile = async (file: File) => {
@@ -313,9 +317,9 @@ const UploadArea: FC = () => {
         setUploadProgress(prev => prev ? { ...prev, progress: i } : null);
       }
 
-      // Tymczasowo tworzymy URL dla podglądu
+      // Tworzymy URL dla podglądu
       const imageUrl = URL.createObjectURL(file);
-      setUploadedImage(imageUrl);
+      setUploadedLogoPreview(imageUrl);
       setUploadProgress(prev => prev ? { ...prev, progress: 100 } : null);
 
       // Tutaj normalnie byłby prawdziwy upload
@@ -331,9 +335,6 @@ const UploadArea: FC = () => {
 
       const data = await response.json();
       setUploadedLogo(data.url);
-      if (file) {
-        setUploadedImage(URL.createObjectURL(file));
-      }
       setGlobalError(null);
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
@@ -390,7 +391,7 @@ const UploadArea: FC = () => {
           progress={uploadProgress.progress}
           onCancel={isUploading ? cancelUpload : undefined}
           onDelete={uploadProgress.progress === 100 ? deleteUpload : undefined}
-          imageUrl={uploadedImage || undefined}
+          imageUrl={uploadedLogoPreview}
         />
       ) : (
         <div
