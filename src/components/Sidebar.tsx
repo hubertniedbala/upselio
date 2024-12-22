@@ -391,7 +391,7 @@ const UploadArea: FC = () => {
           progress={uploadProgress.progress}
           onCancel={isUploading ? cancelUpload : undefined}
           onDelete={uploadProgress.progress === 100 ? deleteUpload : undefined}
-          imageUrl={uploadedLogoPreview}
+          imageUrl={uploadedLogoPreview || undefined}
         />
       ) : (
         <div
