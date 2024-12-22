@@ -146,7 +146,7 @@ interface UploadProgressProps {
   progress: number;
   onCancel?: () => void;
   onDelete?: () => void;
-  imageUrl?: string;
+  imageUrl?: string | null;
 }
 
 const UploadProgress: FC<UploadProgressProps> = ({ 
@@ -384,7 +384,7 @@ const UploadArea: FC = () => {
           progress={uploadProgress.progress}
           onCancel={isUploading ? cancelUpload : undefined}
           onDelete={uploadProgress.progress === 100 ? deleteUpload : undefined}
-          imageUrl={uploadedImage}
+          imageUrl={uploadedImage || undefined}
         />
       ) : (
         <div
