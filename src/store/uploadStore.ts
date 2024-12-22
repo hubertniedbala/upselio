@@ -14,6 +14,7 @@ interface UploadState {
   setIsUploading: (status: boolean) => void;
   setError: (error: string | null) => void;
   resetLogo: () => void;
+  resetAll: () => void;
 }
 
 export const useUploadStore = create<UploadState>((set) => ({
@@ -29,5 +30,18 @@ export const useUploadStore = create<UploadState>((set) => ({
   setUploadType: (type) => set({ uploadType: type }),
   setIsUploading: (status) => set({ isUploading: status }),
   setError: (error) => set({ error }),
-  resetLogo: () => set({ uploadedLogo: null, uploadedLogoPreview: null }),
+  resetLogo: () => set((state) => ({ 
+    uploadedLogo: null,
+    uploadedLogoPreview: null,
+    uploadType: state.uploadType,
+    uploadedIcon: state.uploadedIcon,
+  })),
+  resetAll: () => set({
+    uploadedLogo: null,
+    uploadedIcon: null,
+    uploadedLogoPreview: null,
+    uploadType: 'logo',
+    isUploading: false,
+    error: null,
+  }),
 })); 

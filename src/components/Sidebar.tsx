@@ -453,7 +453,7 @@ const ElementView: FC = () => {
   const setActiveElement = useSidebarStore((state) => state.setActiveElement);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { uploadType, setUploadType } = useUploadStore();
+  const { uploadType, setUploadType, uploadedLogoPreview } = useUploadStore();
 
   const getTitle = () => {
     switch (activeElement) {
