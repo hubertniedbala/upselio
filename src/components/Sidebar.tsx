@@ -461,8 +461,11 @@ const formatPrice = (price: string): string => {
   // Usuń wszystkie znaki oprócz cyfr
   const numericValue = price.replace(/\D/g, '');
   
-  // Konwertuj na liczbę i podziel przez 100 aby uzyskać wartość z dwoma miejscami po przecinku
-  const numberValue = Number(numericValue) / 100;
+  // Jeśli nie ma wartości, zwróć pusty string
+  if (!numericValue) return '';
+  
+  // Konwertuj na liczbę bez dzielenia przez 100
+  const numberValue = Number(numericValue);
   
   // Formatuj liczbę z separatorem tysięcy i dwoma miejscami po przecinku
   return numberValue.toLocaleString('pl-PL', {
@@ -484,7 +487,7 @@ const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
 
   const handleBlur = () => {
     setIsFocused(false);
-    // Przy wyjściu z inputa formatujemy wartość
+    // Przy wyjściu z inputa formatujemy wartość tylko jeśli jest niepusta
     if (rawValue) {
       const formattedValue = formatPrice(rawValue);
       setRawValue(formattedValue);
@@ -497,11 +500,21 @@ const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
     setRawValue(value.replace(/\D/g, ''));
   };
 
+  const displayValue = () => {
+    if (isFocused) {
+      return rawValue;
+    }
+    if (!rawValue) {
+      return '';
+    }
+    return formatPrice(rawValue);
+  };
+
   return (
     <div className="relative">
       <input
         type="text"
-        value={isFocused ? rawValue : formatPrice(rawValue)}
+        value={displayValue()}
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
