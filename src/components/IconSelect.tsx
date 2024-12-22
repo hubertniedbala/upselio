@@ -107,7 +107,10 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
     <div className="w-full">
       <Combobox 
         value={selectedIcon} 
-        onChange={onSelect}
+        onChange={(icon) => {
+          onSelect(icon);
+          setIsOpen(false);
+        }}
         as="div" 
         className="relative"
       >
@@ -121,10 +124,8 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
               onChange={(event) => setQuery(event.target.value)}
               displayValue={(icon: Icon) => icon?.name || ''}
               placeholder="Wyszukaj ikonę..."
-              onClick={() => {
-                setIsOpen(true);
-                setQuery('');
-              }}
+              onFocus={() => setIsOpen(true)}
+              onClick={() => setIsOpen(true)}
             />
             <Combobox.Button 
               className="absolute inset-y-0 right-0 flex items-center pr-2"
@@ -163,7 +164,6 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
                   }`
                 }
                 value={icon}
-                onClick={() => setIsOpen(false)}
               >
                 {({ selected, active }) => (
                   <>
