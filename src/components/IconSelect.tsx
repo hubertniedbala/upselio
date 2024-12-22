@@ -97,11 +97,24 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    // Jeśli query jest puste, pokazujemy wszystkie ikony
+    if (!query.trim()) {
+      setFilteredIcons(icons);
+      return;
+    }
+    
+    // Filtrujemy tylko gdy jest wpisany tekst
     const filtered = icons.filter((icon) =>
       icon.name.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredIcons(filtered);
   }, [query]);
+
+  const handleInputFocus = () => {
+    setIsOpen(true);
+    setFilteredIcons(icons); // Pokazujemy wszystkie ikony
+    setQuery(''); // Resetujemy query
+  };
 
   return (
     <div className="w-full">
@@ -125,8 +138,8 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
               onChange={(event) => setQuery(event.target.value)}
               displayValue={(icon: Icon) => icon?.name || ''}
               placeholder="Wyszukaj ikonę..."
-              onFocus={() => setIsOpen(true)}
-              onClick={() => setIsOpen(true)}
+              onFocus={handleInputFocus}
+              onClick={handleInputFocus}
             />
             <Combobox.Button 
               className="absolute inset-y-0 right-0 flex items-center pr-2"
