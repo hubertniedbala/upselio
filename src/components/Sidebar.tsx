@@ -130,12 +130,6 @@ const LibraryView: FC = () => (
         type="price"
       />
       <SidebarItem 
-        title="CTA" 
-        description="Jeśli chcesz dodać przycisk?" 
-        icon={CTAIcon} 
-        type="cta"
-      />
-      <SidebarItem 
         title="Link" 
         description="Wklej link do wybranej usługi" 
         icon={LinkIcon} 
@@ -467,7 +461,7 @@ const formatPrice = (price: string): string => {
   // Podziel na część całkowitą i dziesiętną
   const [wholePart, decimalPart] = valueWithComma.split(',');
   
-  // Usuń wszystkie znaki oprócz cyfr z części całkowitej
+  // Usu�� wszystkie znaki oprócz cyfr z części całkowitej
   const cleanWholePart = wholePart.replace(/\D/g, '');
   
   // Jeśli nie ma wartości, zwróć pusty string
@@ -584,8 +578,7 @@ const ElementView: FC = () => {
       case 'description': return 'Opis usługi';
       case 'logo': return 'Logo';
       case 'price': return 'Cena';
-      case 'cta': return 'CTA';
-      case 'link': return 'Link';
+      case 'link': return 'Dodaj link do usługi';
       default: return '';
     }
   };
@@ -596,8 +589,7 @@ const ElementView: FC = () => {
       case 'description': return 'Dodaj opis usługi, wykorzystaj jak najwięcej korzyści';
       case 'logo': return 'Dodaj swoje logo';
       case 'price': return 'Podaj cenę regularną bądź promocyjną. Zaznaczenie opcji z ceną promocyjną sprawi, że cena regularna będzie skreślona.';
-      case 'cta': return 'Dodaj tekst przycisku';
-      case 'link': return 'Dodaj link do usługi';
+      case 'link': return 'Dodany link może wyświetlać się w formie tekstu, który wybierzesz z rozwijanej listy';
       default: return '';
     }
   };
