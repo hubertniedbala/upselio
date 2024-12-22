@@ -468,8 +468,8 @@ const formatPrice = (price: string): string => {
   const numberValue = Number(numericValue);
   
   // Formatuj liczbę z separatorem tysięcy i dwoma miejscami po przecinku
-  // Dzielimy przez 100 aby uzyskać prawidłową wartość dziesiętną
-  return (numberValue / 100).toLocaleString('pl-PL', {
+  // Nie dzielimy przez 100, aby zachować wprowadzoną wartość
+  return numberValue.toLocaleString('pl-PL', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
