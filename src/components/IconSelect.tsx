@@ -135,9 +135,10 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
                   {({ selected, active }) => (
                     <>
                       <div className="flex items-center">
-                        <div className="w-6 h-6 flex items-center justify-center text-gray-500">
-                          <i className={`${icon.icon} text-lg`} />
-                        </div>
+                        <div 
+                          className="w-6 h-6 flex items-center justify-center text-gray-500"
+                          dangerouslySetInnerHTML={{ __html: icon.icon }}
+                        />
                         <span className={`ml-3 block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
                           {icon.name}
                         </span>
