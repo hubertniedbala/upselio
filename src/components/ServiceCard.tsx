@@ -19,12 +19,12 @@ const ServiceCard: FC<ServiceCardProps> = ({
   const [hoveredElement, setHoveredElement] = useState<string | null>(null);
 
   return (
-    <div className="flex p-3 w-[430px] bg-white rounded-lg">
+    <div className="flex p-3 w-[430px] bg-white rounded-lg shadow-sm">
       {/* Icon Container */}
       <div 
-        className={`flex-none w-14 h-14 rounded-lg bg-[#333333] flex items-center justify-center
-          ${hoveredElement === 'icon' ? 'border border-gray-300' : ''}
-          ${isSelected ? 'border border-primary' : ''}`}
+        className={`flex-none w-14 h-14 rounded-lg bg-[#333333] flex items-center justify-center border
+          ${hoveredElement === 'icon' ? 'border-[#D9DCE4]' : 'border-transparent'}
+          ${isSelected ? 'border-[#2271B1]' : ''}`}
         onMouseEnter={() => setHoveredElement('icon')}
         onMouseLeave={() => setHoveredElement(null)}
       >
@@ -38,9 +38,9 @@ const ServiceCard: FC<ServiceCardProps> = ({
         {/* Title and Price */}
         <div className="flex justify-between items-center">
           <div 
-            className={`px-2 py-1 rounded-md
-              ${hoveredElement === 'title' ? 'border border-gray-300' : ''}
-              ${isSelected ? 'border border-primary' : ''}`}
+            className={`px-2 py-1 rounded-md border
+              ${hoveredElement === 'title' ? 'border-[#D9DCE4]' : 'border-transparent'}
+              ${isSelected ? 'border-[#2271B1]' : ''}`}
             onMouseEnter={() => setHoveredElement('title')}
             onMouseLeave={() => setHoveredElement(null)}
           >
@@ -49,9 +49,9 @@ const ServiceCard: FC<ServiceCardProps> = ({
             </span>
           </div>
           <div 
-            className={`px-2 py-1 rounded-md
-              ${hoveredElement === 'price' ? 'border border-gray-300' : ''}
-              ${isSelected ? 'border border-primary' : ''}`}
+            className={`px-2 py-1 rounded-md border
+              ${hoveredElement === 'price' ? 'border-[#D9DCE4]' : 'border-transparent'}
+              ${isSelected ? 'border-[#2271B1]' : ''}`}
             onMouseEnter={() => setHoveredElement('price')}
             onMouseLeave={() => setHoveredElement(null)}
           >
@@ -63,9 +63,9 @@ const ServiceCard: FC<ServiceCardProps> = ({
 
         {/* Description */}
         <div 
-          className={`p-2 bg-[#f4f4f4] rounded-md
-            ${hoveredElement === 'description' ? 'border border-gray-300' : ''}
-            ${isSelected ? 'border border-primary' : ''}`}
+          className={`p-2 bg-[#f4f4f4] rounded-md border
+            ${hoveredElement === 'description' ? 'border-[#D9DCE4]' : 'border-transparent'}
+            ${isSelected ? 'border-[#2271B1]' : ''}`}
           onMouseEnter={() => setHoveredElement('description')}
           onMouseLeave={() => setHoveredElement(null)}
         >
@@ -77,9 +77,9 @@ const ServiceCard: FC<ServiceCardProps> = ({
         {/* Actions */}
         <div className="flex justify-between items-center pt-2">
           <button 
-            className={`text-sm font-medium text-primary px-2 py-1 rounded-md
-              ${hoveredElement === 'details' ? 'border border-gray-300' : ''}
-              ${isSelected ? 'border border-primary' : ''}`}
+            className={`text-sm font-medium text-primary px-2 py-1 rounded-md border
+              ${hoveredElement === 'details' ? 'border-[#D9DCE4]' : 'border-transparent'}
+              ${isSelected ? 'border-[#2271B1]' : ''}`}
             onMouseEnter={() => setHoveredElement('details')}
             onMouseLeave={() => setHoveredElement(null)}
           >
@@ -87,8 +87,8 @@ const ServiceCard: FC<ServiceCardProps> = ({
           </button>
           <button 
             className={`flex items-center px-4 py-2 bg-white border shadow-sm rounded-md transition-colors
-              ${hoveredElement === 'add' ? 'border-gray-400' : 'border-[#d0d4dc]'}
-              ${isSelected ? 'border-primary' : ''}`}
+              ${hoveredElement === 'add' ? 'border-[#D9DCE4]' : 'border-[#d0d4dc]'}
+              ${isSelected ? 'border-[#2271B1]' : ''}`}
             onMouseEnter={() => setHoveredElement('add')}
             onMouseLeave={() => setHoveredElement(null)}
           >
