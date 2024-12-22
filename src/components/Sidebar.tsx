@@ -457,13 +457,54 @@ interface PriceInputProps {
   onChange: (value: string) => void;
 }
 
+const formatPrice = (price: string): string => {
+  // Usuń wszystkie znaki oprócz cyfr
+  const numericValue = price.replace(/\D/g, '');
+  
+  // Konwertuj na liczbę i podziel przez 100 aby uzyskać wartość z dwoma miejscami po przecinku
+  const numberValue = Number(numericValue) / 100;
+  
+  // Formatuj liczbę z separatorem tysięcy i dwoma miejscami po przecinku
+  return numberValue.toLocaleString('pl-PL', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+};
+
 const PriceInput: FC<PriceInputProps> = ({ label, value, onChange }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [rawValue, setRawValue] = useState(value.replace(/\D/g, ''));
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Pozwól tylko na cyfry
+    const newValue = e.target.value.replace(/\D/g, '');
+    setRawValue(newValue);
+    onChange(newValue);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    // Przy wyjściu z inputa formatujemy wartość
+    if (rawValue) {
+      const formattedValue = formatPrice(rawValue);
+      setRawValue(formattedValue);
+    }
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    // Przy wejściu do inputa pokazujemy wartość bez formatowania
+    setRawValue(value.replace(/\D/g, ''));
+  };
+
   return (
     <div className="relative">
       <input
         type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={isFocused ? rawValue : formatPrice(rawValue)}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         placeholder={label}
         className="w-full rounded-lg border border-gray-200 py-2 px-3 pr-16 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
       />
@@ -502,7 +543,7 @@ const ElementView: FC = () => {
       case 'title': return 'Dodaj nazwę usługi jaki będzie widniał w tytule';
       case 'description': return 'Dodaj opis usługi, wykorzystaj jak najwięcej korzyści';
       case 'logo': return 'Dodaj swoje logo';
-      case 'price': return 'Dodaj cenę usługi';
+      case 'price': return 'Podaj cenę regularną bądź promocyjną. Zaznaczenie opcji z ceną promocyjną sprawi, że cena regularna będzie skreślona.';
       case 'cta': return 'Dodaj tekst przycisku';
       case 'link': return 'Dodaj link do usługi';
       default: return '';
@@ -519,45 +560,36 @@ const ElementView: FC = () => {
 
     return (
       <div className="space-y-4">
-        <div className="mb-6">
-          <h2 className="text-lg font-medium text-gray-600 mb-2">Cena</h2>
-          <p className="text-sm text-gray-400">
-            Podaj cenę regularną bądź promocyjną. Zaznaczenie opcji z ceną promocyjną sprawi, że cena regularna będzie skreślona.
-          </p>
-        </div>
+        <PriceInput
+          label="Wpisz cenę regularną usługi"
+          value={regularPrice}
+          onChange={setRegularPrice}
+        />
 
-        <div className="space-y-4">
-          <PriceInput
-            label="Wpisz cenę regularną usługi"
-            value={regularPrice}
-            onChange={setRegularPrice}
-          />
-
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Ustaw cenę promocyjną</span>
-            <Switch
-              checked={hasPromoPrice}
-              onChange={setHasPromoPrice}
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-gray-600">Ustaw cenę promocyjną</span>
+          <Switch
+            checked={hasPromoPrice}
+            onChange={setHasPromoPrice}
+            className={`${
+              hasPromoPrice ? 'bg-primary' : 'bg-gray-200'
+            } relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/25`}
+          >
+            <span
               className={`${
-                hasPromoPrice ? 'bg-primary' : 'bg-gray-200'
-              } relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary/25`}
-            >
-              <span
-                className={`${
-                  hasPromoPrice ? 'translate-x-4' : 'translate-x-0.5'
-                } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out`}
-              />
-            </Switch>
-          </div>
-
-          {hasPromoPrice && (
-            <PriceInput
-              label="Wpisz cenę promocyjną usługi"
-              value={promoPrice}
-              onChange={setPromoPrice}
+                hasPromoPrice ? 'translate-x-4' : 'translate-x-0.5'
+              } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out`}
             />
-          )}
+          </Switch>
         </div>
+
+        {hasPromoPrice && (
+          <PriceInput
+            label="Wpisz cenę promocyjną usługi"
+            value={promoPrice}
+            onChange={setPromoPrice}
+          />
+        )}
       </div>
     );
   };
