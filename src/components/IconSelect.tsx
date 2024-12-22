@@ -6,84 +6,26 @@ import { Icon } from '../types/icon';
 
 // Lista ikon z Font Awesome (regular)
 const icons: Icon[] = [
-  // Podstawowe
-  { id: '1', name: 'Eye', icon: 'far fa-eye' },
-  { id: '2', name: 'Monitor', icon: 'far fa-desktop' },
-  { id: '3', name: 'Building', icon: 'far fa-building' },
-  { id: '4', name: 'Coins', icon: 'far fa-coins' },
-  { id: '5', name: 'Plane', icon: 'far fa-plane' },
-  { id: '6', name: 'Star', icon: 'far fa-star' },
-  { id: '7', name: 'Mail', icon: 'far fa-envelope' },
-  
-  // Komunikacja
-  { id: '8', name: 'Phone', icon: 'far fa-phone' },
-  { id: '9', name: 'Message', icon: 'far fa-message' },
-  { id: '10', name: 'Chat', icon: 'far fa-comment' },
-  { id: '11', name: 'Bell', icon: 'far fa-bell' },
-  { id: '12', name: 'Inbox', icon: 'far fa-inbox' },
-  
-  // Biznes
-  { id: '13', name: 'Briefcase', icon: 'far fa-briefcase' },
-  { id: '14', name: 'Chart', icon: 'far fa-chart-bar' },
-  { id: '15', name: 'Calculator', icon: 'far fa-calculator' },
-  { id: '16', name: 'Dollar', icon: 'far fa-dollar-sign' },
-  { id: '17', name: 'Credit Card', icon: 'far fa-credit-card' },
-  
-  // Media
-  { id: '18', name: 'Image', icon: 'far fa-image' },
-  { id: '19', name: 'Video', icon: 'far fa-video' },
-  { id: '20', name: 'Music', icon: 'far fa-music' },
-  { id: '21', name: 'Camera', icon: 'far fa-camera' },
-  { id: '22', name: 'Play', icon: 'far fa-play' },
-  
-  // Interfejs
-  { id: '23', name: 'Home', icon: 'far fa-home' },
-  { id: '24', name: 'User', icon: 'far fa-user' },
-  { id: '25', name: 'Settings', icon: 'far fa-cog' },
-  { id: '26', name: 'Search', icon: 'far fa-search' },
-  { id: '27', name: 'Lock', icon: 'far fa-lock' },
-  
-  // Dokumenty
-  { id: '28', name: 'File', icon: 'far fa-file' },
-  { id: '29', name: 'Folder', icon: 'far fa-folder' },
-  { id: '30', name: 'Document', icon: 'far fa-file-alt' },
-  { id: '31', name: 'Clipboard', icon: 'far fa-clipboard' },
-  { id: '32', name: 'Calendar', icon: 'far fa-calendar' },
-  
-  // Social Media
-  { id: '33', name: 'Heart', icon: 'far fa-heart' },
-  { id: '34', name: 'Share', icon: 'far fa-share' },
-  { id: '35', name: 'Thumbs Up', icon: 'far fa-thumbs-up' },
-  { id: '36', name: 'Comment', icon: 'far fa-comment' },
-  { id: '37', name: 'Bookmark', icon: 'far fa-bookmark' },
-  
-  // Technologia
-  { id: '38', name: 'Laptop', icon: 'far fa-laptop' },
-  { id: '39', name: 'Mobile', icon: 'far fa-mobile' },
-  { id: '40', name: 'Tablet', icon: 'far fa-tablet' },
-  { id: '41', name: 'Keyboard', icon: 'far fa-keyboard' },
-  { id: '42', name: 'Mouse', icon: 'far fa-mouse' },
-  
-  // Transport
-  { id: '43', name: 'Car', icon: 'far fa-car' },
-  { id: '44', name: 'Truck', icon: 'far fa-truck' },
-  { id: '45', name: 'Bus', icon: 'far fa-bus' },
-  { id: '46', name: 'Bicycle', icon: 'far fa-bicycle' },
-  { id: '47', name: 'Train', icon: 'far fa-train' },
-  
-  // Pogoda
-  { id: '48', name: 'Sun', icon: 'far fa-sun' },
-  { id: '49', name: 'Moon', icon: 'far fa-moon' },
-  { id: '50', name: 'Cloud', icon: 'far fa-cloud' },
-  { id: '51', name: 'Snowflake', icon: 'far fa-snowflake' },
-  { id: '52', name: 'Wind', icon: 'far fa-wind' },
-  
-  // Narzędzia
-  { id: '53', name: 'Tools', icon: 'far fa-tools' },
-  { id: '54', name: 'Wrench', icon: 'far fa-wrench' },
-  { id: '55', name: 'Screwdriver', icon: 'far fa-screwdriver' },
-  { id: '56', name: 'Hammer', icon: 'far fa-hammer' },
-  { id: '57', name: 'Ruler', icon: 'far fa-ruler' },
+  { id: '1', name: 'Eye', icon: 'fa-regular fa-eye' },
+  { id: '2', name: 'Monitor', icon: 'fa-regular fa-desktop' },
+  { id: '3', name: 'Building', icon: 'fa-regular fa-building' },
+  { id: '4', name: 'Money Bill', icon: 'fa-regular fa-money-bill' },
+  { id: '5', name: 'Paper Plane', icon: 'fa-regular fa-paper-plane' },
+  { id: '6', name: 'Star', icon: 'fa-regular fa-star' },
+  { id: '7', name: 'Envelope', icon: 'fa-regular fa-envelope' },
+  { id: '8', name: 'Phone', icon: 'fa-regular fa-phone' },
+  { id: '9', name: 'Message', icon: 'fa-regular fa-message' },
+  { id: '10', name: 'Comment', icon: 'fa-regular fa-comment' },
+  { id: '11', name: 'Bell', icon: 'fa-regular fa-bell' },
+  { id: '12', name: 'Inbox', icon: 'fa-regular fa-inbox' },
+  { id: '13', name: 'Briefcase', icon: 'fa-regular fa-briefcase' },
+  { id: '14', name: 'Chart Bar', icon: 'fa-regular fa-chart-bar' },
+  { id: '15', name: 'Calculator', icon: 'fa-regular fa-calculator' },
+  { id: '16', name: 'Credit Card', icon: 'fa-regular fa-credit-card' },
+  { id: '17', name: 'Image', icon: 'fa-regular fa-image' },
+  { id: '18', name: 'Video', icon: 'fa-regular fa-video' },
+  { id: '19', name: 'User', icon: 'fa-regular fa-user' },
+  { id: '20', name: 'File', icon: 'fa-regular fa-file' }
 ];
 
 interface IconSelectProps {
@@ -177,7 +119,7 @@ const IconSelect: FC<IconSelectProps> = ({ selectedIcon, onSelect }) => {
                   {({ selected, active }) => (
                     <>
                       <div className="flex items-center">
-                        <div className="w-6 h-6 flex items-center justify-center text-primary">
+                        <div className="w-6 h-6 flex items-center justify-center text-gray-500">
                           <i className={`${icon.icon} text-lg`} />
                         </div>
                         <span className={`ml-3 block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
