@@ -1,13 +1,11 @@
-import { create } from 'zustand';
-
-type ElementType = 'library' | 'title' | 'description' | 'logo' | 'price' | 'cta' | 'link';
+import create from 'zustand';
 
 interface SidebarState {
-  activeElement: ElementType;
-  setActiveElement: (element: ElementType) => void;
+  activeElement: string;
+  setActiveElement: (type: string) => void;
 }
 
 export const useSidebarStore = create<SidebarState>((set) => ({
   activeElement: 'library',
-  setActiveElement: (element) => set({ activeElement: element }),
+  setActiveElement: (type) => set({ activeElement: type }),
 })); 
