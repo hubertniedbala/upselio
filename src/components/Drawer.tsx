@@ -19,18 +19,27 @@ const Drawer: FC = () => {
     }
   };
 
-  // Dodatkowa próba focusu
   useEffect(() => {
     if (isOpen && activeDrawer === 'title') {
-      const timer = setTimeout(() => {
-        if (inputRef.current && document.activeElement !== inputRef.current) {
+      const focusInput = () => {
+        if (inputRef.current) {
           inputRef.current.focus();
-          const length = inputRef.current.value.length;
-          inputRef.current.setSelectionRange(length, length);
+          inputRef.current.select();
         }
-      }, 300);
+      };
 
-      return () => clearTimeout(timer);
+      // Natychmiast
+      focusInput();
+
+      // Po 100ms
+      const timer1 = setTimeout(focusInput, 100);
+      // Po 300ms
+      const timer2 = setTimeout(focusInput, 300);
+
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
     }
   }, [isOpen, activeDrawer]);
 
@@ -93,6 +102,7 @@ const Drawer: FC = () => {
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
                         autoFocus
+                        onFocus={(e) => e.target.select()}
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
