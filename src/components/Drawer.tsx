@@ -6,6 +6,7 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const firstRender = useRef(true);
 
   const focusInput = () => {
     if (inputRef.current) {
@@ -16,10 +17,11 @@ const Drawer: FC = () => {
   };
 
   useEffect(() => {
-    if (isOpen && activeDrawer === 'title') {
-      const timer = setTimeout(focusInput, 0);
+    if (!firstRender.current && isOpen && activeDrawer === 'title') {
+      const timer = setTimeout(focusInput, 300);
       return () => clearTimeout(timer);
     }
+    firstRender.current = false;
   }, [isOpen, activeDrawer]);
 
   return (
@@ -28,7 +30,6 @@ const Drawer: FC = () => {
         as="div" 
         className="relative z-50" 
         onClose={close}
-        onAfterEnter={focusInput}
       >
         <Transition.Child
           as={Fragment}
