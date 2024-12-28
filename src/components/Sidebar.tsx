@@ -34,8 +34,6 @@ interface IconOption {
 
 const iconOptions: IconOption[] = [
   { id: 1, name: 'Monitor', icon: MonitorIcon },
-  { id: 2, name: 'Tablet', icon: TabletIcon },
-  { id: 3, name: 'Phone', icon: PhoneIcon },
 ];
 
 const LibraryView: FC = () => (
