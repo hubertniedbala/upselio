@@ -7,26 +7,17 @@ const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (isOpen && activeDrawer === 'title') {
-      const timeoutId = setTimeout(() => {
-        requestAnimationFrame(() => {
-          if (inputRef.current) {
-            inputRef.current.focus();
-            const length = inputRef.current.value.length;
-            inputRef.current.setSelectionRange(length, length);
-          }
-        });
-      }, 100);
-
-      return () => clearTimeout(timeoutId);
+  const handleTransitionEnd = () => {
+    if (isOpen && activeDrawer === 'title' && inputRef.current) {
+      inputRef.current.focus();
+      const length = inputRef.current.value.length;
+      inputRef.current.setSelectionRange(length, length);
     }
-  }, [isOpen, activeDrawer]);
+  };
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={close} initialFocus={inputRef}>
-        {/* Overlay */}
+      <Dialog as="div" className="relative z-50" onClose={close}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-300"
@@ -39,7 +30,6 @@ const Drawer: FC = () => {
           <div className="fixed inset-0 bg-black/30 transition-opacity" />
         </Transition.Child>
 
-        {/* Drawer */}
         <div className="fixed inset-y-0 right-0 flex max-w-full">
           <Transition.Child
             as={Fragment}
@@ -50,9 +40,11 @@ const Drawer: FC = () => {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="w-screen max-w-md">
+            <Dialog.Panel 
+              className="w-screen max-w-md"
+              onTransitionEnd={handleTransitionEnd}
+            >
               <div className="flex h-full flex-col bg-white shadow-xl">
-                {/* Header */}
                 <div className="px-6 py-4 border-b border-gray-200">
                   <div className="flex items-center justify-between">
                     <Dialog.Title className="text-lg font-medium text-gray-600">
@@ -67,7 +59,6 @@ const Drawer: FC = () => {
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="flex-1 overflow-y-auto px-6 py-6">
                   {activeDrawer === 'title' && (
                     <div>
