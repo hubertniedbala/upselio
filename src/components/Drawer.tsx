@@ -1,7 +1,7 @@
 import React, { FC, useRef, useEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDrawerStore } from '../store/drawerStore';
-import { XIcon } from '@heroicons/react/24/outline';
+import { XIcon } from '../icons/interface';
 
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, inputValue, setInputValue } = useDrawerStore();
