@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, Fragment } from 'react';
+import React, { FC, useRef, useEffect, useCallback, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDrawerStore } from '../store/drawerStore';
 import { XIcon } from '../icons/interface';
@@ -6,23 +6,25 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  const firstRender = useRef(true);
 
-  const focusInput = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-      const length = inputRef.current.value.length;
-      inputRef.current.setSelectionRange(length, length);
-    }
-  };
+  const focusInput = useCallback(() => {
+    // Próbujemy kilka razy z różnymi opóźnieniami
+    [0, 100, 300, 500].forEach(delay => {
+      setTimeout(() => {
+        if (inputRef.current && document.activeElement !== inputRef.current) {
+          inputRef.current.focus();
+          const length = inputRef.current.value.length;
+          inputRef.current.setSelectionRange(length, length);
+        }
+      }, delay);
+    });
+  }, []);
 
   useEffect(() => {
-    if (!firstRender.current && isOpen && activeDrawer === 'title') {
-      const timer = setTimeout(focusInput, 300);
-      return () => clearTimeout(timer);
+    if (isOpen && activeDrawer === 'title') {
+      focusInput();
     }
-    firstRender.current = false;
-  }, [isOpen, activeDrawer]);
+  }, [isOpen, activeDrawer, focusInput]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -79,6 +81,7 @@ const Drawer: FC = () => {
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
                         autoFocus
+                        onFocus={(e) => e.target.setSelectionRange(e.target.value.length, e.target.value.length)}
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
