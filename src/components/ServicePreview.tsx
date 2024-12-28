@@ -7,15 +7,16 @@ const ServicePreview: FC = () => {
 
   return (
     <div className="bg-gray-50 rounded-lg p-8">
-      <button
-        onClick={() => open('title', 'Tytuł usługi', title)}
-        className="w-full text-left hover:bg-gray-100 p-2 rounded transition-colors"
-      >
-        <h3 className="text-lg font-medium text-gray-600">
-          {title}
-        </h3>
-      </button>
-      {/* reszta komponentu */}
+      <div className="max-w-2xl mx-auto">
+        <button
+          onClick={() => open('title', 'Tytuł usługi', title)}
+          className="w-full text-left hover:bg-gray-100 p-2 rounded transition-colors"
+        >
+          <h3 className="text-lg font-medium text-gray-600">
+            {title}
+          </h3>
+        </button>
+      </div>
     </div>
   );
 };

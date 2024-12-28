@@ -1,31 +1,14 @@
 import React from 'react';
-import { useDrawerStore } from '../store/drawerStore';
+import ServicePreview from '../components/ServicePreview';
+import Drawer from '../components/Drawer';
 
 const Home = () => {
-  const { open } = useDrawerStore();
-
   return (
-    <div>
-      {/* Przykład użycia z poprawnymi argumentami */}
-      <button onClick={() => open('title', 'Tytuł usługi', 'Moja pierwsza usługa')}>
-        Edytuj tytuł
-      </button>
-      
-      <button onClick={() => open('description', 'Opis usługi', '')}>
-        Edytuj opis
-      </button>
-      
-      <button onClick={() => open('price', 'Cena usługi', '')}>
-        Edytuj cenę
-      </button>
-      
-      <button onClick={() => open('logo', 'Logo', '')}>
-        Edytuj logo
-      </button>
-      
-      <button onClick={() => open('link', 'Link', '')}>
-        Edytuj link
-      </button>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto py-12 px-4">
+        <ServicePreview />
+      </div>
+      <Drawer />
     </div>
   );
 };
