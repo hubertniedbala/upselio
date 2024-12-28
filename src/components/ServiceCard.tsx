@@ -1,123 +1,49 @@
-import { FC, useState } from 'react';
-import { Monitor, Plus } from 'lucide-react';
+import { FC } from 'react';
+import { useDrawerStore } from '../store/drawerStore';
+import { MonitorIcon } from '../icons/media';
 
 interface ServiceCardProps {
-  title?: string;
-  price?: string;
-  description?: string;
-  isSelected?: boolean;
-  onClick?: () => void;
-  onIconClick?: () => void;
-  onTitleClick?: () => void;
-  onPriceClick?: () => void;
-  onDescriptionClick?: () => void;
-  onLinkClick?: () => void;
+  title: string;
+  price: string;
+  description: string;
 }
 
-const ServiceCard: FC<ServiceCardProps> = ({
-  title = "Moja pierwsza usługa",
-  price = "79,00 zł",
-  description = "To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)",
-  isSelected = false,
-  onClick,
-  onIconClick,
-  onTitleClick,
-  onPriceClick,
-  onDescriptionClick,
-  onLinkClick
-}) => {
-  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
-  const [clickedElement, setClickedElement] = useState<string | null>(null);
-
-  const handleClick = (element: string) => {
-    setClickedElement(clickedElement === element ? null : element);
-    if (onClick) onClick();
-  };
+const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
+  const { open } = useDrawerStore();
+  const currentTitle = useDrawerStore(state => state.inputValue) || title;
 
   return (
-    <div className="flex p-3 w-[430px] bg-white rounded-lg shadow-sm">
-      {/* Icon Container */}
-      <div 
-        className={`flex-none w-14 h-14 rounded-lg flex items-center justify-center border
-          ${hoveredElement === 'icon' ? 'border-[#D9DCE4]' : 'border-transparent'}
-          ${clickedElement === 'icon' ? 'border-[#2271B1]' : ''}`}
-        onMouseEnter={() => setHoveredElement('icon')}
-        onMouseLeave={() => setHoveredElement(null)}
-        onClick={() => handleClick('icon')}
-      >
+    <div className="bg-white rounded-lg shadow border border-gray-100 p-6">
+      <div className="flex items-center gap-4">
         <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-          <Monitor className="w-5 h-5 text-primary" />
+          <MonitorIcon className="w-5 h-5 text-primary" />
         </div>
+        
+        {/* Tytuł z możliwością edycji */}
+        <button
+          onClick={() => open('title', 'Tytuł usługi', currentTitle)}
+          className="text-left hover:bg-gray-50 p-2 rounded transition-colors"
+        >
+          <h3 className="text-gray-600 font-medium">
+            {currentTitle}
+          </h3>
+        </button>
       </div>
 
-      {/* Content Container */}
-      <div className="flex flex-col flex-grow ml-4 space-y-2">
-        {/* Title and Price */}
-        <div className="flex justify-between items-center">
-          <div 
-            className={`px-2 py-1 rounded-md border
-              ${hoveredElement === 'title' ? 'border-[#D9DCE4]' : 'border-transparent'}
-              ${clickedElement === 'title' ? 'border-[#2271B1]' : ''}`}
-            onMouseEnter={() => setHoveredElement('title')}
-            onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleClick('title')}
-          >
-            <span className="text-lg font-medium text-[#10182a] tracking-tight">
-              {title}
-            </span>
-          </div>
-          <div 
-            className={`px-2 py-1 rounded-md border
-              ${hoveredElement === 'price' ? 'border-[#D9DCE4]' : 'border-transparent'}
-              ${clickedElement === 'price' ? 'border-[#2271B1]' : ''}`}
-            onMouseEnter={() => setHoveredElement('price')}
-            onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleClick('price')}
-          >
-            <span className="text-lg font-medium text-[#10182a] tracking-tight">
-              {price}
-            </span>
-          </div>
-        </div>
+      <p className="text-gray-500 mt-4">
+        {description}
+      </p>
 
-        {/* Description */}
-        <div 
-          className={`p-2 rounded-md border
-              ${hoveredElement === 'description' ? 'border-[#D9DCE4]' : 'border-transparent'}
-              ${clickedElement === 'description' ? 'border-[#2271B1]' : ''}`}
-          onMouseEnter={() => setHoveredElement('description')}
-          onMouseLeave={() => setHoveredElement(null)}
-          onClick={() => handleClick('description')}
-        >
-          <p className="text-sm text-[#475466]">
-            {description}
-          </p>
-        </div>
-
-        {/* Actions */}
-        <div className="flex justify-between items-center pt-2">
-          <button 
-            className={`text-sm font-medium text-primary px-2 py-1 rounded-md border
-              ${hoveredElement === 'details' ? 'border-[#D9DCE4]' : 'border-transparent'}
-              ${clickedElement === 'details' ? 'border-[#2271B1]' : ''}`}
-            onMouseEnter={() => setHoveredElement('details')}
-            onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleClick('details')}
-          >
+      <div className="mt-6 flex justify-between items-center">
+        <span className="text-gray-600 font-medium">
+          {price}
+        </span>
+        <div className="flex items-center gap-2">
+          <button className="text-primary hover:text-primary/80 transition-colors">
             Szczegóły
           </button>
-          <button 
-            className={`flex items-center px-4 py-2 bg-white border shadow-sm rounded-md transition-colors
-              ${hoveredElement === 'add' ? 'border-[#D9DCE4]' : 'border-[#d0d4dc]'}
-              ${clickedElement === 'add' ? 'border-[#2271B1]' : ''}`}
-            onMouseEnter={() => setHoveredElement('add')}
-            onMouseLeave={() => setHoveredElement(null)}
-            onClick={() => handleClick('add')}
-          >
-            <Plus className="text-[#34425a]" />
-            <span className="ml-2 text-sm font-medium text-[#34425a]">
-              Dodaj
-            </span>
+          <button className="px-4 py-2 bg-white rounded-md border border-gray-200 shadow hover:bg-gray-50 transition-colors">
+            Dodaj
           </button>
         </div>
       </div>
