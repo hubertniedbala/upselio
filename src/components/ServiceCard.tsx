@@ -13,7 +13,7 @@ interface ServiceCardProps {
 const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
   const { open } = useDrawerStore();
   const { setActiveElement } = useSidebarStore();
-  const currentTitle = useDrawerStore(state => state.inputValue) || title;
+  const currentTitle = useDrawerStore(state => state.titleValue) || title;
 
   const handleTitleClick = () => {
     setActiveElement('title');

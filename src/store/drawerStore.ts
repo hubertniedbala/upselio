@@ -4,25 +4,36 @@ interface DrawerState {
   isOpen: boolean;
   activeDrawer: string | null;
   drawerTitle: string;
-  inputValue: string;
+  titleValue: string;
+  priceValue: string;
   toggle: () => void;
   close: () => void;
   open: (drawer: string, title: string, initialValue?: string) => void;
-  setInputValue: (value: string) => void;
+  setTitleValue: (value: string) => void;
+  setPriceValue: (value: string) => void;
 }
 
 export const useDrawerStore = create<DrawerState>((set) => ({
   isOpen: false,
   activeDrawer: null,
   drawerTitle: '',
-  inputValue: '',
+  titleValue: '',
+  priceValue: '',
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
-  close: () => set({ isOpen: false, activeDrawer: null, drawerTitle: '', inputValue: '' }),
+  close: () => set({ 
+    isOpen: false, 
+    activeDrawer: null, 
+    drawerTitle: '', 
+    titleValue: '', 
+    priceValue: '' 
+  }),
   open: (drawer, title, initialValue = '') => set({ 
     isOpen: true, 
     activeDrawer: drawer, 
     drawerTitle: title,
-    inputValue: initialValue 
+    ...(drawer === 'title' ? { titleValue: initialValue } : {}),
+    ...(drawer === 'price' ? { priceValue: initialValue } : {})
   }),
-  setInputValue: (value) => set({ inputValue: value })
+  setTitleValue: (value) => set({ titleValue: value }),
+  setPriceValue: (value) => set({ priceValue: value })
 })); 
