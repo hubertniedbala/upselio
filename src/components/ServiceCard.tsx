@@ -20,6 +20,11 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
     open('title', 'Tytuł usługi', currentTitle);
   };
 
+  const handlePriceClick = () => {
+    setActiveElement('price');
+    open('price', 'Cena', price);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-sm p-5">
       <div className="flex items-start gap-5">
@@ -36,9 +41,12 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
                 {currentTitle}
               </h3>
             </button>
-            <span className="text-[18px] font-medium text-gray-600">
+            <button
+              onClick={handlePriceClick}
+              className="text-[18px] font-medium text-gray-600"
+            >
               {price}
-            </span>
+            </button>
           </div>
           <p className="text-[14px] text-gray-500 mt-2 mb-4">
             {description}
