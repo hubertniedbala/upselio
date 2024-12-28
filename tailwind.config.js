@@ -8,6 +8,8 @@ export default {
     extend: {
       colors: {
         primary: '#0284c7',
+        background: '#F2F2F3',
+        'tab-inactive': '#667085'
       }
     },
   },
