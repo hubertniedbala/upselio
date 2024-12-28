@@ -6,19 +6,30 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const mounted = useRef(false);
 
-  const handleTransitionEnd = () => {
-    if (isOpen && activeDrawer === 'title') {
-      // Dajemy chwilę na pełne wyrenderowanie
-      setTimeout(() => {
-        if (inputRef.current) {
+  // Efekt dla pierwszego montowania
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  // Efekt dla focusu
+  useEffect(() => {
+    if (isOpen && activeDrawer === 'title' && mounted.current) {
+      const timer = setTimeout(() => {
+        if (document.activeElement !== inputRef.current && inputRef.current) {
           inputRef.current.focus();
           const length = inputRef.current.value.length;
           inputRef.current.setSelectionRange(length, length);
         }
-      }, 100);
+      }, 300); // Zwiększamy opóźnienie
+
+      return () => clearTimeout(timer);
     }
-  };
+  }, [isOpen, activeDrawer]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -51,7 +62,6 @@ const Drawer: FC = () => {
           >
             <Dialog.Panel 
               className="w-screen max-w-md"
-              onTransitionEnd={handleTransitionEnd}
             >
               <div className="flex h-full flex-col bg-white shadow-xl">
                 <div className="px-6 py-4 border-b border-gray-200">
@@ -77,6 +87,7 @@ const Drawer: FC = () => {
                         value={titleValue}
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
+                        autoFocus
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
