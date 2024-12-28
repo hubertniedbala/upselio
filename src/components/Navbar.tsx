@@ -1,5 +1,6 @@
 import { FC, SVGProps } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
@@ -29,25 +30,6 @@ const Logo: FC<IconProps> = ({ className, ...props }) => (
     <path d="M64.5,24.9V9.1h2.4v15.8H64.5z" fill="#16629F"/>
     <path d="M49.8,18.9c0-3.6,2.4-6,5.5-6c2,0,3.3,0.9,4,1.9v-1.7h2.4v11.8h-2.4v-1.8c-0.7,1-2.1,1.9-4.1,1.9 C52.2,25.1,49.8,22.6,49.8,18.9z M59.3,19c0-2.5-1.7-3.9-3.5-3.9c-1.8,0-3.5,1.4-3.5,3.9c0,2.5,1.7,4,3.5,4 C57.6,23,59.3,21.5,59.3,19z" fill="#16629F"/>
     <path d="M48.2,20.7c0,2.2-1.8,4.4-5.1,4.4c-2.9,0-5.2-1.6-5.2-4.2h2.6c0.1,1.2,0.9,2.2,2.6,2.2c1.7,0,2.6-0.9,2.6-2.2 c0-3.6-7.8-1.3-7.8-6.7c0-2.6,2-4.2,5-4.2c2.8,0,4.8,1.5,5,4h-2.7c-0.1-1-0.9-1.9-2.5-2c-1.4,0-2.5,0.6-2.5,2.1 C40.4,17.3,48.2,15.3,48.2,20.7z" fill="#16629F"/>
-  </svg>
-);
-
-const HelpIcon = () => (
-  <svg 
-    width="20" 
-    height="20" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
-    className="text-gray-500"
-  >
-    <path 
-      d="M9.13626 9.13628L4.92893 4.92896M4.92893 19.0711L9.16797 14.8321M14.8611 14.8638L19.0684 19.0711M19.0684 4.92896L14.8287 9.16862M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    />
   </svg>
 );
 
@@ -88,7 +70,7 @@ const Navbar: FC = () => {
       {/* Right side */}
       <div className="flex items-center gap-4">
         <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors">
-          <HelpIcon />
+          <QuestionMarkCircleIcon className="w-5 h-5 text-gray-500 [stroke-width:1.67]" />
           <span className="text-gray-500 font-poppins text-sm font-medium">
             Centrum pomocy
           </span>

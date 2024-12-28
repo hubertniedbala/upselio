@@ -1,5 +1,12 @@
 import { FC, useState } from 'react';
-import { DeleteIcon, DuplicateIcon, EditIcon, CategoryIcon, ServiceIcon, PriceIcon } from './icons';
+import { 
+  TrashIcon, 
+  DocumentDuplicateIcon,
+  PencilIcon,
+  Squares2X2Icon,
+  ComputerDesktopIcon,
+  CurrencyDollarIcon 
+} from '@heroicons/react/24/outline';
 
 interface ServiceListItemProps {
   name: string;
@@ -17,7 +24,7 @@ const ServiceListItem: FC<ServiceListItemProps> = ({ name, date, price, category
         <div className="flex items-center gap-4">
           {/* Service icon */}
           <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center">
-            <ServiceIcon className="text-primary" />
+            <ComputerDesktopIcon className="w-5 h-5 text-primary [stroke-width:1.67]" />
           </div>
 
           {/* Service info */}
@@ -26,11 +33,11 @@ const ServiceListItem: FC<ServiceListItemProps> = ({ name, date, price, category
             <div className="flex items-center gap-2">
               <p className="text-gray-400 text-sm">{date}</p>
               <span className="px-2 py-1 bg-gray-50 rounded-md text-gray-500 text-sm flex items-center gap-1">
-                <CategoryIcon className="text-gray-400" />
+                <Squares2X2Icon className="w-5 h-5 text-gray-400 [stroke-width:1.67]" />
                 {category}
               </span>
               <span className="px-2 py-1 bg-gray-50 rounded-md text-gray-500 text-sm flex items-center gap-1">
-                <PriceIcon className="text-gray-400" />
+                <CurrencyDollarIcon className="w-5 h-5 text-gray-400 [stroke-width:1.67]" />
                 {price}
               </span>
             </div>
@@ -41,13 +48,13 @@ const ServiceListItem: FC<ServiceListItemProps> = ({ name, date, price, category
           {/* Actions */}
           <div className="flex items-center gap-2">
             <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <DeleteIcon />
+              <TrashIcon className="w-5 h-5 [stroke-width:1.67]" />
             </button>
             <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <DuplicateIcon />
+              <DocumentDuplicateIcon className="w-5 h-5 [stroke-width:1.67]" />
             </button>
             <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <EditIcon />
+              <PencilIcon className="w-5 h-5 [stroke-width:1.67]" />
             </button>
           </div>
 
