@@ -6,7 +6,7 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-gray-50 bg-repeat bg-auto relative">
+    <div className="min-h-screen">
       {children}
     </div>
   );
