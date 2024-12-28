@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, useCallback, Fragment } from 'react';
+import React, { FC, useRef, useEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDrawerStore } from '../store/drawerStore';
 import { XIcon } from '../icons/interface';
@@ -6,25 +6,27 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const focusInput = useCallback(() => {
-    // Próbujemy kilka razy z różnymi opóźnieniami
-    [0, 100, 300, 500].forEach(delay => {
-      setTimeout(() => {
-        if (inputRef.current && document.activeElement !== inputRef.current) {
-          inputRef.current.focus();
-          const length = inputRef.current.value.length;
-          inputRef.current.setSelectionRange(length, length);
-        }
-      }, delay);
-    });
-  }, []);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen && activeDrawer === 'title') {
-      focusInput();
+      // Dajemy czas na animację
+      const timer = setTimeout(() => {
+        if (inputRef.current) {
+          // Próbujemy ustawić focus
+          try {
+            inputRef.current.focus({ preventScroll: true });
+            const length = inputRef.current.value.length;
+            inputRef.current.setSelectionRange(length, length);
+          } catch (e) {
+            console.error('Focus error:', e);
+          }
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
-  }, [isOpen, activeDrawer, focusInput]);
+  }, [isOpen, activeDrawer]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -32,6 +34,7 @@ const Drawer: FC = () => {
         as="div" 
         className="relative z-50" 
         onClose={close}
+        initialFocus={containerRef}
       >
         <Transition.Child
           as={Fragment}
@@ -71,7 +74,7 @@ const Drawer: FC = () => {
                   </div>
                 </div>
 
-                <div className="flex-1 overflow-y-auto px-6 py-6">
+                <div className="flex-1 overflow-y-auto px-6 py-6" ref={containerRef}>
                   {activeDrawer === 'title' && (
                     <div>
                       <input
@@ -80,8 +83,6 @@ const Drawer: FC = () => {
                         value={titleValue}
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
-                        autoFocus
-                        onFocus={(e) => e.target.setSelectionRange(e.target.value.length, e.target.value.length)}
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
