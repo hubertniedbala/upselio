@@ -64,4 +64,19 @@ export const MonitorIcon: FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+export const PhoneIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg className={`${className} [stroke-width:1.67]`} viewBox="0 0 24 24" fill="none">
+    <path d="M10.5 2H13.5C14.8807 2 16 3.11929 16 4.5V19.5C16 20.8807 14.8807 22 13.5 22H10.5C9.11929 22 8 20.8807 8 19.5V4.5C8 3.11929 9.11929 2 10.5 2Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11 5H13" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12 19.01L12.01 18.999" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export const TabletIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg className={`${className} [stroke-width:1.67]`} viewBox="0 0 24 24" fill="none">
+    <path d="M8 2H16C17.8856 2 18.8284 2 19.4142 2.58579C20 3.17157 20 4.11438 20 6V18C20 19.8856 20 20.8284 19.4142 21.4142C18.8284 22 17.8856 22 16 22H8C6.11438 22 5.17157 22 4.58579 21.4142C4 20.8284 4 19.8856 4 18V6C4 4.11438 4 3.17157 4.58579 2.58579C5.17157 2 6.11438 2 8 2Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11 19H13" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 // ... możemy dodać więcej ikon w razie potrzeby
