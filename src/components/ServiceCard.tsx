@@ -19,8 +19,10 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
   const currentLogo = useDrawerStore(state => state.logoValue) || '';
 
   const handleTitleClick = () => {
-    setActiveElement('title');
     open('title', 'Tytuł usługi', currentTitle);
+    setTimeout(() => {
+      setActiveElement('title');
+    }, 50);
   };
 
   const handlePriceClick = () => {

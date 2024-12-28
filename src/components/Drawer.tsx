@@ -6,18 +6,31 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const focusAttempts = useRef(0);
 
   useEffect(() => {
     if (isOpen && activeDrawer === 'title') {
-      const timer = setTimeout(() => {
+      const attemptFocus = () => {
         if (inputRef.current) {
           inputRef.current.focus();
           const length = inputRef.current.value.length;
           inputRef.current.setSelectionRange(length, length);
+          return true;
         }
-      }, 150);
+        return false;
+      };
 
-      return () => clearTimeout(timer);
+      const interval = setInterval(() => {
+        if (attemptFocus() || focusAttempts.current > 10) {
+          clearInterval(interval);
+        }
+        focusAttempts.current += 1;
+      }, 50);
+
+      return () => {
+        clearInterval(interval);
+        focusAttempts.current = 0;
+      };
     }
   }, [isOpen, activeDrawer]);
 
