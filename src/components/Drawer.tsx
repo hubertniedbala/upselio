@@ -1,4 +1,4 @@
-import React, { FC, useRef, useLayoutEffect, Fragment } from 'react';
+import React, { FC, useRef, useEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDrawerStore } from '../store/drawerStore';
 import { XIcon } from '../icons/interface';
@@ -6,31 +6,24 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isInputVisible, setIsInputVisible] = React.useState(false);
 
-  // Używamy useLayoutEffect zamiast useEffect
-  useLayoutEffect(() => {
+  // Efekt dla widoczności inputa
+  useEffect(() => {
     if (isOpen && activeDrawer === 'title') {
-      // Próbujemy ustawić focus natychmiast
-      const focusInput = () => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-          inputRef.current.select();
-        }
-      };
-
-      // Próbujemy kilka razy
-      focusInput();
-      const timer1 = setTimeout(focusInput, 50);
-      const timer2 = setTimeout(focusInput, 100);
-      const timer3 = setTimeout(focusInput, 200);
-
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-        clearTimeout(timer3);
-      };
+      setIsInputVisible(true);
+    } else {
+      setIsInputVisible(false);
     }
   }, [isOpen, activeDrawer]);
+
+  // Efekt dla focusu
+  useEffect(() => {
+    if (isInputVisible && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isInputVisible]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -38,7 +31,6 @@ const Drawer: FC = () => {
         as="div" 
         className="relative z-50" 
         onClose={close}
-        initialFocus={inputRef}
       >
         <Transition.Child
           as={Fragment}
@@ -89,7 +81,6 @@ const Drawer: FC = () => {
                         value={titleValue}
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
-                        autoFocus
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
