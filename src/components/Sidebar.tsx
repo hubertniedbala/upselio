@@ -9,7 +9,7 @@ import { useUploadStore } from '../store/uploadStore';
 import { 
   ComputerDesktopIcon as MonitorIcon,
   DevicePhoneMobileIcon as PhoneIcon,
-  LaptopIcon 
+  DeviceTabletIcon as TabletIcon
 } from '@heroicons/react/24/outline';
 
 const linkTexts = [
@@ -28,7 +28,7 @@ interface IconOption {
 
 const iconOptions: IconOption[] = [
   { id: 1, name: 'Monitor', icon: MonitorIcon },
-  { id: 2, name: 'Laptop', icon: LaptopIcon },
+  { id: 2, name: 'Tablet', icon: TabletIcon },
   { id: 3, name: 'Phone', icon: PhoneIcon },
 ];
 
@@ -157,7 +157,7 @@ const ElementView: FC<SidebarProps> = ({
   const getDescription = () => {
     switch (activeElement) {
       case 'title':
-        return 'Wpisz tytuł swojej usługi';
+        return 'Wpisz tytuł swojej us��ugi';
       case 'description':
         return 'Dodaj opis swojej usługi';
       case 'logo':
