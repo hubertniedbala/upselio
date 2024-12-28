@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,31 +7,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#2271b1',
-          hover: '#135e96'
-        },
-        secondary: {
-          DEFAULT: '#3a81b9'
-        },
-        gray: {
-          50: '#f0f0f1',
-          100: '#eaecf0',
-          200: '#cfd4dc',
-          300: '#667084',
-          400: '#475466',
-          500: '#344053',
-          600: '#0f1728',
-        },
-        error: '#d63638'
-      },
-      fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
-        segoe: ['Segoe UI', 'sans-serif']
+        primary: '#0284c7',
       },
       backgroundImage: {
-        'service-pattern': `url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 4H8V8H4V4Z' fill='%23F0F0F1'/%3E%3C/svg%3E")`,
+        'gray-50': `url("data:image/svg+xml,<svg id='patternId' width='10' height='10' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='10' height='10'><rect x='0' y='0' width='100%' height='100%' fill='%23F1F1F2'/><circle cx='2' cy='2' r='1' fill='%23D1D1D2'/></pattern></defs><rect width='800%' height='800%' fill='url(%23a)'/></svg>")`,
       },
     },
   },
