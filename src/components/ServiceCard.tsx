@@ -25,11 +25,11 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
               onClick={() => open('title', 'Tytuł usługi', currentTitle)}
               className="text-left"
             >
-              <h3 className="text-[15px] font-medium text-gray-600">
+              <h3 className="text-[18px] font-medium text-gray-600">
                 {currentTitle}
               </h3>
             </button>
-            <span className="text-[15px] font-medium text-gray-600">
+            <span className="text-[18px] font-medium text-gray-600">
               {price}
             </span>
           </div>
@@ -37,11 +37,11 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
             {description}
           </p>
           <div className="flex items-center justify-between">
-            <button className="text-[13px] text-primary hover:text-primary/80 transition-colors">
+            <button className="text-[14px] font-medium text-primary hover:text-primary/80 transition-colors">
               Szczegóły
             </button>
-            <button className="px-4 py-1.5 bg-white text-[13px] rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors flex items-center gap-2">
-              <PlusIcon className="w-4 h-4" />
+            <button className="px-4 py-2.5 bg-white text-[13px] rounded-md border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors flex items-center gap-2">
+              <PlusIcon className="w-5 h-5" />
               Dodaj
             </button>
           </div>
