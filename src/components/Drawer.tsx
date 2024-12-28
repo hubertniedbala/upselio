@@ -6,31 +6,16 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  const focusAttempts = useRef(0);
 
   useEffect(() => {
     if (isOpen && activeDrawer === 'title') {
-      const attemptFocus = () => {
+      requestAnimationFrame(() => {
         if (inputRef.current) {
           inputRef.current.focus();
           const length = inputRef.current.value.length;
           inputRef.current.setSelectionRange(length, length);
-          return true;
         }
-        return false;
-      };
-
-      const interval = setInterval(() => {
-        if (attemptFocus() || focusAttempts.current > 10) {
-          clearInterval(interval);
-        }
-        focusAttempts.current += 1;
-      }, 50);
-
-      return () => {
-        clearInterval(interval);
-        focusAttempts.current = 0;
-      };
+      });
     }
   }, [isOpen, activeDrawer]);
 
@@ -88,6 +73,8 @@ const Drawer: FC = () => {
                         value={titleValue}
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
+                        tabIndex={0}
+                        autoFocus
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
