@@ -14,6 +14,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
   const { open } = useDrawerStore();
   const { setActiveElement } = useSidebarStore();
   const currentTitle = useDrawerStore(state => state.titleValue) || title;
+  const currentDescription = useDrawerStore(state => state.descriptionValue) || description;
 
   const handleTitleClick = () => {
     setActiveElement('title');
@@ -23,6 +24,11 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
   const handlePriceClick = () => {
     setActiveElement('price');
     open('price', 'Cena', price);
+  };
+
+  const handleDescriptionClick = () => {
+    setActiveElement('description');
+    open('description', 'Opis usługi', currentDescription);
   };
 
   return (
@@ -48,9 +54,14 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
               {price}
             </button>
           </div>
-          <p className="text-[14px] text-gray-500 mt-2 mb-4">
-            {description}
-          </p>
+          <button
+            onClick={handleDescriptionClick}
+            className="text-left w-full"
+          >
+            <p className="text-[14px] text-gray-500 mt-2 mb-4">
+              {currentDescription}
+            </p>
+          </button>
           <div className="flex items-center justify-between">
             <button className="text-[14px] font-medium text-primary hover:text-primary/80 transition-colors">
               Szczegóły
