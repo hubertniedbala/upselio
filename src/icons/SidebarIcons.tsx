@@ -1,15 +1,6 @@
 import { FC } from 'react';
 
-// Wrapper dla spójnego stylu Untitled UI
-const withUntitledStyle = (Icon: FC<{ className?: string }>) => {
-  return ({ className }: { className?: string }) => (
-    <Icon 
-      className={`${className} [stroke-width:1.67] transition-colors`} 
-    />
-  );
-};
-
-// Ikony z Untitled UI
+// Ikony z Untitled UI Icons
 export const TitleIcon: FC<{ className?: string }> = ({ className }) => (
   <svg className={`${className} [stroke-width:1.67]`} viewBox="0 0 24 24" fill="none">
     <path d="M4 7V4H20V7M12 4V20M8 20H16" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
@@ -24,7 +15,8 @@ export const DescriptionIcon: FC<{ className?: string }> = ({ className }) => (
 
 export const LogoIcon: FC<{ className?: string }> = ({ className }) => (
   <svg className={`${className} [stroke-width:1.67]`} viewBox="0 0 24 24" fill="none">
-    <path d="M4 16L8.586 11.414C9.367 10.633 10.633 10.633 11.414 11.414L16 16M14 14L15.586 12.414C16.367 11.633 17.633 11.633 18.414 12.414L20 14M8 8C8 9.10457 7.10457 10 6 10C4.89543 10 4 9.10457 4 8C4 6.89543 4.89543 6 6 6C7.10457 6 8 6.89543 8 8Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -79,4 +71,4 @@ export const TabletIcon: FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-// ... możemy dodać więcej ikon w razie potrzeby
+// ... możemy dodać więcej ikon w tym samym stylu
