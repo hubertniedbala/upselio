@@ -1,4 +1,4 @@
-import React, { FC, useRef, useLayoutEffect, Fragment } from 'react';
+import React, { FC, useRef, useEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDrawerStore } from '../store/drawerStore';
 import { XIcon } from '../icons/interface';
@@ -7,35 +7,40 @@ const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useLayoutEffect(() => {
-    if (isOpen && activeDrawer === 'title') {
-      // Tworzymy observer, który będzie nasłuchiwał na zmiany w DOM
-      const observer = new MutationObserver((mutations, obs) => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-          const length = inputRef.current.value.length;
-          inputRef.current.setSelectionRange(length, length);
-          obs.disconnect(); // Przestajemy obserwować po ustawieniu focusu
-        }
-      });
+  useEffect(() => {
+    let frameId: number;
+    let attempts = 0;
+    const maxAttempts = 10;
 
-      // Rozpoczynamy obserwację
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
-
-      // Dodatkowo próbujemy ustawić focus bezpośrednio
-      if (inputRef.current) {
+    const attemptFocus = () => {
+      if (inputRef.current && document.activeElement !== inputRef.current) {
         inputRef.current.focus();
         const length = inputRef.current.value.length;
         inputRef.current.setSelectionRange(length, length);
+        return true;
       }
+      return false;
+    };
 
-      return () => {
-        observer.disconnect();
-      };
+    const tryFocus = () => {
+      if (attempts >= maxAttempts) return;
+      
+      if (!attemptFocus()) {
+        attempts++;
+        frameId = requestAnimationFrame(tryFocus);
+      }
+    };
+
+    if (isOpen && activeDrawer === 'title') {
+      // Rozpocznij próby focusu
+      frameId = requestAnimationFrame(tryFocus);
     }
+
+    return () => {
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+      }
+    };
   }, [isOpen, activeDrawer]);
 
   return (
