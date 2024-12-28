@@ -19,29 +19,29 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
           <MonitorIcon className="w-5 h-5 text-primary" />
         </div>
         <div className="flex-1">
-          <button
-            onClick={() => open('title', 'Tytuł usługi', currentTitle)}
-            className="text-left w-full"
-          >
-            <h3 className="text-[15px] font-medium text-gray-600 mb-2">
-              {currentTitle}
-            </h3>
-          </button>
+          <div className="flex items-center justify-between mb-2">
+            <button
+              onClick={() => open('title', 'Tytuł usługi', currentTitle)}
+              className="text-left"
+            >
+              <h3 className="text-[15px] font-medium text-gray-600">
+                {currentTitle}
+              </h3>
+            </button>
+            <span className="text-[15px] font-medium text-gray-600">
+              {price}
+            </span>
+          </div>
           <p className="text-[13px] text-gray-500 mb-4">
             {description}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-[15px] font-medium text-gray-600">
-              {price}
-            </span>
-            <div className="flex items-center gap-3">
-              <button className="text-[13px] text-primary hover:text-primary/80 transition-colors">
-                Szczegóły
-              </button>
-              <button className="px-4 py-2 bg-white text-[13px] rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors">
-                Dodaj
-              </button>
-            </div>
+            <button className="text-[13px] text-primary hover:text-primary/80 transition-colors">
+              Szczegóły
+            </button>
+            <button className="px-4 py-2 bg-white text-[13px] rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors">
+              Dodaj
+            </button>
           </div>
         </div>
       </div>
