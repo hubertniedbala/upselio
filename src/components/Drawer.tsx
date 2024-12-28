@@ -6,23 +6,28 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [shouldFocus, setShouldFocus] = React.useState(false);
 
-  // Pojedynczy useEffect do obsługi focusu
+  // Efekt dla ustawienia flagi focusu
   useEffect(() => {
-    // Sprawdzamy czy drawer jest otwarty i czy to drawer tytułu
     if (isOpen && activeDrawer === 'title') {
-      // Dajemy czas na wyrenderowanie
+      setShouldFocus(true);
+    } else {
+      setShouldFocus(false);
+    }
+  }, [isOpen, activeDrawer]);
+
+  // Efekt dla focusu
+  useEffect(() => {
+    if (shouldFocus && inputRef.current) {
       const timer = setTimeout(() => {
-        if (inputRef.current) {
-          // Ustawiamy focus i zaznaczamy tekst
-          inputRef.current.focus();
-          inputRef.current.select();
-        }
-      }, 0);
+        inputRef.current?.focus();
+        inputRef.current?.select();
+      }, 100);
 
       return () => clearTimeout(timer);
     }
-  }, [isOpen, activeDrawer]); // Reagujemy na zmiany isOpen i activeDrawer
+  }, [shouldFocus]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
