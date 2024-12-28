@@ -13,7 +13,9 @@ import {
   ChevronDownIcon,
   MonitorIcon,
   GridIcon,
-  MenuIcon
+  MenuIcon,
+  ServicesIcon,
+  SettingsIcon
 } from '../icons';
 import { Switch, Listbox, Transition } from '@headlessui/react';
 import { useUploadStore } from '../store/uploadStore';
