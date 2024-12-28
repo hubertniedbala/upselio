@@ -6,27 +6,18 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  const mounted = useRef(false);
 
-  // Efekt dla pierwszego montowania
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      const length = inputRef.current.value.length;
+      inputRef.current.setSelectionRange(length, length);
+    }
+  };
+
   useEffect(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
-
-  // Efekt dla focusu
-  useEffect(() => {
-    if (isOpen && activeDrawer === 'title' && mounted.current) {
-      const timer = setTimeout(() => {
-        if (document.activeElement !== inputRef.current && inputRef.current) {
-          inputRef.current.focus();
-          const length = inputRef.current.value.length;
-          inputRef.current.setSelectionRange(length, length);
-        }
-      }, 300); // Zwiększamy opóźnienie
-
+    if (isOpen && activeDrawer === 'title') {
+      const timer = setTimeout(focusInput, 0);
       return () => clearTimeout(timer);
     }
   }, [isOpen, activeDrawer]);
@@ -37,6 +28,7 @@ const Drawer: FC = () => {
         as="div" 
         className="relative z-50" 
         onClose={close}
+        onAfterEnter={focusInput}
       >
         <Transition.Child
           as={Fragment}
@@ -60,9 +52,7 @@ const Drawer: FC = () => {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel 
-              className="w-screen max-w-md"
-            >
+            <Dialog.Panel className="w-screen max-w-md">
               <div className="flex h-full flex-col bg-white shadow-xl">
                 <div className="px-6 py-4 border-b border-gray-200">
                   <div className="flex items-center justify-between">
