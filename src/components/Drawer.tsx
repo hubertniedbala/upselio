@@ -7,15 +7,16 @@ const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Dodajemy efekt dla auto-focusu
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-      // Ustawiamy kursor na końcu tekstu
-      const length = inputRef.current.value.length;
-      inputRef.current.setSelectionRange(length, length);
+    // Dodajemy małe opóźnienie, żeby poczekać na animację otwarcia
+    if (isOpen && activeDrawer === 'title') {
+      setTimeout(() => {
+        inputRef.current?.focus();
+        const length = inputRef.current?.value.length || 0;
+        inputRef.current?.setSelectionRange(length, length);
+      }, 50);
     }
-  }, [isOpen]);
+  }, [isOpen, activeDrawer]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -50,7 +51,7 @@ const Drawer: FC = () => {
                 <div className="px-6 py-4 border-b border-gray-200">
                   <div className="flex items-center justify-between">
                     <Dialog.Title className="text-lg font-medium text-gray-600">
-                      Drawer
+                      {drawerTitle}
                     </Dialog.Title>
                     <button
                       onClick={close}
@@ -71,11 +72,11 @@ const Drawer: FC = () => {
                         value={titleValue}
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
+                        autoFocus
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
                   )}
-                  {/* Drawer content will go here */}
                 </div>
               </div>
             </Dialog.Panel>
