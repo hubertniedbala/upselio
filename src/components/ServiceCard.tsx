@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
+import { useSidebarStore } from '../store/sidebarStore';
 import { MonitorIcon } from '../icons/media';
 import { PlusIcon } from '../icons/interface';
 
@@ -11,7 +12,13 @@ interface ServiceCardProps {
 
 const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
   const { open } = useDrawerStore();
+  const { setActiveElement } = useSidebarStore();
   const currentTitle = useDrawerStore(state => state.inputValue) || title;
+
+  const handleTitleClick = () => {
+    setActiveElement('title');
+    open('title', 'Tytuł usługi', currentTitle);
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-5">
@@ -22,7 +29,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
         <div className="flex-1">
           <div className="flex items-center justify-between pt-[0.46rem]">
             <button
-              onClick={() => open('title', 'Tytuł usługi', currentTitle)}
+              onClick={handleTitleClick}
               className="text-left"
             >
               <h3 className="text-[18px] font-medium text-gray-600">
