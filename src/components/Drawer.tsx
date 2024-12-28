@@ -7,40 +7,25 @@ const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Funkcja do ustawiania focusu
-  const setFocus = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-      const length = inputRef.current.value.length;
-      inputRef.current.setSelectionRange(length, length);
-    }
-  };
-
-  // Efekt dla focusu
   useEffect(() => {
     if (isOpen && activeDrawer === 'title') {
-      // Seria timeoutów z różnymi opóźnieniami
-      const timeouts = [0, 100, 300, 500].map(delay => 
-        setTimeout(setFocus, delay)
-      );
+      // Dłuższe opóźnienie, żeby poczekać na pełne wyrenderowanie i animację
+      const timer = setTimeout(() => {
+        if (inputRef.current) {
+          // Próbujemy kilka razy
+          for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+              if (document.activeElement !== inputRef.current) {
+                inputRef.current?.focus();
+                const length = inputRef.current?.value.length || 0;
+                inputRef.current?.setSelectionRange(length, length);
+              }
+            }, i * 100);
+          }
+        }
+      }, 500); // Główne opóźnienie
 
-      return () => {
-        timeouts.forEach(clearTimeout);
-      };
-    }
-  }, [isOpen, activeDrawer]);
-
-  // Efekt dla focusu po renderze
-  useEffect(() => {
-    if (isOpen && activeDrawer === 'title' && inputRef.current) {
-      const input = inputRef.current;
-      const focusHandler = () => {
-        const length = input.value.length;
-        input.setSelectionRange(length, length);
-      };
-
-      input.addEventListener('focus', focusHandler);
-      return () => input.removeEventListener('focus', focusHandler);
+      return () => clearTimeout(timer);
     }
   }, [isOpen, activeDrawer]);
 
@@ -99,7 +84,6 @@ const Drawer: FC = () => {
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
                         autoFocus
-                        onFocus={(e) => e.target.setSelectionRange(e.target.value.length, e.target.value.length)}
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
