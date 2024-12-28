@@ -6,42 +6,23 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
 
-  const handleTransitionEnd = () => {
-    if (isOpen && activeDrawer === 'title' && inputRef.current) {
-      // Focus po zakończeniu animacji
-      setTimeout(() => {
-        inputRef.current?.focus();
-        const length = inputRef.current?.value.length || 0;
-        inputRef.current?.setSelectionRange(length, length);
-      }, 0);
-    }
-  };
-
+  // Pojedynczy useEffect do obsługi focusu
   useEffect(() => {
+    // Sprawdzamy czy drawer jest otwarty i czy to drawer tytułu
     if (isOpen && activeDrawer === 'title') {
-      const focusInput = () => {
+      // Dajemy czas na wyrenderowanie
+      const timer = setTimeout(() => {
         if (inputRef.current) {
+          // Ustawiamy focus i zaznaczamy tekst
           inputRef.current.focus();
           inputRef.current.select();
         }
-      };
+      }, 0);
 
-      // Natychmiast
-      focusInput();
-
-      // Po 100ms
-      const timer1 = setTimeout(focusInput, 100);
-      // Po 300ms
-      const timer2 = setTimeout(focusInput, 300);
-
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
+      return () => clearTimeout(timer);
     }
-  }, [isOpen, activeDrawer]);
+  }, [isOpen, activeDrawer]); // Reagujemy na zmiany isOpen i activeDrawer
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -73,9 +54,7 @@ const Drawer: FC = () => {
             leaveTo="translate-x-full"
           >
             <Dialog.Panel 
-              ref={panelRef}
               className="w-screen max-w-md"
-              onTransitionEnd={handleTransitionEnd}
             >
               <div className="flex h-full flex-col bg-white shadow-xl">
                 <div className="px-6 py-4 border-b border-gray-200">
@@ -101,8 +80,6 @@ const Drawer: FC = () => {
                         value={titleValue}
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
-                        autoFocus
-                        onFocus={(e) => e.target.select()}
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
