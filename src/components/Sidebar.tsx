@@ -6,6 +6,11 @@ import { TitleIcon, DescriptionIcon, LogoIcon, PriceIcon, LinkIcon } from '../ic
 import { Switch, Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, TrashIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useUploadStore } from '../store/uploadStore';
+import { 
+  ComputerDesktopIcon as MonitorIcon,
+  DevicePhoneMobileIcon as PhoneIcon,
+  LaptopIcon 
+} from '@heroicons/react/24/outline';
 
 const linkTexts = [
   'Przejdź do usługi',
@@ -15,11 +20,16 @@ const linkTexts = [
   'Sprawdź szczegóły'
 ];
 
-const iconOptions = [
+interface IconOption {
+  id: number;
+  name: string;
+  icon: typeof MonitorIcon;
+}
+
+const iconOptions: IconOption[] = [
   { id: 1, name: 'Monitor', icon: MonitorIcon },
   { id: 2, name: 'Laptop', icon: LaptopIcon },
   { id: 3, name: 'Phone', icon: PhoneIcon },
-  // ... więcej ikon
 ];
 
 const LibraryView: FC = () => (
@@ -121,7 +131,7 @@ const ElementView: FC<SidebarProps> = ({
   const [regularPrice, setRegularPrice] = useState('');
   const [promoPrice, setPromoPrice] = useState('');
   const [hasPromoPrice, setHasPromoPrice] = useState(false);
-  const [selectedIcon, setSelectedIcon] = useState('');
+  const [selectedIcon, setSelectedIcon] = useState<number | null>(null);
   const [isLogoMode, setIsLogoMode] = useState(true);
   const [selectedLinkText, setSelectedLinkText] = useState(linkTexts[0]);
 
@@ -224,7 +234,7 @@ const ElementView: FC<SidebarProps> = ({
                 <div className="relative mt-1">
                   <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-white py-2.5 pl-4 pr-10 text-left border border-gray-200">
                     <span className="block truncate text-gray-600">
-                      {selectedIcon ? iconOptions.find(i => i.id === selectedIcon)?.name : 'Wybierz ikonę'}
+                      {selectedIcon !== null ? iconOptions.find(i => i.id === selectedIcon)?.name : 'Wybierz ikonę'}
                     </span>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2">
                       <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
