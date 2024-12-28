@@ -15,8 +15,12 @@ const Drawer: FC = () => {
 
   useEffect(() => {
     if (isOpen && activeDrawer === 'title' && inputRef.current) {
-      const length = inputRef.current.value.length;
-      inputRef.current.setSelectionRange(length, length);
+      const timer = setTimeout(() => {
+        const length = inputRef.current?.value.length || 0;
+        inputRef.current?.setSelectionRange(length, length);
+      }, 50);
+
+      return () => clearTimeout(timer);
     }
   }, [isOpen, activeDrawer]);
 
