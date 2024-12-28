@@ -16,6 +16,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
   const currentTitle = useDrawerStore(state => state.titleValue) || title;
   const currentDescription = useDrawerStore(state => state.descriptionValue) || description;
   const currentLink = useDrawerStore(state => state.linkValue) || '';
+  const currentLogo = useDrawerStore(state => state.logoValue) || '';
 
   const handleTitleClick = () => {
     setActiveElement('title');
@@ -37,12 +38,20 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
     open('link', 'Link do usługi', currentLink);
   };
 
+  const handleLogoClick = () => {
+    setActiveElement('logo');
+    open('logo', 'Logo', currentLogo);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-sm p-5">
       <div className="flex items-start gap-5">
-        <div className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center flex-shrink-0 mt-[2px]">
+        <button 
+          onClick={handleLogoClick}
+          className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center flex-shrink-0 mt-[2px] hover:bg-[#bcd9ea] transition-colors"
+        >
           <MonitorIcon className="w-5 h-5 text-primary" />
-        </div>
+        </button>
         <div className="flex-1">
           <div className="flex items-center justify-between pt-[0.46rem]">
             <button

@@ -8,6 +8,7 @@ interface DrawerState {
   priceValue: string;
   descriptionValue: string;
   linkValue: string;
+  logoValue: string;
   toggle: () => void;
   close: () => void;
   open: (drawer: string, title: string, initialValue?: string) => void;
@@ -15,6 +16,7 @@ interface DrawerState {
   setPriceValue: (value: string) => void;
   setDescriptionValue: (value: string) => void;
   setLinkValue: (value: string) => void;
+  setLogoValue: (value: string) => void;
 }
 
 export const useDrawerStore = create<DrawerState>((set) => ({
@@ -25,6 +27,7 @@ export const useDrawerStore = create<DrawerState>((set) => ({
   priceValue: '',
   descriptionValue: '',
   linkValue: '',
+  logoValue: '',
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
   close: () => set({ 
     isOpen: false, 
@@ -33,7 +36,8 @@ export const useDrawerStore = create<DrawerState>((set) => ({
     titleValue: '', 
     priceValue: '',
     descriptionValue: '',
-    linkValue: '' 
+    linkValue: '',
+    logoValue: ''
   }),
   open: (drawer, title, initialValue = '') => set({ 
     isOpen: true, 
@@ -42,10 +46,12 @@ export const useDrawerStore = create<DrawerState>((set) => ({
     ...(drawer === 'title' ? { titleValue: initialValue } : {}),
     ...(drawer === 'price' ? { priceValue: initialValue } : {}),
     ...(drawer === 'description' ? { descriptionValue: initialValue } : {}),
-    ...(drawer === 'link' ? { linkValue: initialValue } : {})
+    ...(drawer === 'link' ? { linkValue: initialValue } : {}),
+    ...(drawer === 'logo' ? { logoValue: initialValue } : {})
   }),
   setTitleValue: (value) => set({ titleValue: value }),
   setPriceValue: (value) => set({ priceValue: value }),
   setDescriptionValue: (value) => set({ descriptionValue: value }),
-  setLinkValue: (value) => set({ linkValue: value })
+  setLinkValue: (value) => set({ linkValue: value }),
+  setLogoValue: (value) => set({ logoValue: value })
 })); 
