@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, Fragment } from 'react';
+import React, { FC, useRef, useEffect, useLayoutEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDrawerStore } from '../store/drawerStore';
 import { XIcon } from '../icons/interface';
@@ -7,23 +7,27 @@ const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (isOpen && activeDrawer === 'title') {
-      const timer = setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-          const length = inputRef.current.value.length;
-          inputRef.current.setSelectionRange(length, length);
-        }
-      }, 300);
+  useLayoutEffect(() => {
+    if (isOpen && activeDrawer === 'title' && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen, activeDrawer]);
 
-      return () => clearTimeout(timer);
+  useEffect(() => {
+    if (isOpen && activeDrawer === 'title' && inputRef.current) {
+      const length = inputRef.current.value.length;
+      inputRef.current.setSelectionRange(length, length);
     }
   }, [isOpen, activeDrawer]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={close}>
+      <Dialog 
+        as="div" 
+        className="relative z-50" 
+        onClose={close}
+        initialFocus={inputRef}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-300"
@@ -71,6 +75,7 @@ const Drawer: FC = () => {
                         value={titleValue}
                         onChange={(e) => setTitleValue(e.target.value)}
                         placeholder="Wpisz tytuł usługi"
+                        autoFocus
                         className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
                       />
                     </div>
