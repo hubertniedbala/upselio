@@ -8,19 +8,24 @@ const Drawer: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Dodajemy małe opóźnienie, żeby poczekać na animację otwarcia
     if (isOpen && activeDrawer === 'title') {
-      setTimeout(() => {
-        inputRef.current?.focus();
-        const length = inputRef.current?.value.length || 0;
-        inputRef.current?.setSelectionRange(length, length);
-      }, 50);
+      const timeoutId = setTimeout(() => {
+        requestAnimationFrame(() => {
+          if (inputRef.current) {
+            inputRef.current.focus();
+            const length = inputRef.current.value.length;
+            inputRef.current.setSelectionRange(length, length);
+          }
+        });
+      }, 100);
+
+      return () => clearTimeout(timeoutId);
     }
   }, [isOpen, activeDrawer]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={close}>
+      <Dialog as="div" className="relative z-50" onClose={close} initialFocus={inputRef}>
         {/* Overlay */}
         <Transition.Child
           as={Fragment}
