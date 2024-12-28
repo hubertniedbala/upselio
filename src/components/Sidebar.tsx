@@ -2,15 +2,21 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 import type { SidebarProps } from '../types/sidebar';
-import { TitleIcon, DescriptionIcon, LogoIcon, PriceIcon, LinkIcon } from '../icons/SidebarIcons';
-import { Switch, Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, TrashIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { useUploadStore } from '../store/uploadStore';
 import { 
-  ComputerDesktopIcon as MonitorIcon,
-  DevicePhoneMobileIcon as PhoneIcon,
-  DeviceTabletIcon as TabletIcon
-} from '@heroicons/react/24/outline';
+  TitleIcon, 
+  DescriptionIcon, 
+  LogoIcon, 
+  PriceIcon, 
+  LinkIcon,
+  TrashIcon,
+  CheckIcon,
+  ChevronUpDownIcon,
+  MonitorIcon,
+  PhoneIcon,
+  TabletIcon
+} from '../icons/SidebarIcons';
+import { Switch, Listbox, Transition } from '@headlessui/react';
+import { useUploadStore } from '../store/uploadStore';
 
 const linkTexts = [
   'Przejdź do usługi',
@@ -157,7 +163,7 @@ const ElementView: FC<SidebarProps> = ({
   const getDescription = () => {
     switch (activeElement) {
       case 'title':
-        return 'Wpisz tytuł swojej us��ugi';
+        return 'Wpisz tytuł swojej usługi';
       case 'description':
         return 'Dodaj opis swojej usługi';
       case 'logo':
