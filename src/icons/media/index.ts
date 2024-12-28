@@ -1,5 +1,3 @@
 // Ikony związane z mediami
-export * from './Logo';
-export * from './Phone';
-export * from './Tablet';
-export * from './Monitor'; 
+export * from './Monitor';
+export * from './Heart'; 

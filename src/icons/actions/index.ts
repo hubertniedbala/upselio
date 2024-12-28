@@ -1,3 +1,4 @@
 // Ikony akcji
-export * from './Trash';
-export * from './Check'; 
+export * from './Copy';
+export * from './Edit';
+export * from './Trash'; 

@@ -3,18 +3,18 @@ import { useDrawerStore } from '../store/drawerStore';
 import { useSidebarStore } from '../store/sidebarStore';
 import type { SidebarProps } from '../types/sidebar';
 import { 
-  TitleIcon, 
+  TypeIcon, 
   DescriptionIcon, 
-  LogoIcon, 
-  PriceIcon, 
+  HeartIcon, 
+  CurrencyIcon,
   LinkIcon,
   TrashIcon,
   CheckIcon,
-  ChevronUpDownIcon,
+  ChevronDownIcon,
   MonitorIcon,
-  PhoneIcon,
-  TabletIcon
-} from '../icons/SidebarIcons';
+  GridIcon,
+  MenuIcon
+} from '../icons';
 import { Switch, Listbox, Transition } from '@headlessui/react';
 import { useUploadStore } from '../store/uploadStore';
 
@@ -51,7 +51,7 @@ const LibraryView: FC = () => (
       <SidebarItem 
         title="Tytuł" 
         description="Dodaj tytuł swojej usługi" 
-        icon={TitleIcon} 
+        icon={TypeIcon} 
         type="title"
       />
       <SidebarItem 
@@ -63,14 +63,14 @@ const LibraryView: FC = () => (
       <SidebarItem 
         title="Logo" 
         description="Jeśli chcesz dodać swoje logo" 
-        icon={LogoIcon} 
+        icon={HeartIcon} 
         type="logo"
         hasDelete
       />
       <SidebarItem 
         title="Cena" 
         description="Wskaż wartość usługi" 
-        icon={PriceIcon} 
+        icon={CurrencyIcon} 
         type="price"
       />
       <SidebarItem 
@@ -243,7 +243,7 @@ const ElementView: FC<SidebarProps> = ({
                       {selectedIcon !== null ? iconOptions.find(i => i.id === selectedIcon)?.name : 'Wybierz ikonę'}
                     </span>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2">
-                      <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                      <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>
                   </Listbox.Button>
                   <Transition
