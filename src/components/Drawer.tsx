@@ -4,7 +4,18 @@ import { useDrawerStore } from '../store/drawerStore';
 import { XIcon } from '../icons/interface';
 
 const Drawer: FC = () => {
-  const { isOpen, close } = useDrawerStore();
+  const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Dodajemy efekt dla auto-focusu
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+      // Ustawiamy kursor na końcu tekstu
+      const length = inputRef.current.value.length;
+      inputRef.current.setSelectionRange(length, length);
+    }
+  }, [isOpen]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -52,6 +63,18 @@ const Drawer: FC = () => {
 
                 {/* Content */}
                 <div className="flex-1 overflow-y-auto px-6 py-6">
+                  {activeDrawer === 'title' && (
+                    <div>
+                      <input
+                        ref={inputRef}
+                        type="text"
+                        value={titleValue}
+                        onChange={(e) => setTitleValue(e.target.value)}
+                        placeholder="Wpisz tytuł usługi"
+                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-md text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-colors"
+                      />
+                    </div>
+                  )}
                   {/* Drawer content will go here */}
                 </div>
               </div>
