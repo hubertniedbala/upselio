@@ -1,16 +1,16 @@
 import { FC } from 'react';
 import {
-  DocumentTextIcon as TitleIcon,
-  DocumentIcon as DescriptionIcon,
-  PhotoIcon as LogoIcon,
-  CurrencyDollarIcon as PriceIcon,
-  LinkIcon,
-  TrashIcon,
-  CheckIcon,
-  ChevronUpDownIcon,
-  ComputerDesktopIcon as MonitorIcon,
-  DevicePhoneMobileIcon as PhoneIcon,
-  DeviceTabletIcon as TabletIcon
+  DocumentTextIcon,
+  DocumentIcon,
+  PhotoIcon,
+  CurrencyDollarIcon,
+  LinkIcon as LinkIconBase,
+  TrashIcon as TrashIconBase,
+  CheckIcon as CheckIconBase,
+  ChevronUpDownIcon as ChevronUpDownIconBase,
+  ComputerDesktopIcon,
+  DevicePhoneMobileIcon,
+  DeviceTabletIcon
 } from '@heroicons/react/24/outline';
 
 // Wrapper dla ikon z dostosowaną grubością linii
@@ -21,17 +21,17 @@ const withCustomStroke = (Icon: FC<{ className?: string }>) => {
 };
 
 // Eksportuj ikony z dostosowaną grubością linii
-export const TitleIcon = withCustomStroke(TitleIcon);
-export const DescriptionIcon = withCustomStroke(DescriptionIcon);
-export const LogoIcon = withCustomStroke(LogoIcon);
-export const PriceIcon = withCustomStroke(PriceIcon);
-export const LinkIcon = withCustomStroke(LinkIcon);
-export const TrashIcon = withCustomStroke(TrashIcon);
-export const CheckIcon = withCustomStroke(CheckIcon);
-export const ChevronUpDownIcon = withCustomStroke(ChevronUpDownIcon);
-export const MonitorIcon = withCustomStroke(MonitorIcon);
-export const PhoneIcon = withCustomStroke(PhoneIcon);
-export const TabletIcon = withCustomStroke(TabletIcon);
+export const TitleIcon = withCustomStroke(DocumentTextIcon);
+export const DescriptionIcon = withCustomStroke(DocumentIcon);
+export const LogoIcon = withCustomStroke(PhotoIcon);
+export const PriceIcon = withCustomStroke(CurrencyDollarIcon);
+export const LinkIcon = withCustomStroke(LinkIconBase);
+export const TrashIcon = withCustomStroke(TrashIconBase);
+export const CheckIcon = withCustomStroke(CheckIconBase);
+export const ChevronUpDownIcon = withCustomStroke(ChevronUpDownIconBase);
+export const MonitorIcon = withCustomStroke(ComputerDesktopIcon);
+export const PhoneIcon = withCustomStroke(DevicePhoneMobileIcon);
+export const TabletIcon = withCustomStroke(DeviceTabletIcon);
 
 // Customowa ikona również z dostosowaną grubością linii
 export const CustomIcon: FC<{ className?: string }> = ({ className }) => (
