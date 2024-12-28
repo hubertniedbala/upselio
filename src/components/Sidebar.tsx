@@ -4,7 +4,7 @@ import { useSidebarStore } from '../store/sidebarStore';
 import type { SidebarProps } from '../types/sidebar';
 import { 
   TypeIcon, 
-  DescriptionIcon, 
+  MenuIcon, 
   HeartIcon, 
   CurrencyIcon,
   LinkIcon,
@@ -13,7 +13,6 @@ import {
   ChevronDownIcon,
   MonitorIcon,
   GridIcon,
-  MenuIcon,
   ServicesIcon,
   SettingsIcon
 } from '../icons';
@@ -57,7 +56,7 @@ const LibraryView: FC = () => (
       <SidebarItem 
         title="Opis" 
         description="Dodaj opis swojej usługi" 
-        icon={DescriptionIcon} 
+        icon={MenuIcon} 
         type="description"
       />
       <SidebarItem 

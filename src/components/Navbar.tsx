@@ -1,6 +1,7 @@
 import { FC, SVGProps } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { HelpIcon } from '../icons';
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
@@ -70,7 +71,7 @@ const Navbar: FC = () => {
       {/* Right side */}
       <div className="flex items-center gap-4">
         <button className="px-4 py-2.5 bg-white rounded-md shadow border border-gray-200 flex items-center gap-2 hover:bg-gray-50 transition-colors">
-          <QuestionMarkCircleIcon className="w-5 h-5 text-gray-500 [stroke-width:1.67]" />
+          <HelpIcon className="w-5 h-5 text-gray-500" />
           <span className="text-gray-500 font-poppins text-sm font-medium">
             Centrum pomocy
           </span>
