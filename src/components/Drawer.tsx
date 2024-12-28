@@ -6,24 +6,29 @@ import { XIcon } from '../icons/interface';
 const Drawer: FC = () => {
   const { isOpen, close, activeDrawer, drawerTitle, titleValue, setTitleValue } = useDrawerStore();
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
+  const handleTransitionEnd = () => {
+    if (isOpen && activeDrawer === 'title' && inputRef.current) {
+      // Focus po zakończeniu animacji
+      setTimeout(() => {
+        inputRef.current?.focus();
+        const length = inputRef.current?.value.length || 0;
+        inputRef.current?.setSelectionRange(length, length);
+      }, 0);
+    }
+  };
+
+  // Dodatkowa próba focusu
   useEffect(() => {
     if (isOpen && activeDrawer === 'title') {
-      // Dłuższe opóźnienie, żeby poczekać na pełne wyrenderowanie i animację
       const timer = setTimeout(() => {
-        if (inputRef.current) {
-          // Próbujemy kilka razy
-          for (let i = 0; i < 3; i++) {
-            setTimeout(() => {
-              if (document.activeElement !== inputRef.current) {
-                inputRef.current?.focus();
-                const length = inputRef.current?.value.length || 0;
-                inputRef.current?.setSelectionRange(length, length);
-              }
-            }, i * 100);
-          }
+        if (inputRef.current && document.activeElement !== inputRef.current) {
+          inputRef.current.focus();
+          const length = inputRef.current.value.length;
+          inputRef.current.setSelectionRange(length, length);
         }
-      }, 500); // Główne opóźnienie
+      }, 300);
 
       return () => clearTimeout(timer);
     }
@@ -58,7 +63,11 @@ const Drawer: FC = () => {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="w-screen max-w-md">
+            <Dialog.Panel 
+              ref={panelRef}
+              className="w-screen max-w-md"
+              onTransitionEnd={handleTransitionEnd}
+            >
               <div className="flex h-full flex-col bg-white shadow-xl">
                 <div className="px-6 py-4 border-b border-gray-200">
                   <div className="flex items-center justify-between">
