@@ -1,3 +1,3 @@
 // Ikony związane z nawigacją
-export { default as ChevronDown } from './ChevronDown';
+export { default as ChevronDownIcon } from './ChevronDown';
 export * from './Link'; 

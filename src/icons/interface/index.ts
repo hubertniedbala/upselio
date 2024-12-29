@@ -8,7 +8,6 @@ export * from './Menu';
 export * from './Type';
 export * from './Currency';
 export * from './Check';
-export * from './Plus';
 export * from './Settings';
 export * from './Services';
 export { default as XIcon } from './X';
