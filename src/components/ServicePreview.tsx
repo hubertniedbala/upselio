@@ -1,9 +1,12 @@
 const ServicePreview = () => {
   return (
     <div 
-      className="h-[calc(100vh-184px)] relative"
+      className="h-[calc(100vh-184px)] relative bg-[#F2F2F3]"
       style={{
-        background: `#F2F2F3 url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23D1D1D2' fill-opacity='.4'/%3E%3C/svg%3E") repeat center !important`
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' r='2' fill='%23D1D1D2' fill-opacity='.7'/%3E%3C/svg%3E") !important`,
+        backgroundRepeat: 'repeat !important',
+        backgroundPosition: 'center center !important',
+        backgroundSize: '20px 20px !important'
       }}
     >
       <div className="h-full w-full overflow-y-auto custom-scrollbar">
