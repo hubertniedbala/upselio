@@ -11,4 +11,5 @@ export * from './Check';
 export * from './Plus';
 export * from './Settings';
 export * from './Services';
-export { XIcon } from './X'; 
+export { default as XIcon } from './X';
+export { default as PlusIcon } from './Plus'; 

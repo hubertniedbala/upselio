@@ -1,3 +1,3 @@
 // Ikony związane z mediami
-export * from './Monitor';
+export { default as MonitorIcon } from './Monitor';
 export * from './Heart'; 
