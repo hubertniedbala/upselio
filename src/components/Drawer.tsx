@@ -10,7 +10,7 @@ const Drawer: FC = () => {
   const dispatch = useDispatch();
   const { isOpen, shouldFocusInput } = useSelector((state: RootState) => state.drawer);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { titleValue, setTitleValue, activeDrawer } = useDrawerStore();
+  const { titleValue, setTitleValue, activeDrawer, drawerTitle } = useDrawerStore();
 
   const close = () => {
     dispatch(closeDrawer());
