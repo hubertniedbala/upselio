@@ -44,19 +44,17 @@ const ServiceListItem: FC<ServiceListItemProps> = ({ name, date, price, category
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          {/* Actions */}
-          <div className="flex items-center gap-2">
-            <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <TrashIcon className="w-5 h-5" />
-            </button>
-            <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <CopyIcon className="w-5 h-5" />
-            </button>
-            <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-              <EditIcon className="w-5 h-5" />
-            </button>
-          </div>
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+            <EditIcon className="w-5 h-5" />
+          </button>
+          <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+            <CopyIcon className="w-5 h-5" />
+          </button>
+          <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+            <TrashIcon className="w-5 h-5" />
+          </button>
 
           {/* Toggle */}
           <label className="relative inline-flex items-center cursor-pointer">

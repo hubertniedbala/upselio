@@ -2,50 +2,56 @@ import { create } from 'zustand';
 
 interface DrawerStore {
   isOpen: boolean;
+  activeDrawer: string | null;
+  drawerTitle: string;
   titleValue: string;
+  priceValue: string;
   descriptionValue: string;
   linkValue: string;
   logoValue: string;
-  activeDrawer: string;
-  drawerTitle: string;
+  toggle: () => void;
+  close: () => void;
+  open: (drawer: string, title: string, initialValue?: string) => void;
   setTitleValue: (value: string) => void;
+  setPriceValue: (value: string) => void;
   setDescriptionValue: (value: string) => void;
   setLinkValue: (value: string) => void;
   setLogoValue: (value: string) => void;
-  setActiveDrawer: (value: string) => void;
-  setDrawerTitle: (value: string) => void;
-  toggle: () => void;
-  close: () => void;
-  open: (drawer: string, title: string) => void;
 }
 
 export const useDrawerStore = create<DrawerStore>((set) => ({
   isOpen: false,
+  activeDrawer: null,
+  drawerTitle: '',
   titleValue: '',
+  priceValue: '',
   descriptionValue: '',
   linkValue: '',
   logoValue: '',
-  activeDrawer: '',
-  drawerTitle: '',
-  setTitleValue: (value) => set({ titleValue: value }),
-  setDescriptionValue: (value) => set({ descriptionValue: value }),
-  setLinkValue: (value) => set({ linkValue: value }),
-  setLogoValue: (value) => set({ logoValue: value }),
-  setActiveDrawer: (value) => set({ activeDrawer: value }),
-  setDrawerTitle: (value) => set({ drawerTitle: value }),
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
   close: () => set({ 
     isOpen: false, 
-    activeDrawer: '', 
-    drawerTitle: '',
-    titleValue: '',
+    activeDrawer: null, 
+    drawerTitle: '', 
+    titleValue: '', 
+    priceValue: '',
     descriptionValue: '',
     linkValue: '',
     logoValue: ''
   }),
-  open: (drawer, title) => set({ 
+  open: (drawer, title, initialValue = '') => set({ 
     isOpen: true, 
     activeDrawer: drawer, 
-    drawerTitle: title 
-  })
+    drawerTitle: title,
+    ...(drawer === 'title' ? { titleValue: initialValue } : {}),
+    ...(drawer === 'price' ? { priceValue: initialValue } : {}),
+    ...(drawer === 'description' ? { descriptionValue: initialValue } : {}),
+    ...(drawer === 'link' ? { linkValue: initialValue } : {}),
+    ...(drawer === 'logo' ? { logoValue: initialValue } : {})
+  }),
+  setTitleValue: (value) => set({ titleValue: value }),
+  setPriceValue: (value) => set({ priceValue: value }),
+  setDescriptionValue: (value) => set({ descriptionValue: value }),
+  setLinkValue: (value) => set({ linkValue: value }),
+  setLogoValue: (value) => set({ logoValue: value })
 })); 

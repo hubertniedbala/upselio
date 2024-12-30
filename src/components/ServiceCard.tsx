@@ -1,8 +1,6 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
-import { openDrawer } from '../store/drawerSlice';
-import { useSidebarStore } from '../store/sidebarStore';
 import { useDrawerStore } from '../store/drawerStore';
+import { useSidebarStore } from '../store/sidebarStore';
 import { MonitorIcon } from '../icons/media';
 import { PlusIcon } from '../icons/interface';
 
@@ -14,47 +12,31 @@ interface ServiceCardProps {
 }
 
 const ServiceCard: FC<ServiceCardProps> = ({ title, price, description, id }) => {
-  const dispatch = useDispatch();
   const { setActiveElement } = useSidebarStore();
-  const { 
-    titleValue, 
-    descriptionValue,
-    setDrawerTitle,
-    setActiveDrawer 
-  } = useDrawerStore();
+  const { open, titleValue, descriptionValue } = useDrawerStore();
 
   const handleTitleClick = () => {
-    setDrawerTitle('Edytuj tytuł');
-    setActiveDrawer('title');
-    dispatch(openDrawer(id));
+    open('title', 'Edytuj tytuł', title);
     setActiveElement('title');
   };
 
   const handlePriceClick = () => {
-    setDrawerTitle('Edytuj cenę');
-    setActiveDrawer('price');
-    dispatch(openDrawer(id));
+    open('price', 'Edytuj cenę', price);
     setActiveElement('price');
   };
 
   const handleDescriptionClick = () => {
-    setDrawerTitle('Edytuj opis');
-    setActiveDrawer('description');
-    dispatch(openDrawer(id));
+    open('description', 'Edytuj opis', description);
     setActiveElement('description');
   };
 
   const handleLinkClick = () => {
-    setDrawerTitle('Edytuj link');
-    setActiveDrawer('link');
-    dispatch(openDrawer(id));
+    open('link', 'Edytuj link');
     setActiveElement('link');
   };
 
   const handleLogoClick = () => {
-    setDrawerTitle('Edytuj logo');
-    setActiveDrawer('logo');
-    dispatch(openDrawer(id));
+    open('logo', 'Edytuj logo');
     setActiveElement('logo');
   };
 
