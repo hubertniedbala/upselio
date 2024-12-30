@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
+import { MonitorIcon } from '../icons/media';
 import { 
   TrashIcon, 
   CopyIcon,
   EditIcon,
   GridIcon,
-  MonitorIcon,
   CurrencyIcon 
 } from '../icons/interface';
 
