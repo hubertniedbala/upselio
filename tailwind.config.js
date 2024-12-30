@@ -7,12 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#0284c7',
-        background: '#F2F2F3',
-        'tab-inactive': '#667085'
-      },
-      backgroundImage: {
-        'service-dots': `url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3' fill='%23C1C1C2' fill-opacity='1'/%3E%3C/svg%3E")`,
+        primary: '#0369a1'
       }
     },
   },
