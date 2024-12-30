@@ -4,11 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { closeDrawer, clearFocusFlag } from '../store/drawerSlice';
 import { XIcon } from '../icons/interface';
+import { useDrawerStore } from '../store/drawerStore';
 
 const Drawer: FC = () => {
   const dispatch = useDispatch();
   const { isOpen, shouldFocusInput } = useSelector((state: RootState) => state.drawer);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { titleValue, setTitleValue, activeDrawer } = useDrawerStore();
+
+  const close = () => {
+    dispatch(closeDrawer());
+  };
 
   useEffect(() => {
     if (isOpen && shouldFocusInput && inputRef.current) {

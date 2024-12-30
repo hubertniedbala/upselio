@@ -1,12 +1,16 @@
 import { FC } from 'react';
 import ServiceCard from '../components/ServiceCard';
 
-const Services: FC = () => {
-  const defaultServiceData = {
-    title: "Moja pierwsza usługa",
-    price: "79,00 zł",
-    description: "To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)"
-  };
+const Services = () => {
+  const services = [
+    {
+      id: '1',
+      title: 'Moja pierwsza usługa',
+      price: '100 zł',
+      description: 'Opis mojej pierwszej usługi...'
+    }
+    // ... inne usługi
+  ];
 
   return (
     <div className="h-[calc(100vh-184px)] bg-gray-50">

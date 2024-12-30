@@ -16,17 +16,17 @@ const drawerSlice = createSlice({
   name: 'drawer',
   initialState,
   reducers: {
-    openDrawer: (state, action: PayloadAction<string>) => {
+    openDrawer: (state: DrawerState, action: PayloadAction<string>) => {
       state.isOpen = true;
       state.shouldFocusInput = true;
       state.editedServiceId = action.payload;
     },
-    closeDrawer: (state) => {
+    closeDrawer: (state: DrawerState) => {
       state.isOpen = false;
       state.shouldFocusInput = false;
       state.editedServiceId = undefined;
     },
-    clearFocusFlag: (state) => {
+    clearFocusFlag: (state: DrawerState) => {
       state.shouldFocusInput = false;
     }
   }
