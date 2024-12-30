@@ -1,5 +1,4 @@
-// Główny plik eksportujący wszystkie ikony
-export * from './actions';
+// Ten plik powoduje konflikty, usuńmy go
 export * from './interface';
 export * from './media';
-export * from './navigation'; 
+export * from './actions';  // To powoduje konflikty 
