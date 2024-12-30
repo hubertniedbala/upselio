@@ -1,4 +1,15 @@
-// Ten plik powoduje konflikty, usuńmy go
-export * from './interface';
-export * from './media';
-export * from './actions';  // To powoduje konflikty 
+// Eksportujemy tylko to, co jest potrzebne
+export { MonitorIcon } from './media';
+export {
+  TitleIcon,
+  DescriptionIcon,
+  CurrencyIcon,
+  PlusIcon,
+  CloseIcon,
+  GridIcon,
+  EditIcon,
+  CopyIcon,
+  TrashIcon,
+  CTAIcon,
+  LogoIcon
+} from './interface'; 
