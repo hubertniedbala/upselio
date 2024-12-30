@@ -16,68 +16,57 @@ interface ServiceCardProps {
 
 const ServiceCard: FC<ServiceCardProps> = ({ 
   title = "Moja pierwsza usługa",
-  description = "Tutaj wpisz swój opis usługi. Treść powinna zachęcać klientów do skorzystania więc nie zapomnij o języku korzyści.",
-  price = "0,00 zł"
+  description = "To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)",
+  price = "79,00 zł"
 }) => {
   const { open } = useDrawerStore();
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <div className="flex items-start gap-4">
-          <div className="flex-shrink-0">
-            <div 
-              onClick={() => open('logo', 'Logo', 'Jeśli chcesz dodać swoje logo')}
-              className="w-12 h-12 bg-[#cde4f1] rounded-full flex items-center justify-center cursor-pointer hover:bg-[#bcd9e9] transition-colors"
+    <div className="bg-white rounded-lg shadow-sm p-5">
+      <div className="flex items-start gap-5">
+        <div className="rounded-md hover:ring-1 hover:ring-primary p-0.5 -m-0.5 transition-all">
+          <button 
+            onClick={() => open('logo', 'Logo', 'Jeśli chcesz dodać swoje logo')}
+            className="w-10 h-10 bg-[#cde4f1] rounded-full flex items-center justify-center flex-shrink-0"
+          >
+            <MonitorIcon className="w-5 h-5 text-primary" />
+          </button>
+        </div>
+
+        <div className="flex-1">
+          <div className="flex items-center justify-between pt-[0.46rem]">
+            <button 
+              onClick={() => open('title', 'Tytuł usługi', 'Opis usługi jaki chcesz dodać')}
+              className="text-left rounded-md hover:ring-1 hover:ring-primary px-1 transition-all"
             >
-              <MonitorIcon className="w-6 h-6 text-primary" />
-            </div>
+              <h3 className="text-[18px] font-medium text-gray-600">{title}</h3>
+            </button>
+            <button 
+              onClick={() => open('price', 'Cena', 'Wskaż wartość usługi')}
+              className="text-[18px] font-medium text-gray-600 rounded-md hover:ring-1 hover:ring-primary px-1 transition-all"
+            >
+              {price}
+            </button>
           </div>
 
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-4">
-              <div 
-                onClick={() => open('title', 'Tytuł usługi', 'Opis usługi jaki chcesz dodać')}
-                className="flex items-center gap-2 cursor-pointer group"
-              >
-                <TitleIcon className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" />
-                <h3 className="text-lg font-medium text-gray-700 group-hover:text-gray-900">
-                  {title}
-                </h3>
-              </div>
-              <div 
-                onClick={() => open('price', 'Cena', 'Wskaż wartość usługi')}
-                className="flex items-center gap-2 cursor-pointer group"
-              >
-                <CurrencyIcon className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" />
-                <span className="text-lg font-medium text-gray-700 group-hover:text-gray-900">
-                  {price}
-                </span>
-              </div>
-            </div>
+          <button 
+            onClick={() => open('description', 'Opis', 'Opis usługi jaki chcesz dodać')}
+            className="text-left w-full rounded-md hover:ring-1 hover:ring-primary px-1 mt-2 transition-all"
+          >
+            <p className="text-[14px] text-gray-500">{description}</p>
+          </button>
 
-            <div 
-              onClick={() => open('description', 'Opis', 'Opis usługi jaki chcesz dodać')}
-              className="flex items-start gap-2 cursor-pointer group mb-4"
+          <div className="flex items-center justify-between mt-4">
+            <button 
+              onClick={() => open('link', 'Link do usługi', 'Dodaj link do swojej usługi')}
+              className="text-[14px] font-medium text-primary hover:text-primary/80 rounded-md hover:ring-1 hover:ring-primary px-1 transition-all"
             >
-              <DescriptionIcon className="w-5 h-5 mt-0.5 text-gray-400 group-hover:text-primary transition-colors" />
-              <p className="text-gray-600 group-hover:text-gray-800">
-                {description}
-              </p>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <button 
-                onClick={() => open('cta', 'CTA', 'Jeśli chcesz dodać przycisk?')}
-                className="text-primary hover:text-primary/80 font-medium"
-              >
-                Szczegóły
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">
-                <PlusIcon className="w-5 h-5" />
-                Dodaj
-              </button>
-            </div>
+              Szczegóły
+            </button>
+            <button className="px-4 py-2.5 bg-white text-sm font-medium rounded-md border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors flex items-center gap-2">
+              <PlusIcon className="w-5 h-5" />
+              Dodaj
+            </button>
           </div>
         </div>
       </div>
