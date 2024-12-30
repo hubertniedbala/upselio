@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { openDrawer } from '../store/drawerSlice';
 import { useSidebarStore } from '../store/sidebarStore';
+import { useDrawerStore } from '../store/drawerStore';
 import { MonitorIcon } from '../icons/media';
 import { PlusIcon } from '../icons/interface';
 
@@ -15,34 +16,48 @@ interface ServiceCardProps {
 const ServiceCard: FC<ServiceCardProps> = ({ title, price, description, id }) => {
   const dispatch = useDispatch();
   const { setActiveElement } = useSidebarStore();
-  const currentTitle = useDrawerStore(state => state.titleValue) || title;
-  const currentDescription = useDrawerStore(state => state.descriptionValue) || description;
-  const currentLink = useDrawerStore(state => state.linkValue) || '';
-  const currentLogo = useDrawerStore(state => state.logoValue) || '';
+  const { 
+    titleValue, 
+    descriptionValue, 
+    linkValue, 
+    logoValue,
+    setDrawerTitle,
+    setActiveDrawer 
+  } = useDrawerStore();
 
   const handleTitleClick = () => {
+    setDrawerTitle('Edytuj tytuł');
+    setActiveDrawer('title');
     dispatch(openDrawer(id));
     setActiveElement('title');
   };
 
   const handlePriceClick = () => {
-    setActiveElement('price');
+    setDrawerTitle('Edytuj cenę');
+    setActiveDrawer('price');
     dispatch(openDrawer(id));
+    setActiveElement('price');
   };
 
   const handleDescriptionClick = () => {
-    setActiveElement('description');
+    setDrawerTitle('Edytuj opis');
+    setActiveDrawer('description');
     dispatch(openDrawer(id));
+    setActiveElement('description');
   };
 
   const handleLinkClick = () => {
-    setActiveElement('link');
+    setDrawerTitle('Edytuj link');
+    setActiveDrawer('link');
     dispatch(openDrawer(id));
+    setActiveElement('link');
   };
 
   const handleLogoClick = () => {
-    setActiveElement('logo');
+    setDrawerTitle('Edytuj logo');
+    setActiveDrawer('logo');
     dispatch(openDrawer(id));
+    setActiveElement('logo');
   };
 
   return (
@@ -63,7 +78,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description, id }) =>
               className="text-left rounded-md hover:ring-1 hover:ring-primary px-1 transition-all"
             >
               <h3 className="text-[18px] font-medium text-gray-600">
-                {currentTitle}
+                {titleValue || title}
               </h3>
             </button>
             <button
@@ -78,7 +93,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description, id }) =>
             className="text-left w-full rounded-md hover:ring-1 hover:ring-primary px-1 mt-2 transition-all"
           >
             <p className="text-[14px] text-gray-500">
-              {currentDescription}
+              {descriptionValue || description}
             </p>
           </button>
           <div className="flex items-center justify-between mt-4">
