@@ -6,7 +6,7 @@ import {
   GridIcon,
   MonitorIcon,
   CurrencyIcon 
-} from '../icons';
+} from '../icons/interface';
 
 interface ServiceListItemProps {
   name: string;

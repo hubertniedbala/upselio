@@ -1,6 +1,6 @@
 import { FC, useRef, useEffect } from 'react';
 import { useDrawerStore } from '../store/drawerStore';
-import { XIcon } from '../icons/interface';
+import { CloseIcon } from '../icons/interface';
 
 const Drawer: FC = () => {
   const { 
@@ -37,7 +37,7 @@ const Drawer: FC = () => {
                   onClick={close}
                   className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  <XIcon className="w-5 h-5" />
+                  <CloseIcon className="w-5 h-5" />
                 </button>
               </div>
             </div>
