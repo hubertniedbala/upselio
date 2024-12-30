@@ -9,13 +9,14 @@ const defaultServiceData = {
 };
 
 const Services: FC = () => {
+  console.log('Rendering Services page'); // Debugging
+
   return (
-    <div className="h-[calc(100vh-184px)] bg-gray-50">
-      <div className="h-full w-full overflow-y-auto custom-scrollbar">
-        <div className="min-h-full flex items-center justify-center">
-          <div className="w-[430px] my-6">
-            <ServiceCard {...defaultServiceData} />
-          </div>
+    <div className="min-h-screen bg-gray-50 p-8">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-2xl font-bold text-gray-900 mb-8">Usługi</h1>
+        <div className="grid gap-6">
+          <ServiceCard {...defaultServiceData} />
         </div>
       </div>
     </div>

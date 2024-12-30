@@ -3,8 +3,9 @@ import drawerReducer from './drawerSlice';
 
 export const store = configureStore({
   reducer: {
-    drawer: drawerReducer
-  }
+    drawer: drawerReducer,
+  },
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export type RootState = ReturnType<typeof store.getState>;

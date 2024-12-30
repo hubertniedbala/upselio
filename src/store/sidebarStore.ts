@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 
-interface SidebarState {
+interface SidebarStore {
   activeElement: string;
-  setActiveElement: (type: string) => void;
+  setActiveElement: (element: string) => void;
 }
 
-export const useSidebarStore = create<SidebarState>()((set) => ({
-  activeElement: 'library',
-  setActiveElement: (type: string) => set({ activeElement: type }),
+export const useSidebarStore = create<SidebarStore>((set) => ({
+  activeElement: '',
+  setActiveElement: (element) => set({ activeElement: element }),
 })); 
