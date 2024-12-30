@@ -1,4 +1,4 @@
-// Ikony interfejsu - komponenty UI
+// Ikony interfejsu - komponenty UI aplikacji
 export * from './Title';
 export * from './Description';
 export * from './Price';
