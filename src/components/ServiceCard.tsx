@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { useDrawerStore } from '../store/drawerStore';
+import { useDispatch } from 'react-redux';
+import { openDrawer } from '../store/drawerSlice';
 import { useSidebarStore } from '../store/sidebarStore';
 import { MonitorIcon } from '../icons/media';
 import { PlusIcon } from '../icons/interface';
@@ -8,10 +9,11 @@ interface ServiceCardProps {
   title: string;
   price: string;
   description: string;
+  id: string;
 }
 
-const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
-  const { open } = useDrawerStore();
+const ServiceCard: FC<ServiceCardProps> = ({ title, price, description, id }) => {
+  const dispatch = useDispatch();
   const { setActiveElement } = useSidebarStore();
   const currentTitle = useDrawerStore(state => state.titleValue) || title;
   const currentDescription = useDrawerStore(state => state.descriptionValue) || description;
@@ -19,28 +21,28 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description }) => {
   const currentLogo = useDrawerStore(state => state.logoValue) || '';
 
   const handleTitleClick = () => {
-    open('title', 'Tytuł usługi', currentTitle);
+    dispatch(openDrawer(id));
     setActiveElement('title');
   };
 
   const handlePriceClick = () => {
     setActiveElement('price');
-    open('price', 'Cena', price);
+    dispatch(openDrawer(id));
   };
 
   const handleDescriptionClick = () => {
     setActiveElement('description');
-    open('description', 'Opis usługi', currentDescription);
+    dispatch(openDrawer(id));
   };
 
   const handleLinkClick = () => {
     setActiveElement('link');
-    open('link', 'Link do usługi', currentLink);
+    dispatch(openDrawer(id));
   };
 
   const handleLogoClick = () => {
     setActiveElement('logo');
-    open('logo', 'Logo', currentLogo);
+    dispatch(openDrawer(id));
   };
 
   return (
