@@ -18,9 +18,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ title, price, description, id }) =>
   const { setActiveElement } = useSidebarStore();
   const { 
     titleValue, 
-    descriptionValue, 
-    linkValue, 
-    logoValue,
+    descriptionValue,
     setDrawerTitle,
     setActiveDrawer 
   } = useDrawerStore();

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDrawerStore } from '../store/drawerStore';
-import { ChevronDownIcon } from '../icons/navigation';
 import { PlusIcon } from '../icons/interface';
 
 const Sidebar: FC = () => {

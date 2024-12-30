@@ -4,13 +4,6 @@ import Sidebar from '../components/Sidebar';
 import Drawer from '../components/Drawer';
 import { useDrawerStore } from '../store/drawerStore';
 
-interface DrawerRefs {
-  titleInputRef: React.RefObject<HTMLInputElement>;
-  priceInputRef: React.RefObject<HTMLInputElement>;
-  descriptionTextareaRef: React.RefObject<HTMLTextAreaElement>;
-  linkInputRef: React.RefObject<HTMLInputElement>;
-}
-
 const MainLayout: FC = () => {
   const { isOpen } = useDrawerStore();
 

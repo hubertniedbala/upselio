@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, Fragment } from 'react';
+import { FC, useRef, useEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
