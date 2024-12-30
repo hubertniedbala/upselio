@@ -1,23 +1,16 @@
-import { FC } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-
+import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Services from './pages/Services';
-import Settings from './pages/Settings';
-import AllServices from './pages/AllServices';
+import ServicesNew from './pages/ServicesNew';
 
-const App: FC = () => {
+const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route index element={<Navigate to="/all" replace />} />
-          <Route path="/services/new" element={<Services />} />
-          <Route path="/all" element={<AllServices />} />
-          <Route path="/settings" element={<Settings />} />
-        </Route>
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="services" element={<Services />} />
+        <Route path="services/new" element={<ServicesNew />} />
+      </Route>
+    </Routes>
   );
 };
 
