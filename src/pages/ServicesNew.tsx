@@ -3,20 +3,19 @@ import ServiceCard from '../components/ServiceCard';
 
 const defaultServiceData = {
   id: 'new-service',
-  title: 'Moja pierwsza usługa',
-  price: '100 zł',
-  description: 'Opis mojej pierwszej usługi...'
+  title: 'Moja nowa usługa',
+  price: '0 zł',
+  description: 'Opis nowej usługi...'
 };
 
 const ServicesNew: FC = () => {
+  console.log('ServicesNew rendering'); // Debugging
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="h-[calc(100vh-64px)] bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="relative bg-white rounded-lg p-6">
-          <div className="relative z-10">
-            <ServiceCard {...defaultServiceData} />
-          </div>
-        </div>
+        <h1 className="text-2xl font-bold text-gray-900 mb-8">Nowa usługa</h1>
+        <ServiceCard {...defaultServiceData} />
       </div>
     </div>
   );
