@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Podstawowe style */
 :root {
-  --primary: #0369a1;
+  --primary: #2271B1;
+  --error: #D63638;
+}
+
+/* Reset i podstawowe style */
+*,
+:before,
+:after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #cfd4dc;
 }
 
 body {
@@ -13,13 +25,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f9fafb;
+  background-color: rgb(240 240 241);
 }
 
-#root {
-  height: 100vh;
-}
-
+/* Custom scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
@@ -31,4 +40,27 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
+}
+
+/* Tailwind utilities */
+@layer utilities {
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  
+  .text-primary {
+    color: var(--primary);
+  }
+
+  .border-primary {
+    border-color: var(--primary);
+  }
+
+  .bg-error {
+    background-color: var(--error);
+  }
+}
+
+#root {
+  height: 100vh;
 } 
