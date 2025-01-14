@@ -9,14 +9,26 @@ import {
 } from '../icons/interface';
 
 interface ServiceCardProps {
-  id: string;
-  title: string;
+  name: string;
+  date: string;
   price: string;
-  description: string;
+  category: string;
 }
 
-const ServiceCard: FC<ServiceCardProps> = ({ id, title, price, description }) => {
-  const { open, setDrawerTitle } = useDrawerStore();
+const ServiceCard: FC<ServiceCardProps> = ({ name, date, price, category }) => {
+  const { open } = useDrawerStore();
+
+  const handleTitleClick = () => {
+    open('title', 'Edytuj tytuł', name);
+  };
+
+  const handlePriceClick = () => {
+    open('price', 'Edytuj cenę', price);
+  };
+
+  const handleDescriptionClick = () => {
+    open('description', 'Edytuj opis', 'To jest wstępny opis mojej pierwszej usługi. Serdecznie zapraszam do korzystania! :)');
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-5">
@@ -27,18 +39,15 @@ const ServiceCard: FC<ServiceCardProps> = ({ id, title, price, description }) =>
             <MonitorIcon className="w-6 h-6 text-primary" />
           </div>
           <div className="flex-grow">
-            <h2 className="text-[18px] font-semibold text-gray-600">{title}</h2>
-            <p className="text-[14px] text-gray-400">{price}</p>
+            <h2 className="text-[18px] font-semibold text-gray-600">{name}</h2>
+            <p className="text-[14px] text-gray-400">{date}</p>
           </div>
         </div>
 
         {/* Lista elementów */}
         <div className="space-y-4">
           <button 
-            onClick={() => {
-              setDrawerTitle('Tytuł usługi');
-              open('title');
-            }}
+            onClick={handleTitleClick}
             className="w-full flex items-center gap-4 p-4 rounded-md hover:bg-gray-50 hover:ring-1 hover:ring-primary transition-colors"
           >
             <TitleIcon className="w-5 h-5 text-gray-300" />
@@ -47,10 +56,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ id, title, price, description }) =>
           </button>
 
           <button 
-            onClick={() => {
-              setDrawerTitle('Opis');
-              open('description');
-            }}
+            onClick={handleDescriptionClick}
             className="w-full flex items-center gap-4 p-4 rounded-md hover:bg-gray-50 hover:ring-1 hover:ring-primary transition-colors"
           >
             <DescriptionIcon className="w-5 h-5 text-gray-300" />
@@ -59,10 +65,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ id, title, price, description }) =>
           </button>
 
           <button 
-            onClick={() => {
-              setDrawerTitle('Cena');
-              open('price');
-            }}
+            onClick={handlePriceClick}
             className="w-full flex items-center gap-4 p-4 rounded-md hover:bg-gray-50 hover:ring-1 hover:ring-primary transition-colors"
           >
             <CurrencyIcon className="w-5 h-5 text-gray-300" />
