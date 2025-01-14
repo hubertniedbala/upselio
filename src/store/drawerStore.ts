@@ -8,6 +8,7 @@ interface DrawerStore {
   open: (type: string, title: string, description?: string) => void;
   close: () => void;
   setDrawerTitle: (title: string) => void;
+  toggle: () => void;
 }
 
 export const useDrawerStore = create<DrawerStore>((set) => ({
@@ -17,5 +18,6 @@ export const useDrawerStore = create<DrawerStore>((set) => ({
   description: '',
   open: (type, title, description) => set({ isOpen: true, type, title, description }),
   close: () => set({ isOpen: false }),
-  setDrawerTitle: (title) => set({ title })
+  setDrawerTitle: (title) => set({ title }),
+  toggle: () => set((state) => ({ isOpen: !state.isOpen }))
 })); 
