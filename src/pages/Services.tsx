@@ -1,23 +1,23 @@
 import { FC } from 'react';
-import ServiceCard from '../components/ServiceCard';
+import { ServiceCard } from '../components';
 
-const defaultServiceData = {
-  id: '1',
-  title: 'Moja pierwsza usługa',
-  price: '100 zł',
-  description: 'Opis mojej pierwszej usługi...'
-};
+const mockServices = [
+  {
+    id: '1',
+    name: 'Moja pierwsza usługa',
+    date: '12.03.2024',
+    price: '199 zł',
+    category: 'Strony internetowe'
+  }
+];
 
 const Services: FC = () => {
-  console.log('Rendering Services page'); // Debugging
-
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-900 mb-8">Usługi</h1>
-        <div className="grid gap-6">
-          <ServiceCard {...defaultServiceData} />
-        </div>
+    <div className="container mx-auto px-8 py-6">
+      <div className="grid grid-cols-3 gap-6">
+        {mockServices.map((service) => (
+          <ServiceCard key={service.id} {...service} />
+        ))}
       </div>
     </div>
   );
